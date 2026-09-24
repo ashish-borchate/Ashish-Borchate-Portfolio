@@ -7,7 +7,6 @@ export type NavItem = {
 export const siteNav: NavItem[] = [
   { id: "work", label: "Work", href: "#work" },
   { id: "experience", label: "Experience", href: "#experience" },
-  { id: "how-i-work", label: "How I Work", href: "#how-i-work" },
   { id: "tools", label: "Tools", href: "#tools" },
   { id: "testimonials", label: "Testimonials", href: "#testimonials" },
   { id: "about", label: "About", href: "#about" },

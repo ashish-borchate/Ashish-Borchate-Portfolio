@@ -1,5 +1,6 @@
 export type SkillPhase = {
   id: string;
+  number: string;
   title: string;
   items: string[];
 };
@@ -7,58 +8,43 @@ export type SkillPhase = {
 export const transferablePhases: SkillPhase[] = [
   {
     id: "understand",
+    number: "01",
     title: "UNDERSTAND",
-    items: [
-      "Learn the product",
-      "Understand customers",
-      "Map workflows",
-      "Identify friction",
-    ],
+    items: ["Learn the product", "Understand customers", "Identify friction"],
   },
   {
     id: "diagnose",
+    number: "02",
     title: "DIAGNOSE",
     items: [
       "Find root causes",
-      "Identify bottlenecks",
       "Analyze recurring issues",
-    ],
-  },
-  {
-    id: "build",
-    title: "BUILD",
-    items: [
-      "Processes",
-      "SOPs",
-      "Documentation",
-      "Automation",
-      "Escalation frameworks",
+      "Identify system problems",
     ],
   },
   {
     id: "connect",
+    number: "03",
     title: "CONNECT",
-    items: ["Customer", "Support", "Operations", "Product", "Engineering"],
+    items: ["Support", "Product", "Engineering"],
   },
   {
-    id: "improve",
-    title: "IMPROVE",
+    id: "build",
+    number: "04",
+    title: "BUILD",
     items: [
-      "Experience",
-      "Efficiency",
-      "Resolution",
-      "Self-service",
-      "Product feedback",
+      "Implement changes",
+      "Create documentation",
+      "Improve processes",
     ],
   },
 ];
 
 export const transferableCopy = {
   headline: "THE PRODUCT CAN CHANGE. THE SKILL DOESN'T.",
-  paragraphs: [
-    "[FINAL COPY — Web3 domain expertise without limiting to one industry]",
-    "[FINAL COPY — transferable operating mindset]",
+  lines: [
     "The product can change.",
+    "The industry can change.",
     "The operating mindset stays the same.",
   ],
 };
