@@ -20,44 +20,6 @@ export type ExperienceEntry = {
   logoDisplay?: "image" | "text-only";
 };
 
-export const careerStorySteps = [
-  {
-    id: "people",
-    headline: "It started with people.",
-    subline: "[FINAL COPY]",
-  },
-  {
-    id: "customers",
-    headline: "Understanding customers.",
-    subline: "[FINAL COPY]",
-  },
-  {
-    id: "problems",
-    headline: "Solving problems.",
-    subline: "[FINAL COPY]",
-  },
-  {
-    id: "operations",
-    headline: "Running operations.",
-    subline: "[FINAL COPY]",
-  },
-  {
-    id: "product",
-    headline: "Working closer to product.",
-    subline: "[FINAL COPY]",
-  },
-  {
-    id: "systems",
-    headline: "Building systems.",
-    subline: "[FINAL COPY]",
-  },
-  {
-    id: "arc",
-    headline: "Customer → Support → Operations → Product → Systems",
-    subline: "[FINAL COPY]",
-  },
-] as const;
-
 export const experienceTimeline: ExperienceEntry[] = [
   {
     id: "cinepolis",

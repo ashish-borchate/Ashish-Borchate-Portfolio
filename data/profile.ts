@@ -1,10 +1,11 @@
 export const profile = {
   name: "ASHISH BORCHATE",
-  headline: "I build systems around people, products & problems.",
+  headline:
+    "I understand customers. I understand products. I fix what gets in the way.",
   positioning:
-    "Support Operations · Product Operations · Customer Experience · Web3",
+    "Support Operations Management · Product Improvement · Customer Experience · Crypto & Web3",
   description:
-    "I work at the intersection of customers, operations and product — turning complex problems into better processes, systems and experiences.",
+    "I've spent my career understanding what customers need, getting deep into how products work, and figuring out what gets in the way. From customer insight to better processes, documentation, and product improvements, I help turn what I learn into something useful.",
   seo: {
     title: "Ashish Borchate — Support Operations × Product × Web3",
     description:
