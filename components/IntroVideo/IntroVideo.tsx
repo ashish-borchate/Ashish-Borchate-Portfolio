@@ -52,13 +52,13 @@ export function IntroVideo() {
   };
 
   return (
-    <section id="intro" className="border-y border-border py-24 sm:py-32">
+    <section id="intro" className="border-y border-border py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <SectionHeading
           title="LET ME INTRODUCE MYSELF."
           subtitle="A little more than a resume can tell you."
         />
-        <div className="mt-12 overflow-hidden rounded-xl border border-border bg-charcoal">
+        <div className="mt-8 overflow-hidden rounded-xl border border-border bg-charcoal sm:mt-12">
           {error ? (
             <div className="flex aspect-video flex-col items-center justify-center gap-3 p-8 text-center">
               <p className="font-mono text-xs uppercase tracking-wider text-muted">
@@ -108,7 +108,7 @@ export function IntroVideo() {
                     style={{ width: `${progress * 100}%` }}
                   />
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 sm:gap-2">
                   <ControlButton onClick={togglePlay}>
                     {playing ? "Pause" : "Play"}
                   </ControlButton>
@@ -147,7 +147,7 @@ function ControlButton({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border border-border px-4 py-2 text-xs font-medium text-foreground",
+        "rounded-full border border-border px-4 py-2.5 text-xs font-medium text-foreground min-h-11",
         "hover:border-accent/40 hover:bg-accent-muted",
       )}
     >

@@ -16,6 +16,8 @@ export type ExperienceEntry = {
   emphasis: "primary" | "compressed";
   oneLiner: string;
   logo: string;
+  /** When `text-only`, no logo image is rendered (verified assets only). */
+  logoDisplay?: "image" | "text-only";
 };
 
 export const careerStorySteps = [
@@ -78,6 +80,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     emphasis: "compressed",
     oneLiner: "[FINAL COPY — one-line contribution]",
     logo: "/assets/companies/arsh.svg",
+    logoDisplay: "text-only",
   },
   {
     id: "binance",

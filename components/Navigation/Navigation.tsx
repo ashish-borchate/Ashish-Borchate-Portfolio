@@ -20,13 +20,13 @@ export function Navigation() {
     <header className="fixed inset-x-0 top-0 z-40">
       <div
         className={cn(
-          "mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6",
-          scrolled ? "py-3" : "py-5",
+          "mx-auto flex max-w-6xl items-center justify-between px-3 transition-all duration-300 min-[430px]:px-4 sm:px-6",
+          scrolled ? "py-2 min-[430px]:py-3" : "py-3 min-[430px]:py-5",
         )}
       >
         <nav
           className={cn(
-            "flex w-full items-center justify-between rounded-full border border-transparent px-4 py-2 transition-all duration-300 sm:px-5",
+            "flex w-full min-w-0 items-center justify-between gap-2 rounded-full border border-transparent px-2.5 py-2 transition-all duration-300 min-[430px]:px-4 sm:px-5",
             scrolled &&
               "border-border/80 bg-charcoal/70 py-2 shadow-sm backdrop-blur-md",
           )}
@@ -34,7 +34,7 @@ export function Navigation() {
         >
           <Link
             href="#top"
-            className="font-mono text-[11px] font-medium tracking-[0.18em] text-foreground sm:text-xs"
+            className="truncate font-mono text-[10px] font-medium tracking-[0.12em] text-foreground min-[390px]:text-[11px] min-[430px]:tracking-[0.18em] sm:text-xs"
           >
             {brandName}
           </Link>
@@ -52,11 +52,11 @@ export function Navigation() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <SoundToggle />
             <button
               type="button"
-              className="relative flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-surface lg:hidden"
+              className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-surface lg:hidden"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -93,14 +93,14 @@ export function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="mx-4 mt-2 rounded-2xl border border-border bg-charcoal/95 p-4 backdrop-blur-lg lg:hidden"
+            className="mx-3 mt-2 max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-border bg-charcoal/95 p-3 backdrop-blur-lg min-[430px]:mx-4 min-[430px]:p-4 lg:hidden"
           >
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-1">
               {siteNav.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={item.href}
-                    className="block py-2 text-sm text-foreground"
+                    className="block rounded-lg px-2 py-3 text-sm text-foreground active:bg-surface/50"
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.label}

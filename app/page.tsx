@@ -3,7 +3,7 @@ import { Hero } from "@/components/Hero/Hero";
 import { ScrollStory } from "@/components/ScrollStory/ScrollStory";
 import { Metrics } from "@/components/Metrics/Metrics";
 import { IntroVideo } from "@/components/IntroVideo/IntroVideo";
-import { CareerTimeline, EarlierChapters } from "@/components/CareerTimeline/CareerTimeline";
+import { CareerTimeline } from "@/components/CareerTimeline/CareerTimeline";
 import { WorkCaseStudies } from "@/components/CaseStudy/WorkCaseStudies";
 import { HowIWork } from "@/components/HowIWork/HowIWork";
 import { TransferableSkills } from "@/components/TransferableSkills/TransferableSkills";
@@ -19,13 +19,12 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main>
+      <main className="overflow-x-clip">
         <Hero />
         <ScrollStory />
         <Metrics />
         <IntroVideo />
         <CareerTimeline />
-        <EarlierChapters />
         <WorkCaseStudies />
         <HowIWork />
         <TransferableSkills />

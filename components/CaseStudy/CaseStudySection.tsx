@@ -7,6 +7,7 @@ import { TestimonialCard } from "@/components/Testimonial/TestimonialCard";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 type VisualVariant = "build" | "scale" | "feedback" | "speed";
 
@@ -43,6 +44,7 @@ type CaseStudyProps = {
 
 export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
   const ref = useRef<HTMLElement>(null);
+  const reduceMotion = useMediaQuery("(max-width: 767px)");
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "center center"],
@@ -57,12 +59,12 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
       id={data.companySlug}
       ref={ref}
       className={cn(
-        "scroll-mt-24 border-t border-border py-24 sm:py-32",
+        "scroll-mt-20 border-t border-border py-16 sm:scroll-mt-24 sm:py-24 md:py-32",
         styles.border,
       )}
     >
       <motion.div
-        style={{ y, opacity }}
+        style={reduceMotion ? undefined : { y, opacity }}
         className="relative mx-auto max-w-6xl px-4 sm:px-6"
       >
         <div
@@ -78,7 +80,7 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
           subtitle={`${data.role} · ${data.period}`}
         />
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+        <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-2 lg:gap-8">
           <div className="space-y-6 text-sm leading-relaxed text-muted">
             <div>
               <h3 className="mb-2 font-mono text-[10px] uppercase tracking-wider text-foreground">
@@ -100,7 +102,7 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface/40 p-6">
+          <div className="rounded-xl border border-border bg-surface/40 p-4 sm:p-6">
             <h3 className="font-mono text-[10px] uppercase tracking-wider text-muted">
               Flow
             </h3>
@@ -110,7 +112,7 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
                   key={step}
                   className={cn(
                     "rounded-md border border-border/80 bg-background/40 px-3 py-2 text-xs text-foreground",
-                    variant === "speed" && "animate-pulse [animation-duration:3s]",
+                    variant === "speed" && "md:animate-pulse md:[animation-duration:3s]",
                     i === data.flowSteps.length - 1 && variant === "build" && "border-accent/30",
                   )}
                 >

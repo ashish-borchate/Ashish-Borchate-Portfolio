@@ -12,7 +12,7 @@ export function Tools() {
     .find((t) => t.id === hovered);
 
   return (
-    <section id="tools" className="py-24 sm:py-32">
+    <section id="tools" className="py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           title="TOOLS I'VE WORKED WITH"
@@ -34,7 +34,7 @@ export function Tools() {
                     onMouseLeave={() => setHovered(null)}
                     onBlur={() => setHovered(null)}
                     className={cn(
-                      "rounded-full border px-4 py-2 text-xs font-medium transition-colors",
+                      "rounded-full border px-4 py-2.5 text-xs font-medium transition-colors min-h-10",
                       hovered === tool.id
                         ? "border-accent/40 bg-accent-muted text-foreground"
                         : "border-border bg-surface/40 text-muted hover:text-foreground",

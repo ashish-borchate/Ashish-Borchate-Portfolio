@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function CareerDirection() {
   return (
-    <section className="border-y border-border bg-surface/20 py-24 sm:py-32">
+    <section className="border-y border-border bg-surface/20 py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading title={careerDirection.headline} />
         <p className="mt-6 max-w-3xl text-muted">{careerDirection.copy}</p>

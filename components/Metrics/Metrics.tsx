@@ -51,9 +51,9 @@ function MetricCard({
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6 }}
-      className="rounded-xl border border-border bg-surface/50 p-6"
+      className="rounded-xl border border-border bg-surface/50 p-4 sm:p-6"
     >
-      <p className="font-mono text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
+      <p className="font-mono text-2xl font-medium tracking-tight text-foreground min-[430px]:text-3xl sm:text-4xl">
         {display}
       </p>
       <p className="mt-2 text-sm text-muted">{label}</p>
@@ -68,14 +68,14 @@ function MetricCard({
 
 export function Metrics() {
   return (
-    <section id="impact" className="py-24 sm:py-32">
+    <section id="impact" className="py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Impact"
           title="Evidence, not exaggeration."
           subtitle="Verified metrics will replace placeholders once finalized."
         />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {impactMetrics.map((m) => (
             <MetricCard key={m.id} value={m.value} label={m.label} note={m.note} />
           ))}

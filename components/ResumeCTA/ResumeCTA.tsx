@@ -4,7 +4,7 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function ResumeCTA() {
   return (
-    <section id="resume" className="py-24 sm:py-32">
+    <section id="resume" className="py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
         <SectionHeading
           title="WANT THE FULL PICTURE?"

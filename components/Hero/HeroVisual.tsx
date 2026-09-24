@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { usePrefersReducedMotion } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const nodes = [
   { label: "People", x: 12, y: 72 },
@@ -10,7 +11,7 @@ const nodes = [
   { label: "Product", x: 88, y: 32 },
 ];
 
-export function HeroVisual() {
+export function HeroVisual({ className }: { className?: string }) {
   const reduced = usePrefersReducedMotion();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -25,7 +26,7 @@ export function HeroVisual() {
 
   return (
     <div
-      className="relative aspect-square w-full max-w-lg"
+      className={cn("relative aspect-square w-full max-w-lg", className)}
       onMouseMove={(e) => {
         if (reduced) return;
         const rect = e.currentTarget.getBoundingClientRect();

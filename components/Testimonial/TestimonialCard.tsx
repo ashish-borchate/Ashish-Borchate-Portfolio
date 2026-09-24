@@ -16,16 +16,16 @@ export function TestimonialCard({
   return (
     <figure
       className={cn(
-        "rounded-xl border border-border bg-surface/30 p-6",
-        compact && "p-5",
+        "rounded-xl border border-border bg-surface/30 p-4 min-[430px]:p-6",
+        compact && "p-4 min-[430px]:p-5",
         className,
       )}
     >
       <blockquote className="text-pretty text-sm leading-relaxed text-foreground sm:text-base">
         “{testimonial.quote}”
       </blockquote>
-      <figcaption className="mt-6 flex items-start justify-between gap-4">
-        <div>
+      <figcaption className="mt-5 flex flex-col gap-4 min-[430px]:mt-6 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
           <p className="font-medium">{testimonial.name}</p>
           <p className="text-sm text-muted">
             {testimonial.role}, {testimonial.company}
@@ -39,7 +39,7 @@ export function TestimonialCard({
             src={testimonial.logo}
             alt=""
             label="[COMPANY LOGO]"
-            className="shrink-0"
+            className="shrink-0 self-start sm:self-auto"
           />
         ) : null}
       </figcaption>

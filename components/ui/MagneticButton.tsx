@@ -20,7 +20,7 @@ export function MagneticButton({
   external,
 }: MagneticButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent";
+    "inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:min-h-0";
   const variants = {
     primary: "bg-accent text-background hover:bg-[#6b99f2]",
     ghost:
