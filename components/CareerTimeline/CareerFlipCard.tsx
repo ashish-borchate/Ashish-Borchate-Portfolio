@@ -15,7 +15,9 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
   const detail = entry.detail;
   const reducedMotion = usePrefersReducedMotion();
   const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
-  const isCoarsePointer = useMediaQuery("(max-width: 767px), (pointer: coarse)");
+  const isNarrow = useMediaQuery("(max-width: 767px)");
+
+  const useTapInteraction = !hoverCapable || isNarrow;
 
   const [hovered, setHovered] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -23,7 +25,7 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
   const hintId = useId();
 
   const showBack =
-    !reducedMotion && Boolean(detail) && (flipped || (hoverCapable && hovered));
+    Boolean(detail) && (flipped || (hoverCapable && hovered && !useTapInteraction));
 
   const toggleFlip = useCallback(() => {
     if (!detail) return;
@@ -35,7 +37,12 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
   if (reducedMotion) {
     return (
       <article className="overflow-hidden rounded-xl border border-border bg-surface/40 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
-        <CardFront entry={entry} hintId={hintId} isMobile={isCoarsePointer} staticHint />
+        <CardFront
+          entry={entry}
+          hintId={hintId}
+          isMobile={useTapInteraction}
+          staticHint
+        />
         <button
           type="button"
           aria-expanded={expanded}
@@ -54,11 +61,17 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
     );
   }
 
+  const shellHeight = showBack
+    ? "min-h-[min(70vh,28rem)] sm:min-h-[26rem]"
+    : "min-h-[12.5rem] sm:min-h-[13.5rem]";
+
   return (
     <div
-      className="w-full min-w-0 [perspective:1200px]"
-      onMouseEnter={() => hoverCapable && setHovered(true)}
-      onMouseLeave={() => hoverCapable && setHovered(false)}
+      className={cn("w-full min-w-0", shellHeight)}
+      onMouseEnter={() => hoverCapable && !useTapInteraction && setHovered(true)}
+      onMouseLeave={() => {
+        if (hoverCapable && !useTapInteraction) setHovered(false);
+      }}
     >
       <div
         role="button"
@@ -66,7 +79,7 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
         aria-expanded={showBack}
         aria-describedby={hintId}
         onClick={() => {
-          if (!hoverCapable || isCoarsePointer) toggleFlip();
+          if (useTapInteraction) toggleFlip();
         }}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -75,46 +88,49 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
           }
         }}
         className={cn(
-          "relative w-full min-w-0 cursor-default rounded-xl border border-border bg-charcoal/40 text-left outline-none",
+          "relative h-full min-h-[inherit] w-full min-w-0 overflow-hidden rounded-xl outline-none",
           "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          (!hoverCapable || isCoarsePointer) && "cursor-pointer",
+          useTapInteraction ? "cursor-pointer" : "cursor-default",
         )}
       >
-        <motion.div
-          className="relative w-full [transform-style:preserve-3d]"
-          animate={{ rotateY: showBack ? 180 : 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          style={{ minHeight: showBack ? undefined : "11.5rem" }}
-        >
-          <div
-            className={cn(
-              "w-full [backface-visibility:hidden]",
-              showBack && "pointer-events-none absolute inset-0",
-              !showBack && "relative",
-            )}
+        <div className="h-full min-h-[inherit] [perspective:1200px]">
+          <motion.div
+            className="relative h-full min-h-[inherit] w-full [transform-style:preserve-3d]"
+            animate={{ rotateY: showBack ? 180 : 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="rounded-xl border border-border bg-surface/50 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:min-h-[11.5rem] lg:p-10">
-              <CardFront entry={entry} hintId={hintId} isMobile={isCoarsePointer} />
-            </div>
-          </div>
-
-          <div
-            className={cn(
-              "absolute inset-0 w-full [backface-visibility:hidden] [transform:rotateY(180deg)]",
-            )}
-          >
-            <div className="flex h-full max-h-[min(70vh,28rem)] flex-col overflow-hidden rounded-xl border border-accent/25 bg-charcoal p-5 sm:max-h-[34rem] sm:p-7 md:p-8 lg:p-10">
-              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 [-webkit-overflow-scrolling:touch]">
-                <CardBack detail={detail} />
+            {/* Front */}
+            <div
+              className="absolute inset-0 h-full min-h-[inherit] [backface-visibility:hidden] [transform:translateZ(1px)]"
+              aria-hidden={showBack}
+            >
+              <div className="flex h-full min-h-[inherit] flex-col rounded-xl border border-border bg-surface/50 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
+                <CardFront
+                  entry={entry}
+                  hintId={hintId}
+                  isMobile={useTapInteraction}
+                />
               </div>
-              {!hoverCapable || isCoarsePointer ? (
-                <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
-                  Tap again to return
-                </p>
-              ) : null}
             </div>
-          </div>
-        </motion.div>
+
+            {/* Back */}
+            <div
+              className="absolute inset-0 h-full min-h-[inherit] [backface-visibility:hidden] [transform:rotateY(180deg)_translateZ(1px)]"
+              aria-hidden={!showBack}
+            >
+              <div className="flex h-full min-h-[inherit] flex-col rounded-xl border border-accent/25 bg-charcoal p-5 sm:p-7 md:p-8 lg:p-10">
+                <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 [-webkit-overflow-scrolling:touch]">
+                  <CardBack detail={detail} />
+                </div>
+                {useTapInteraction ? (
+                  <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
+                    Tap again to return
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -132,7 +148,7 @@ function CardFront({
   staticHint?: boolean;
 }) {
   return (
-    <div className="flex min-h-[9.5rem] flex-col justify-between sm:min-h-[10.5rem]">
+    <div className="flex h-full min-h-[10rem] flex-col justify-between sm:min-h-[11rem]">
       <div>
         <h3 className="text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
           {entry.company}
