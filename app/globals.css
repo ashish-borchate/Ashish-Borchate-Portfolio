@@ -98,7 +98,7 @@ body {
 }
 
 .company-marquee-track {
-  animation: company-marquee 64s linear infinite;
+  animation: company-marquee 50s linear infinite;
   will-change: transform;
 }
 
