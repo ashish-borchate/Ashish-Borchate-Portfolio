@@ -23,7 +23,7 @@ function CompanyMarqueeItem({
     <button
       type="button"
       className={cn(
-        "group flex shrink-0 items-center gap-3 rounded-xl border bg-surface/20 px-4 py-3 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-5 sm:py-3.5",
+        "company-marquee-item group flex items-center justify-center rounded-xl border bg-surface/20 px-3 py-3.5 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-4 sm:py-4",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive
           ? "border-accent/45 bg-surface/45 shadow-[0_0_0_1px_rgba(91,141,239,0.12)]"
@@ -34,24 +34,17 @@ function CompanyMarqueeItem({
       onFocus={onHover}
       onClick={onToggle}
       aria-pressed={isActive}
+      aria-label={company.name}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={company.logo}
         alt=""
         className={cn(
-          "h-7 w-auto max-w-[5.5rem] object-contain object-left transition-opacity duration-200 sm:h-8 sm:max-w-[6rem]",
-          isActive ? "opacity-100" : "opacity-55 group-hover:opacity-80",
+          "h-10 w-full max-h-11 object-contain transition-opacity duration-200 sm:h-11 sm:max-h-12",
+          isActive ? "opacity-100" : "opacity-60",
         )}
       />
-      <span
-        className={cn(
-          "whitespace-nowrap text-sm font-medium transition-colors sm:text-[0.9375rem]",
-          isActive ? "text-foreground" : "text-muted group-hover:text-foreground/90",
-        )}
-      >
-        {company.name}
-      </span>
     </button>
   );
 }
@@ -94,22 +87,22 @@ export function CompaniesMarquee() {
         <SectionHeading title="COMPANIES I'VE WORKED WITH" className="max-w-none" />
       </div>
 
-      <div className="relative mt-8 min-w-0 overflow-hidden sm:mt-10">
+      <div className="relative mx-auto mt-8 min-w-0 max-w-6xl overflow-hidden px-4 sm:mt-10 sm:px-6">
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-background to-transparent sm:w-16"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-background to-transparent sm:w-10"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-background to-transparent sm:w-16"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-background to-transparent sm:w-10"
           aria-hidden
         />
 
         {reducedMotion ? (
-          <ul className="flex flex-wrap justify-center gap-3 px-4 sm:gap-4 sm:px-6">
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
             {marqueeCompanies.map((company, index) => {
               const itemKey = `${company.id}-${index}`;
               return (
-                <li key={itemKey}>
+                <li key={itemKey} className="min-w-0">
                   <CompanyMarqueeItem
                     company={company}
                     isActive={activeKey === itemKey}
@@ -124,7 +117,7 @@ export function CompaniesMarquee() {
         ) : (
           <div
             className={cn(
-              "company-marquee-track flex w-max gap-3 px-4 sm:gap-4 sm:px-6",
+              "company-marquee-track flex w-max gap-4",
               paused && "company-marquee-paused",
             )}
           >

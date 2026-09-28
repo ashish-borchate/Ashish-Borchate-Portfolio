@@ -98,12 +98,21 @@ body {
 }
 
 .company-marquee-track {
-  animation: company-marquee 52s linear infinite;
+  animation: company-marquee 64s linear infinite;
   will-change: transform;
 }
 
 .company-marquee-paused {
   animation-play-state: paused;
+}
+
+/* ~5 company slots visible within max content width */
+.company-marquee-item {
+  flex-shrink: 0;
+  width: max(
+    8.75rem,
+    calc((min(100vw - 2rem, 72rem) - 4 * 1rem) / 5)
+  );
 }
 
 :focus-visible {
