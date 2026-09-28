@@ -23,7 +23,7 @@ function CompanyMarqueeItem({
     <button
       type="button"
       className={cn(
-        "company-marquee-item group flex items-center justify-center rounded-xl border bg-surface/20 px-3 py-3.5 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-4 sm:py-4",
+        "company-marquee-item group flex items-center justify-center rounded-xl border bg-surface/25 px-2 py-3 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-3 sm:py-3.5",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive
           ? "border-accent/45 bg-surface/45 shadow-[0_0_0_1px_rgba(91,141,239,0.12)]"
@@ -36,15 +36,19 @@ function CompanyMarqueeItem({
       aria-pressed={isActive}
       aria-label={company.name}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={company.logo}
-        alt=""
-        className={cn(
-          "h-10 w-full max-h-11 object-contain transition-opacity duration-200 sm:h-11 sm:max-h-12",
-          isActive ? "opacity-100" : "opacity-60",
-        )}
-      />
+      <span className="flex h-11 w-full items-center justify-center sm:h-12" aria-hidden>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={company.logo}
+          alt=""
+          className={cn(
+            "max-h-full w-auto object-contain object-center transition-[opacity,filter] duration-200",
+            company.logoClassName,
+            isActive ? "opacity-100" : "opacity-65",
+            company.id === "cinepolis" && (isActive ? "opacity-95" : "opacity-75"),
+          )}
+        />
+      </span>
     </button>
   );
 }

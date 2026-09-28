@@ -109,6 +109,7 @@ body {
 /* ~5 company slots visible within max content width */
 .company-marquee-item {
   flex-shrink: 0;
+  min-height: 4.25rem;
   width: max(
     8.75rem,
     calc((min(100vw - 2rem, 72rem) - 4 * 1rem) / 5)
