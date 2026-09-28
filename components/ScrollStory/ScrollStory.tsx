@@ -2,19 +2,12 @@
 
 import { journey } from "@/data/journey";
 import { usePrefersReducedMotion } from "@/lib/motion";
+import { useSectionScrollProgress } from "@/lib/useSectionScrollProgress";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 
 const STAGE_COUNT = journey.stages.length;
-/** Scroll progress [0, STAGES_END) maps linearly across all journey stages. */
 const STAGES_END = 0.82;
 const CLOSING_START = STAGES_END;
 
@@ -31,35 +24,23 @@ function activeStageIndex(progress: number): number {
 function JourneyStageNode({
   index,
   title,
-  progress,
+  activeIndex,
   layout,
 }: {
   index: number;
   title: string;
-  progress: MotionValue<number>;
+  activeIndex: number;
   layout: "horizontal" | "vertical";
 }) {
-  const opacity = useTransform(progress, (p) => {
-    const idx = activeStageIndex(p);
-    if (idx === index) return 1;
-    if (idx > index) return 0.45;
-    return 0.32;
-  });
-  const dotScale = useTransform(progress, (p) => {
-    const idx = activeStageIndex(p);
-    return idx === index ? 1.15 : 1;
-  });
-  const dotOpacity = useTransform(progress, (p) => {
-    const idx = activeStageIndex(p);
-    return idx === index ? 1 : 0.35;
-  });
+  const isActive = activeIndex === index;
+  const isPast = activeIndex > index;
 
   return (
-    <motion.div
-      style={{ opacity }}
+    <div
       className={cn(
-        "relative z-10 min-w-0",
+        "relative z-10 min-w-0 transition-opacity duration-300",
         layout === "horizontal" ? "text-center" : "pl-8",
+        isActive ? "opacity-100" : isPast ? "opacity-45" : "opacity-35",
       )}
     >
       <div
@@ -68,106 +49,48 @@ function JourneyStageNode({
           layout === "horizontal" ? "flex-col" : "flex-row",
         )}
       >
-        <motion.span
-          style={{ opacity: dotOpacity, scale: dotScale }}
+        <span
           className={cn(
-            "rounded-full bg-accent",
+            "rounded-full bg-accent transition-transform duration-300",
             layout === "vertical"
               ? "absolute left-[7px] h-2.5 w-2.5 -translate-x-1/2"
               : "h-2.5 w-2.5 shrink-0 ring-2 ring-background",
+            isActive && "scale-110",
+            !isActive && "opacity-40",
           )}
           aria-hidden
         />
-        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-foreground sm:text-[11px]">
+        <span
+          className={cn(
+            "font-mono text-[10px] uppercase tracking-[0.16em] sm:text-[11px]",
+            isActive ? "text-foreground" : "text-muted",
+          )}
+        >
           {title}
         </span>
       </div>
-    </motion.div>
-  );
-}
-
-function ActiveStageScene({ progress }: { progress: MotionValue<number> }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [showClosing, setShowClosing] = useState(false);
-
-  useMotionValueEvent(progress, "change", (p) => {
-    setShowClosing(p >= CLOSING_START);
-    setActiveIndex(activeStageIndex(p));
-  });
-
-  useLayoutEffect(() => {
-    setActiveIndex(activeStageIndex(progress.get()));
-  }, [progress]);
-
-  const sceneOpacity = useTransform(progress, (p) => {
-    if (p >= CLOSING_START) return 0;
-    const pos = stageProgress(p) * STAGE_COUNT;
-    const idx = activeStageIndex(p);
-    const local = pos - idx;
-    if (local < 0.08) return 0.38 + (local / 0.08) * 0.62;
-    if (local > 0.92) return (1 - local) / 0.08;
-    return 1;
-  });
-
-  const stage = journey.stages[activeIndex];
-
-  return (
-    <motion.div
-      style={{ opacity: sceneOpacity }}
-      className="mx-auto flex min-h-[5.5rem] max-w-xl flex-col justify-center sm:min-h-[6rem]"
-      aria-live="polite"
-    >
-      {stage && !showClosing ? (
-        <>
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/90 sm:text-[11px]">
-            Step {activeIndex + 1} of {STAGE_COUNT}
-          </p>
-          <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground sm:text-xl">
-            {stage.title}
-          </h3>
-          <p className="mt-3 text-pretty text-sm leading-relaxed text-muted sm:text-base">
-            {stage.description}
-          </p>
-        </>
-      ) : null}
-    </motion.div>
-  );
-}
-
-function JourneyClosing({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(
-    progress,
-    [CLOSING_START, CLOSING_START + 0.1],
-    [0, 1],
-  );
-  const y = useTransform(progress, [CLOSING_START, CLOSING_START + 0.1], [12, 0]);
-
-  return (
-    <motion.p
-      style={{ opacity, y }}
-      className="mx-auto max-w-2xl text-center text-sm font-medium text-foreground sm:text-base"
-    >
-      {journey.closing}
-    </motion.p>
+    </div>
   );
 }
 
 function JourneyTrack({
   progress,
+  activeIndex,
   layout,
 }: {
-  progress: MotionValue<number>;
+  progress: number;
+  activeIndex: number;
   layout: "horizontal" | "vertical";
 }) {
-  const lineProgress = useTransform(progress, (p) => stageProgress(p));
+  const lineFill = stageProgress(progress);
 
   if (layout === "vertical") {
     return (
       <div className="relative mt-6 sm:mt-8">
         <div className="absolute bottom-2 left-[7px] top-2 w-px overflow-hidden bg-border">
-          <motion.div
-            style={{ scaleY: lineProgress }}
-            className="h-full w-full origin-top bg-accent"
+          <div
+            className="h-full w-full origin-top bg-accent transition-transform duration-150 ease-out"
+            style={{ transform: `scaleY(${lineFill})` }}
           />
         </div>
         <div className="space-y-6 sm:space-y-7">
@@ -176,7 +99,7 @@ function JourneyTrack({
               key={stage.id}
               index={index}
               title={stage.title}
-              progress={progress}
+              activeIndex={activeIndex}
               layout="vertical"
             />
           ))}
@@ -188,9 +111,9 @@ function JourneyTrack({
   return (
     <div className="relative mt-8 md:mt-10">
       <div className="absolute left-[8%] right-[8%] top-[5px] h-px overflow-hidden bg-border sm:left-[10%] sm:right-[10%]">
-        <motion.div
-          style={{ scaleX: lineProgress, transformOrigin: "0% 50%" }}
-          className="h-full w-full bg-accent"
+        <div
+          className="h-full w-full origin-left bg-accent transition-transform duration-150 ease-out"
+          style={{ transform: `scaleX(${lineFill})` }}
         />
       </div>
       <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-4 sm:gap-4">
@@ -199,28 +122,12 @@ function JourneyTrack({
             key={stage.id}
             index={index}
             title={stage.title}
-            progress={progress}
+            activeIndex={activeIndex}
             layout="horizontal"
           />
         ))}
       </div>
     </div>
-  );
-}
-
-function JourneyIntro({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(progress, [0, 0.04, 0.12], [1, 1, 0.55]);
-  const y = useTransform(progress, [0, 0.12], [0, -6]);
-
-  return (
-    <motion.div style={{ opacity, y }} className="max-w-2xl">
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
-        {journey.eyebrow}
-      </p>
-      <p className="mt-3 text-pretty text-sm leading-relaxed text-muted sm:mt-4 sm:text-base">
-        {journey.introduction}
-      </p>
-    </motion.div>
   );
 }
 
@@ -258,7 +165,6 @@ function JourneyStatic() {
   );
 }
 
-/** Extra viewport heights of scroll “runway” after one full screen of pinned content. */
 const SCROLL_RUNWAY_VH = { mobile: 420, desktop: 520 };
 
 export function ScrollStory() {
@@ -266,11 +172,13 @@ export function ScrollStory() {
   const reduced = usePrefersReducedMotion();
   const isMobile = useMediaQuery("(max-width: 767px)");
   const layout = isMobile ? "vertical" : "horizontal";
+  const progress = useSectionScrollProgress(ref);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
+  const activeIndex = activeStageIndex(progress);
+  const showClosing = progress >= CLOSING_START;
+  const introOpacity =
+    progress <= 0.04 ? 1 : progress <= 0.12 ? 1 - (progress - 0.04) / 0.08 * 0.45 : 0.55;
+  const stage = journey.stages[activeIndex];
 
   const sectionHeight = useMemo(
     () => 100 + (isMobile ? SCROLL_RUNWAY_VH.mobile : SCROLL_RUNWAY_VH.desktop),
@@ -292,11 +200,40 @@ export function ScrollStory() {
       <div className="sticky top-0 z-20 flex h-[100svh] min-h-[100dvh] flex-col items-center justify-center overflow-hidden py-8 sm:py-10">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.04),transparent)]" />
         <div className="relative mx-auto flex w-full max-w-6xl flex-col justify-center px-4 sm:px-6">
-          <JourneyIntro progress={scrollYProgress} />
-          <JourneyTrack progress={scrollYProgress} layout={layout} />
-          <ActiveStageScene progress={scrollYProgress} />
+          <div className="max-w-2xl transition-opacity duration-300" style={{ opacity: introOpacity }}>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
+              {journey.eyebrow}
+            </p>
+            <p className="mt-3 text-pretty text-sm leading-relaxed text-muted sm:mt-4 sm:text-base">
+              {journey.introduction}
+            </p>
+          </div>
+
+          <JourneyTrack progress={progress} activeIndex={activeIndex} layout={layout} />
+
+          <div
+            className="mx-auto mt-6 flex min-h-[4rem] max-w-xl items-center justify-center sm:mt-8 sm:min-h-[4.5rem]"
+            aria-live="polite"
+          >
+            {!showClosing && stage ? (
+              <p
+                key={stage.id}
+                className="text-pretty text-center text-sm leading-relaxed text-muted transition-opacity duration-300 sm:text-base"
+              >
+                {stage.description}
+              </p>
+            ) : null}
+          </div>
+
           <div className="mt-6 flex min-h-[3rem] items-center justify-center sm:mt-8">
-            <JourneyClosing progress={scrollYProgress} />
+            <p
+              className={cn(
+                "mx-auto max-w-2xl text-center text-sm font-medium text-foreground transition-opacity duration-300 sm:text-base",
+                showClosing ? "opacity-100" : "opacity-0",
+              )}
+            >
+              {journey.closing}
+            </p>
           </div>
         </div>
       </div>
