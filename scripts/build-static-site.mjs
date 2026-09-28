@@ -51,6 +51,10 @@ if (process.argv.includes("--copy-desktop")) {
     cpSync(launcherSrc, launcherDest);
     spawnSync("chmod", ["+x", launcherDest]);
   }
+  const readmeSrc = join(root, "scripts", "DESKTOP-FOLDER-README.txt");
+  if (existsSync(readmeSrc)) {
+    cpSync(readmeSrc, join(copyTarget, "HOW-TO-UPDATE.txt"));
+  }
   console.log("");
   console.log("Copied static site to:");
   console.log(`  ${copyTarget}`);

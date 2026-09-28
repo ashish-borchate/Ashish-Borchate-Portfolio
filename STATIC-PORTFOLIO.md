@@ -1,5 +1,18 @@
 # Open the portfolio like Altura (local file / Netlify Drop)
 
+## Two folders (read this if `git pull` fails)
+
+| Folder | What it is |
+|--------|------------|
+| **`~/Ashish-Borchate-Portfolio`** (or wherever you cloned) | **Git repo** — run `git pull`, `npm run build`, `npm run export:desktop` here |
+| **`~/Documents/cursor/Ashish-Borchate-Portfolio`** | **Static copy only** — no `.git`, no `npm run build`. Updated when you run `export:desktop` from the repo |
+
+If you see `fatal: not a git repository` or `Missing script: "build"`, you are in the **Documents/cursor** copy. `cd` to your **clone** instead.
+
+After `export:desktop`, the static folder also contains **`HOW-TO-UPDATE.txt`** with these steps.
+
+---
+
 Your **Expense Tracker** / **Altura** style: one folder on the Mac, open and it works.
 
 This portfolio is built with **Next.js** (many files + JavaScript bundles). Browsers block most of that on `file://`, so it needs a **one-click launcher** that starts a tiny server and opens Safari/Chrome — same habit as double-clicking `index.html`, one extra terminal window in the background.
