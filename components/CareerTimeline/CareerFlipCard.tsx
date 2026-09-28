@@ -158,13 +158,18 @@ function CardFront({
       </div>
       <p
         id={hintId}
-        className="mt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-muted/80"
+        className={cn(
+          "mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] sm:mt-6",
+          isMobile || staticHint
+            ? "text-accent"
+            : "text-accent/90",
+        )}
       >
         {staticHint
           ? "Expand for details"
           : isMobile
-            ? "Tap to know more"
-            : "Hover to explore"}
+            ? "Tap to know more →"
+            : "Hover to explore →"}
       </p>
     </div>
   );
