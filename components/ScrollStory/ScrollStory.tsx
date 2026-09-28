@@ -29,8 +29,8 @@ function JourneyIntroLine() {
     </p>
   );
 }
-const journeyBlueLine =
-  "text-pretty font-mono text-[10px] leading-relaxed tracking-[0.16em] text-accent normal-case sm:text-[11px] sm:leading-relaxed sm:tracking-[0.18em]";
+const journeyStageLine =
+  "text-pretty text-sm leading-relaxed text-muted sm:text-base";
 
 const STAGE_COUNT = journey.stages.length;
 const IMPROVE_STAGE_INDEX = STAGE_COUNT - 1;
@@ -45,11 +45,13 @@ function JourneyBelowTrack({
   return (
     <div className="mx-auto mt-10 max-w-2xl space-y-4 text-center sm:mt-12 md:mt-14">
       {stageDescription ? (
-        <p key={stageDescription} className={journeyBlueLine} aria-live="polite">
+        <p key={stageDescription} className={journeyStageLine} aria-live="polite">
           {stageDescription}
         </p>
       ) : null}
-      {showFooter ? <p className={journeyBlueLine}>{journey.trackFooter}</p> : null}
+      {showFooter ? (
+        <p className={cn(journeyLineClass, "normal-case")}>{journey.trackFooter}</p>
+      ) : null}
     </div>
   );
 }

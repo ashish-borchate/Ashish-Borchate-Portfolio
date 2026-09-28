@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const foundationEntries = experienceTimeline.filter((e) => e.emphasis === "compressed");
 const coreEntries = experienceTimeline.filter((e) => e.emphasis === "primary");
@@ -51,6 +51,7 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
 
 export function CareerTimeline() {
   const ref = useRef<HTMLElement>(null);
+  const [openEntryId, setOpenEntryId] = useState<string | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -115,7 +116,15 @@ export function CareerTimeline() {
                       {section.tier === "foundation" ? (
                         <FoundationEntry entry={entry} />
                       ) : (
-                        <CareerFlipCard entry={entry} />
+                        <CareerFlipCard
+                          entry={entry}
+                          isOpen={openEntryId === entry.id}
+                          onToggle={() =>
+                            setOpenEntryId((current) =>
+                              current === entry.id ? null : entry.id,
+                            )
+                          }
+                        />
                       )}
                     </li>
                   ))}

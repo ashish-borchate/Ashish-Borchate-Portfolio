@@ -4,43 +4,46 @@ import type { ExperienceEntry } from "@/data/experience";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useCallback, useId, useState } from "react";
+import { useCallback, useId } from "react";
 
 type CareerFlipCardProps = {
   entry: ExperienceEntry;
+  isOpen: boolean;
+  onToggle: () => void;
 };
 
-export function CareerFlipCard({ entry }: CareerFlipCardProps) {
+export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps) {
   const detail = entry.detail;
   const reducedMotion = usePrefersReducedMotion();
-  const [flipped, setFlipped] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const hintId = useId();
 
-  const showBack = Boolean(detail) && flipped;
+  const showBack = Boolean(detail) && isOpen;
 
   const toggleFlip = useCallback(() => {
     if (!detail) return;
-    setFlipped((value) => !value);
-  }, [detail]);
+    onToggle();
+  }, [detail, onToggle]);
 
   if (!detail) return null;
+
+  const transition = reducedMotion
+    ? { duration: 0 }
+    : { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
 
   if (reducedMotion) {
     return (
       <article className="overflow-hidden rounded-xl border border-border bg-surface/40 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
-        <CardFront entry={entry} hintId={hintId} showMarker={!expanded} />
+        <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
         <button
           type="button"
-          aria-expanded={expanded}
-          aria-controls={`${entry.id}-details`}
-          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={showBack}
+          onClick={toggleFlip}
           className="mt-4 text-left font-mono text-[10px] uppercase tracking-wider text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          {expanded ? "Hide details" : "Tap to know more →"}
+          {showBack ? "Hide details" : "Tap to know more →"}
         </button>
-        {expanded ? (
-          <div id={`${entry.id}-details`} className="mt-4 border-t border-border pt-4">
+        {showBack ? (
+          <div className="mt-4 border-t border-border pt-4">
             <CardBack detail={detail} />
           </div>
         ) : null}
@@ -67,40 +70,35 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
           }
         }}
         className={cn(
-          "relative h-full min-h-[inherit] w-full min-w-0 cursor-pointer overflow-hidden rounded-xl outline-none",
+          "relative h-full min-h-[inherit] w-full min-w-0 cursor-pointer overflow-hidden rounded-xl outline-none transition-colors",
           "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          showBack ? "border border-accent/25" : "border border-border",
         )}
       >
-        <div className="h-full min-h-[inherit] [perspective:1200px]">
-          <motion.div
-            className="relative h-full min-h-[inherit] w-full [transform-style:preserve-3d]"
-            animate={{ rotateY: showBack ? 180 : 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div
-              className="absolute inset-0 h-full min-h-[inherit] [backface-visibility:hidden] [transform:translateZ(1px)]"
-              aria-hidden={showBack}
-            >
-              <div className="flex h-full min-h-[inherit] flex-col rounded-xl border border-border bg-surface/50 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
-                <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
-              </div>
-            </div>
+        <motion.div
+          className="absolute inset-0 flex h-full min-h-[inherit] flex-col rounded-xl bg-surface/50 p-5 sm:p-7 md:p-8 lg:p-10"
+          initial={false}
+          animate={{ opacity: showBack ? 0 : 1, y: showBack ? -8 : 0 }}
+          transition={transition}
+          aria-hidden={showBack}
+        >
+          <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
+        </motion.div>
 
-            <div
-              className="absolute inset-0 h-full min-h-[inherit] [backface-visibility:hidden] [transform:rotateY(180deg)_translateZ(1px)]"
-              aria-hidden={!showBack}
-            >
-              <div className="flex h-full min-h-[inherit] flex-col rounded-xl border border-accent/25 bg-charcoal p-5 sm:p-7 md:p-8 lg:p-10">
-                <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 [-webkit-overflow-scrolling:touch]">
-                  <CardBack detail={detail} />
-                </div>
-                <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
-                  Tap again to return
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          className="absolute inset-0 flex h-full min-h-[inherit] flex-col rounded-xl bg-charcoal p-5 sm:p-7 md:p-8 lg:p-10"
+          initial={false}
+          animate={{ opacity: showBack ? 1 : 0, y: showBack ? 0 : 10 }}
+          transition={transition}
+          aria-hidden={!showBack}
+        >
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 [-webkit-overflow-scrolling:touch]">
+            <CardBack detail={detail} />
+          </div>
+          <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
+            Tap again to return
+          </p>
+        </motion.div>
       </div>
     </div>
   );

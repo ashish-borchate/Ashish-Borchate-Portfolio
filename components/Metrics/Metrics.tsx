@@ -1,152 +1,127 @@
 "use client";
 
+import type { ImpactMetric } from "@/data/metrics";
 import { impactMetrics } from "@/data/metrics";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { usePrefersReducedMotion } from "@/lib/motion";
-import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { useCallback, useId, useState } from "react";
 
-function metricDisplayParts(value: string) {
-  const range = value.match(/^(\d[\d.]*)\s*[–-]\s*(\d[\d.]*)$/);
-  if (range) {
-    return { primary: `${range[1]}–${range[2]}`, animatable: false as const };
-  }
-  const hours = value.match(/^(\d+)\s*hr$/i);
-  if (hours) {
-    return {
-      primary: `${hours[1]} hr`,
-      animatable: true as const,
-      numeric: Number(hours[1]),
-      suffix: " hr",
-      decimals: 0,
-    };
-  }
-  const plus = value.match(/^(\d+)\+$/);
-  if (plus) {
-    return {
-      primary: value,
-      animatable: true as const,
-      numeric: Number(plus[1]),
-      suffix: "+",
-      decimals: 0,
-    };
-  }
-  const pct = value.match(/^(\d+(?:\.\d+)?)%$/);
-  if (pct) {
-    return {
-      primary: value,
-      animatable: true as const,
-      numeric: Number(pct[1]),
-      suffix: "%",
-      decimals: value.includes(".") ? 1 : 0,
-    };
-  }
-  return { primary: value, animatable: false as const };
-}
+type ImpactFlipCardProps = {
+  metric: ImpactMetric;
+  isOpen: boolean;
+  onToggle: () => void;
+};
 
-function MetricCard({
-  metricId,
-  value,
-  label,
-  note,
-}: {
-  metricId: string;
-  value: string;
-  label: string;
-  note?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
+function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
   const reduced = usePrefersReducedMotion();
-  const finalText = metricDisplayParts(value).primary;
-  const [display, setDisplay] = useState(finalText);
-  const hasAnimated = useRef(false);
+  const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const [hovered, setHovered] = useState(false);
+  const hintId = useId();
 
-  useEffect(() => {
-    hasAnimated.current = false;
-    setDisplay(finalText);
-  }, [metricId, value, finalText]);
+  const showBack = hoverCapable ? hovered || isOpen : isOpen;
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || reduced) {
-      setDisplay(finalText);
-      return;
-    }
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onToggle();
+      }
+    },
+    [onToggle],
+  );
 
-    const parts = metricDisplayParts(value);
-    if (!parts.animatable || parts.numeric === undefined) {
-      setDisplay(finalText);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting || hasAnimated.current) return;
-        hasAnimated.current = true;
-        observer.disconnect();
-
-        const { numeric, suffix = "", decimals = 0 } = parts as {
-          numeric: number;
-          suffix?: string;
-          decimals?: number;
-        };
-        const duration = 1400;
-        const start = performance.now();
-        let frame = 0;
-
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / duration);
-          const eased = 1 - Math.pow(1 - t, 3);
-          if (t >= 1) {
-            setDisplay(finalText);
-            return;
-          }
-          setDisplay(`${(numeric * eased).toFixed(decimals)}${suffix}`);
-          frame = requestAnimationFrame(tick);
-        };
-        frame = requestAnimationFrame(tick);
-      },
-      { root: null, threshold: 0.25, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [metricId, value, finalText, reduced]);
+  const transition = reduced
+    ? { duration: 0 }
+    : { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <div
-      ref={ref}
-      className="rounded-xl border border-border bg-surface/50 p-4 sm:p-6"
+      className="min-h-[11.5rem] sm:min-h-[12.5rem]"
+      onMouseEnter={() => hoverCapable && setHovered(true)}
+      onMouseLeave={() => hoverCapable && setHovered(false)}
     >
-      <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl sm:text-4xl">
-        {display}
-      </p>
-      <p className="mt-2 text-sm text-foreground/90">{label}</p>
-      {note ? (
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted/70">
-          {note}
-        </p>
-      ) : null}
+      <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={showBack}
+        aria-describedby={hintId}
+        onClick={() => {
+          if (!hoverCapable) onToggle();
+        }}
+        onKeyDown={handleKeyDown}
+        className={cn(
+          "relative h-full min-h-[inherit] w-full cursor-pointer overflow-hidden rounded-xl border border-border bg-surface/50 outline-none transition-colors",
+          "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          showBack && "border-accent/25",
+        )}
+      >
+        <motion.div
+          className="absolute inset-0 flex flex-col justify-between p-4 sm:p-5"
+          initial={false}
+          animate={{ opacity: showBack ? 0 : 1, y: showBack ? -6 : 0 }}
+          transition={transition}
+          aria-hidden={showBack}
+        >
+          <div>
+            <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl">
+              {metric.value}
+            </p>
+            <p className="mt-2 text-sm text-foreground/90">{metric.label}</p>
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted/70">
+              {metric.context}
+            </p>
+          </div>
+          <p
+            id={hintId}
+            className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent/90"
+          >
+            FLIP TO EXPLORE →
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="absolute inset-0 flex flex-col overflow-hidden bg-charcoal/95 p-4 sm:p-5"
+          initial={false}
+          animate={{ opacity: showBack ? 1 : 0, y: showBack ? 0 : 8 }}
+          transition={transition}
+          aria-hidden={!showBack}
+        >
+          <p className="text-pretty text-sm leading-relaxed text-muted">{metric.back}</p>
+          {!hoverCapable ? (
+            <p className="mt-auto pt-4 font-mono text-[10px] uppercase tracking-wider text-muted">
+              Tap again to return
+            </p>
+          ) : null}
+        </motion.div>
+      </div>
     </div>
   );
 }
 
 export function Metrics() {
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const handleToggle = useCallback((id: string) => {
+    setOpenId((current) => (current === id ? null : id));
+  }, []);
+
   return (
     <section id="impact" className="py-14 sm:py-20 md:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Impact"
-          title="Evidence, not exaggeration."
-          subtitle="Highlights drawn from verified support operations work."
+          title="THE WORK, IN NUMBERS."
         />
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {impactMetrics.map((m) => (
-            <MetricCard
-              key={m.id}
-              metricId={m.id}
-              value={m.value}
-              label={m.label}
-              note={m.note}
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          {impactMetrics.map((metric) => (
+            <ImpactFlipCard
+              key={metric.id}
+              metric={metric}
+              isOpen={openId === metric.id}
+              onToggle={() => handleToggle(metric.id)}
             />
           ))}
         </div>

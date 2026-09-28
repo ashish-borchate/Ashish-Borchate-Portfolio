@@ -23,18 +23,8 @@ type CaseStudyProps = {
   variant: VisualVariant;
 };
 
-function parseEmphasis(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, index) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={index} className="font-medium text-accent">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
-    return part;
-  });
+function plainOutcome(text: string) {
+  return text.replace(/\*\*([^*]+)\*\*/g, "$1");
 }
 
 export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
@@ -98,7 +88,7 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
               Outcome
             </h3>
             <p className="mt-2.5 text-pretty text-sm leading-relaxed text-accent sm:text-base">
-              {parseEmphasis(data.outcome)}
+              {plainOutcome(data.outcome)}
             </p>
           </div>
         </div>
