@@ -7,8 +7,8 @@ This portfolio is built with **Next.js** (many files + JavaScript bundles). Brow
 ## One-click on your Mac (after `export:desktop`)
 
 1. In Finder go to **`~/Documents/cursor/Ashish-Borchate-Portfolio`**
-2. Double-click **`index.html`** — styles and images should load (paths are fixed for `file://`).
-3. Or double-click **`Open Portfolio.command`** if scroll/animations act odd in Chrome (uses `http://localhost`).
+2. Double-click **`index.html`** for styled layout and **tabs that switch without JavaScript**.
+3. For **Journey scroll pin** and **metric count-up**, double-click **`Open Portfolio.command`** (uses `http://localhost` — required for those animations).
 
 If the page looks unstyled (plain blue links): you have an **old copy** — in the repo run `git pull` and `npm run export:desktop` again.
 

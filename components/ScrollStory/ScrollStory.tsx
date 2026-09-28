@@ -11,7 +11,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const STAGE_COUNT = journey.stages.length;
 /** Scroll progress [0, STAGES_END) maps linearly across all journey stages. */
@@ -94,6 +94,10 @@ function ActiveStageScene({ progress }: { progress: MotionValue<number> }) {
     setShowClosing(p >= CLOSING_START);
     setActiveIndex(activeStageIndex(p));
   });
+
+  useLayoutEffect(() => {
+    setActiveIndex(activeStageIndex(progress.get()));
+  }, [progress]);
 
   const sceneOpacity = useTransform(progress, (p) => {
     if (p >= CLOSING_START) return 0;
@@ -255,7 +259,7 @@ function JourneyStatic() {
 }
 
 /** Extra viewport heights of scroll “runway” after one full screen of pinned content. */
-const SCROLL_RUNWAY_VH = { mobile: 340, desktop: 420 };
+const SCROLL_RUNWAY_VH = { mobile: 420, desktop: 520 };
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
@@ -285,7 +289,7 @@ export function ScrollStory() {
       style={{ height: `${sectionHeight}vh` }}
       aria-label="Journey"
     >
-      <div className="sticky top-0 z-20 flex h-[100dvh] max-h-[100svh] flex-col justify-center overflow-hidden py-8 sm:py-10">
+      <div className="sticky top-0 z-20 flex h-[100svh] min-h-[100dvh] flex-col items-center justify-center overflow-hidden py-8 sm:py-10">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.04),transparent)]" />
         <div className="relative mx-auto flex w-full max-w-6xl flex-col justify-center px-4 sm:px-6">
           <JourneyIntro progress={scrollYProgress} />
