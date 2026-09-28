@@ -1,5 +1,21 @@
 # Open the portfolio like Altura (local file / Netlify Drop)
 
+Your **Expense Tracker** / **Altura** style: one folder on the Mac, open and it works.
+
+This portfolio is built with **Next.js** (many files + JavaScript bundles). Browsers block most of that on `file://`, so it needs a **one-click launcher** that starts a tiny server and opens Safari/Chrome — same habit as double-clicking `index.html`, one extra terminal window in the background.
+
+## One-click on your Mac (after `export:desktop`)
+
+1. In Finder go to **`~/Documents/cursor/Ashish-Borchate-Portfolio`**
+2. Double-click **`Open Portfolio.command`**
+3. If macOS warns “unidentified developer”: **Right-click → Open → Open** once
+
+Bookmark **http://localhost:8765** if you like. Close the Terminal window when you’re done (stops the server).
+
+To refresh the site after edits: in the repo run `npm run export:desktop` again, then double-click the launcher.
+
+---
+
 Your **Altura** project is a single `index.html` — double‑clicking it works with `file://`.
 
 This portfolio is a **Next.js app**. After a static build you get a **folder** with `index.html` plus `_next/` and `assets/`. You still use that folder the same way in practice: one place on disk, rebuild to update, drag to Netlify when ready.

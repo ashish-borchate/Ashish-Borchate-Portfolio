@@ -36,6 +36,12 @@ if (process.argv.includes("--copy-desktop")) {
   rmSync(copyTarget, { recursive: true, force: true });
   mkdirSync(copyTarget, { recursive: true });
   cpSync(outDir, copyTarget, { recursive: true });
+  const launcherSrc = join(root, "scripts", "Open-Portfolio.command");
+  const launcherDest = join(copyTarget, "Open Portfolio.command");
+  if (existsSync(launcherSrc)) {
+    cpSync(launcherSrc, launcherDest);
+    spawnSync("chmod", ["+x", launcherDest]);
+  }
   console.log("");
   console.log("Copied static site to:");
   console.log(`  ${copyTarget}`);
@@ -46,6 +52,9 @@ if (process.argv.includes("--copy-desktop")) {
   console.log("");
   console.log("Entry file (folder, not single HTML like Altura):");
   console.log(`  file://${join(copyTarget, "index.html")}`);
+  console.log("");
+  console.log("Easiest open (double-click in Finder):");
+  console.log(`  ${join(copyTarget, "Open Portfolio.command")}`);
 }
 
 console.log("");
