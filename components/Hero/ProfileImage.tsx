@@ -39,13 +39,13 @@ export function ProfileImage({ className, priority }: ProfileImageProps) {
         className,
       )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-background/55 via-transparent to-transparent" />
       <Image
         src={profile.assets.profileImage}
         alt="Ashish Borchate"
         fill
         priority={priority}
-        className="object-cover object-center grayscale-[20%] contrast-[1.05]"
+        className="object-cover object-[center_18%] contrast-[1.02]"
         sizes="(max-width: 768px) 100vw, 400px"
         onError={() => setFailed(true)}
       />
