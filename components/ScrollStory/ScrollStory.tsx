@@ -14,21 +14,13 @@ import {
 import { useMemo, useRef, useState } from "react";
 
 const STAGE_COUNT = journey.stages.length;
-const CLOSING_START = 0.82;
+/** Scroll progress [0, STAGES_END) maps linearly across all journey stages. */
+const STAGES_END = 0.82;
+const CLOSING_START = STAGES_END;
 
 function stageProgress(raw: number) {
-  return Math.min(1, raw / CLOSING_START);
-}
-
-function stageOpacity(progress: number, index: number): number {
-  const pos = stageProgress(progress) * STAGE_COUNT;
-  if (pos >= index + 1) return 0.48;
-  if (pos >= index) {
-    const t = pos - index;
-    if (t < 0.15) return 0.38 + (t / 0.15) * 0.62;
-    return 1;
-  }
-  return 0.34;
+  if (raw >= STAGES_END) return 1;
+  return raw / STAGES_END;
 }
 
 function activeStageIndex(progress: number): number {
@@ -47,14 +39,19 @@ function JourneyStageNode({
   progress: MotionValue<number>;
   layout: "horizontal" | "vertical";
 }) {
-  const opacity = useTransform(progress, (p) => stageOpacity(p, index));
-  const dotOpacity = useTransform(progress, (p) => {
-    const pos = stageProgress(p) * STAGE_COUNT;
-    return pos >= index && pos < index + 1 ? 1 : 0.3;
+  const opacity = useTransform(progress, (p) => {
+    const idx = activeStageIndex(p);
+    if (idx === index) return 1;
+    if (idx > index) return 0.45;
+    return 0.32;
   });
-  const titleOpacity = useTransform(progress, (p) => {
-    const pos = stageProgress(p) * STAGE_COUNT;
-    return pos >= index && pos < index + 1 ? 1 : 0.65;
+  const dotScale = useTransform(progress, (p) => {
+    const idx = activeStageIndex(p);
+    return idx === index ? 1.15 : 1;
+  });
+  const dotOpacity = useTransform(progress, (p) => {
+    const idx = activeStageIndex(p);
+    return idx === index ? 1 : 0.35;
   });
 
   return (
@@ -68,11 +65,11 @@ function JourneyStageNode({
       <div
         className={cn(
           "flex items-center gap-2.5",
-          layout === "horizontal" ? "flex-col sm:flex-col" : "flex-row",
+          layout === "horizontal" ? "flex-col" : "flex-row",
         )}
       >
         <motion.span
-          style={{ opacity: dotOpacity }}
+          style={{ opacity: dotOpacity, scale: dotScale }}
           className={cn(
             "rounded-full bg-accent",
             layout === "vertical"
@@ -81,38 +78,54 @@ function JourneyStageNode({
           )}
           aria-hidden
         />
-        <motion.span
-          style={{ opacity: titleOpacity }}
-          className="font-mono text-[10px] uppercase tracking-[0.16em] text-foreground sm:text-[11px]"
-        >
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-foreground sm:text-[11px]">
           {title}
-        </motion.span>
+        </span>
       </div>
     </motion.div>
   );
 }
 
-function ActiveDescription({ progress }: { progress: MotionValue<number> }) {
+function ActiveStageScene({ progress }: { progress: MotionValue<number> }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showClosing, setShowClosing] = useState(false);
 
   useMotionValueEvent(progress, "change", (p) => {
+    setShowClosing(p >= CLOSING_START);
     setActiveIndex(activeStageIndex(p));
   });
 
-  const descriptionOpacity = useTransform(progress, (p) => {
+  const sceneOpacity = useTransform(progress, (p) => {
+    if (p >= CLOSING_START) return 0;
     const pos = stageProgress(p) * STAGE_COUNT;
     const idx = activeStageIndex(p);
-    return pos >= idx && pos < idx + 1 ? 1 : 0;
+    const local = pos - idx;
+    if (local < 0.08) return local / 0.08;
+    if (local > 0.92) return (1 - local) / 0.08;
+    return 1;
   });
+
+  const stage = journey.stages[activeIndex];
 
   return (
     <motion.div
-      style={{ opacity: descriptionOpacity }}
-      className="mt-6 min-h-[4.5rem] sm:min-h-[5rem] md:mt-8"
+      style={{ opacity: sceneOpacity }}
+      className="mx-auto flex min-h-[5.5rem] max-w-xl flex-col justify-center sm:min-h-[6rem]"
+      aria-live="polite"
     >
-      <p className="text-pretty text-sm leading-relaxed text-muted sm:text-base">
-        {journey.stages[activeIndex]?.description}
-      </p>
+      {stage && !showClosing ? (
+        <>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/90 sm:text-[11px]">
+            Step {activeIndex + 1} of {STAGE_COUNT}
+          </p>
+          <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground sm:text-xl">
+            {stage.title}
+          </h3>
+          <p className="mt-3 text-pretty text-sm leading-relaxed text-muted sm:text-base">
+            {stage.description}
+          </p>
+        </>
+      ) : null}
     </motion.div>
   );
 }
@@ -120,15 +133,15 @@ function ActiveDescription({ progress }: { progress: MotionValue<number> }) {
 function JourneyClosing({ progress }: { progress: MotionValue<number> }) {
   const opacity = useTransform(
     progress,
-    [CLOSING_START, CLOSING_START + 0.12],
+    [CLOSING_START, CLOSING_START + 0.1],
     [0, 1],
   );
-  const y = useTransform(progress, [CLOSING_START, CLOSING_START + 0.12], [8, 0]);
+  const y = useTransform(progress, [CLOSING_START, CLOSING_START + 0.1], [12, 0]);
 
   return (
     <motion.p
       style={{ opacity, y }}
-      className="mt-6 max-w-2xl text-sm font-medium text-foreground sm:mt-8 sm:text-base md:mx-auto md:text-center"
+      className="mx-auto max-w-2xl text-center text-sm font-medium text-foreground sm:text-base"
     >
       {journey.closing}
     </motion.p>
@@ -146,14 +159,14 @@ function JourneyTrack({
 
   if (layout === "vertical") {
     return (
-      <div className="relative mt-8 sm:mt-10">
+      <div className="relative mt-6 sm:mt-8">
         <div className="absolute bottom-2 left-[7px] top-2 w-px overflow-hidden bg-border">
           <motion.div
             style={{ scaleY: lineProgress }}
             className="h-full w-full origin-top bg-accent"
           />
         </div>
-        <div className="space-y-7 sm:space-y-8">
+        <div className="space-y-6 sm:space-y-7">
           {journey.stages.map((stage, index) => (
             <JourneyStageNode
               key={stage.id}
@@ -169,14 +182,14 @@ function JourneyTrack({
   }
 
   return (
-    <div className="relative mt-10 md:mt-12">
-      <div className="absolute left-[12%] right-[12%] top-[5px] h-px overflow-hidden bg-border">
+    <div className="relative mt-8 md:mt-10">
+      <div className="absolute left-[8%] right-[8%] top-[5px] h-px overflow-hidden bg-border sm:left-[10%] sm:right-[10%]">
         <motion.div
           style={{ scaleX: lineProgress, transformOrigin: "0% 50%" }}
           className="h-full w-full bg-accent"
         />
       </div>
-      <div className="grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-4 sm:gap-4">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-4 sm:gap-4">
         {journey.stages.map((stage, index) => (
           <JourneyStageNode
             key={stage.id}
@@ -192,10 +205,11 @@ function JourneyTrack({
 }
 
 function JourneyIntro({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(progress, [0, 0.06], [0.75, 1]);
+  const opacity = useTransform(progress, [0, 0.04, 0.12], [1, 1, 0.55]);
+  const y = useTransform(progress, [0, 0.12], [0, -6]);
 
   return (
-    <motion.div style={{ opacity }} className="max-w-2xl">
+    <motion.div style={{ opacity, y }} className="max-w-2xl">
       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
         {journey.eyebrow}
       </p>
@@ -240,6 +254,9 @@ function JourneyStatic() {
   );
 }
 
+/** Extra viewport heights of scroll “runway” after one full screen of pinned content. */
+const SCROLL_RUNWAY_VH = { mobile: 340, desktop: 420 };
+
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -251,7 +268,10 @@ export function ScrollStory() {
     offset: ["start start", "end end"],
   });
 
-  const sectionHeight = useMemo(() => (isMobile ? 155 : 190), [isMobile]);
+  const sectionHeight = useMemo(
+    () => 100 + (isMobile ? SCROLL_RUNWAY_VH.mobile : SCROLL_RUNWAY_VH.desktop),
+    [isMobile],
+  );
 
   if (reduced) {
     return <JourneyStatic />;
@@ -265,13 +285,15 @@ export function ScrollStory() {
       style={{ height: `${sectionHeight}vh` }}
       aria-label="Journey"
     >
-      <div className="sticky top-0 flex h-[100dvh] max-h-[100svh] items-center overflow-hidden py-6 sm:py-8">
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.03),transparent)]" />
-        <div className="mx-auto w-full max-w-6xl overflow-hidden px-4 sm:px-6">
+      <div className="sticky top-0 z-20 flex h-[100dvh] max-h-[100svh] flex-col justify-center overflow-hidden py-8 sm:py-10">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.04),transparent)]" />
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col justify-center px-4 sm:px-6">
           <JourneyIntro progress={scrollYProgress} />
           <JourneyTrack progress={scrollYProgress} layout={layout} />
-          <ActiveDescription progress={scrollYProgress} />
-          <JourneyClosing progress={scrollYProgress} />
+          <ActiveStageScene progress={scrollYProgress} />
+          <div className="mt-6 flex min-h-[3rem] items-center justify-center sm:mt-8">
+            <JourneyClosing progress={scrollYProgress} />
+          </div>
         </div>
       </div>
     </section>

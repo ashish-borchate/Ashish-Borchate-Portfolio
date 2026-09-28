@@ -2,7 +2,6 @@
 
 import { profile } from "@/data/profile";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { HeroVisual } from "@/components/Hero/HeroVisual";
 import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { ResumeModal } from "@/components/Hero/ResumeModal";
 import { motion } from "framer-motion";
@@ -17,12 +16,12 @@ export function Hero() {
     <>
       <section
         id="top"
-        className="relative overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-20 md:pt-32 md:pb-28"
+        className="relative overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24"
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,141,239,0.08),transparent_55%)]" />
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:gap-12 sm:px-6 lg:grid-cols-12 lg:gap-8">
+        <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 sm:gap-12 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:gap-x-14">
           <motion.div
-            className="min-w-0 lg:col-span-7"
+            className="min-w-0 lg:col-span-7 lg:pt-2"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: easeOut }}
@@ -67,14 +66,11 @@ export function Hero() {
             </div>
           </motion.div>
 
-          <div className="relative min-w-0 lg:col-span-5">
-            <div className="grid gap-4 sm:gap-6">
-              <ProfileImage
-                className="mx-auto w-full max-w-[280px] min-[430px]:max-w-sm lg:mr-0 lg:ml-auto"
-                priority
-              />
-              <HeroVisual className="mx-auto max-h-[220px] max-w-md min-[430px]:max-h-none lg:max-w-lg" />
-            </div>
+          <div className="min-w-0 lg:col-span-5 lg:flex lg:justify-end lg:pt-2">
+            <ProfileImage
+              className="mx-auto w-full max-w-[280px] min-[430px]:max-w-[320px] lg:mx-0 lg:max-w-md"
+              priority
+            />
           </div>
         </div>
       </section>

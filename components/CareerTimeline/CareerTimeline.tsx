@@ -16,7 +16,7 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
   const textOnly = entry.logoDisplay === "text-only";
 
   return (
-    <article className="relative rounded-xl border border-border/70 bg-surface/30 p-4 sm:p-5">
+    <article className="relative flex h-full min-h-[7.5rem] flex-col rounded-xl border border-border/70 bg-surface/30 p-4 sm:min-h-[8rem] sm:p-5">
       <span
         className="absolute left-0 top-6 h-1.5 w-1.5 -translate-x-[calc(0.75rem+1px)] rounded-full bg-accent/70 md:hidden"
         aria-hidden
@@ -30,13 +30,7 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
             className="h-9 min-w-[6rem]"
           />
         ) : null}
-        <h3
-          className={cn(
-            "font-medium tracking-tight text-foreground",
-            !textOnly ? "mt-3" : "mt-0",
-            "text-base sm:text-lg",
-          )}
-        >
+        <h3 className="font-medium tracking-tight text-foreground text-base sm:text-lg">
           {entry.company}
         </h3>
         <p className="mt-1 text-xs text-muted sm:text-sm">{entry.role}</p>
@@ -107,7 +101,7 @@ export function CareerTimeline() {
                   className={cn(
                     "mt-5 min-w-0 md:pl-16",
                     section.tier === "foundation"
-                      ? "grid gap-3 sm:grid-cols-2 sm:gap-4"
+                      ? "grid gap-3 sm:grid-cols-2 sm:items-stretch sm:gap-4"
                       : "relative space-y-6 border-l border-border/80 pl-5 sm:space-y-8 sm:pl-6 md:border-l-0 md:pl-0",
                   )}
                 >

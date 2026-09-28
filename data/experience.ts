@@ -25,6 +25,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     period: "October 2019 – October 2020",
     emphasis: "compressed",
     logo: "/assets/companies/cinepolis.svg",
+    logoDisplay: "text-only",
   },
   {
     id: "arsh",

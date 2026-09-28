@@ -32,10 +32,10 @@ export function TransferableSkills() {
           initial={reduced ? undefined : { opacity: 0, y: 12 }}
           animate={inView && !reduced ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.45 }}
-          className="mt-10 grid gap-6 sm:mt-12 lg:grid-cols-12 lg:gap-8"
+          className="mt-10 grid gap-6 sm:mt-12 lg:grid-cols-12 lg:items-start lg:gap-8"
         >
           <div
-            className="flex gap-2 overflow-x-auto pb-1 lg:col-span-4 lg:flex-col lg:overflow-visible lg:pb-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-2 overflow-x-auto pb-1 lg:col-span-4 lg:flex-col lg:items-stretch lg:overflow-visible lg:pb-0 lg:pt-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             role="tablist"
             aria-label="Transferable capabilities"
           >
@@ -63,7 +63,7 @@ export function TransferableSkills() {
             })}
           </div>
 
-          <div className="min-w-0 lg:col-span-8">
+          <div className="min-w-0 lg:col-span-8 lg:pt-1">
             {phase ? (
               <div
                 id={`panel-${phase.id}`}
