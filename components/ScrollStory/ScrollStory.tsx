@@ -100,7 +100,7 @@ function ActiveStageScene({ progress }: { progress: MotionValue<number> }) {
     const pos = stageProgress(p) * STAGE_COUNT;
     const idx = activeStageIndex(p);
     const local = pos - idx;
-    if (local < 0.08) return local / 0.08;
+    if (local < 0.08) return 0.38 + (local / 0.08) * 0.62;
     if (local > 0.92) return (1 - local) / 0.08;
     return 1;
   });

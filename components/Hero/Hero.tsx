@@ -5,7 +5,6 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { ResumeModal } from "@/components/Hero/ResumeModal";
 import { motion } from "framer-motion";
-import { easeOut } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -20,12 +19,7 @@ export function Hero() {
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,141,239,0.08),transparent_55%)]" />
         <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 sm:gap-12 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:gap-x-14">
-          <motion.div
-            className="min-w-0 lg:col-span-7 lg:pt-2"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: easeOut }}
-          >
+          <div className="min-w-0 lg:col-span-7 lg:pt-2">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted min-[430px]:text-[11px] min-[430px]:tracking-[0.25em]">
               {profile.name}
             </p>
@@ -64,7 +58,7 @@ export function Hero() {
                 </motion.span>
               </button>
             </div>
-          </motion.div>
+          </div>
 
           <div className="min-w-0 lg:col-span-5 lg:flex lg:justify-end lg:pt-2">
             <ProfileImage
