@@ -44,11 +44,11 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
         aria-describedby={hintId}
         onClick={toggleFlip}
       >
-        <CardFront
+        <CardHeader
           entry={entry}
           hintId={hintId}
-          showMarker={!showBack}
           isOpen={showBack}
+          compact={showBack}
         />
       </button>
 
@@ -70,34 +70,28 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
   );
 }
 
-function CardFront({
+function CardHeader({
   entry,
   hintId,
-  showMarker = true,
-  isOpen = false,
+  isOpen,
+  compact,
 }: {
   entry: ExperienceEntry;
   hintId: string;
-  showMarker?: boolean;
-  isOpen?: boolean;
+  isOpen: boolean;
+  compact: boolean;
 }) {
   return (
     <div className="flex min-w-0 flex-col">
-      <div>
-        <div className="flex items-start gap-2.5 sm:gap-3">
-          {showMarker ? (
-            <span
-              className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-foreground shadow-[0_0_8px_rgba(255,255,255,0.35)] sm:mt-3"
-              aria-hidden
-            />
-          ) : null}
-          <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
-            {entry.company}
-          </h3>
-        </div>
-        <p className="mt-2 text-sm text-foreground/90 sm:text-base">{entry.role}</p>
-        <p className="mt-1 text-sm text-muted">{entry.period}</p>
-      </div>
+      <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
+        {entry.company}
+      </h3>
+      {!compact ? (
+        <>
+          <p className="mt-2 text-sm text-foreground/90 sm:text-base">{entry.role}</p>
+          <p className="mt-1 text-sm text-muted">{entry.period}</p>
+        </>
+      ) : null}
       <p
         id={hintId}
         className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"

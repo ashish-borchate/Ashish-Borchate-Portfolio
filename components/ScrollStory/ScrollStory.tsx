@@ -50,7 +50,7 @@ function JourneyBelowTrack({
         </p>
       ) : null}
       {showFooter ? (
-        <p className={cn(journeyLineClass, "normal-case")}>{journey.trackFooter}</p>
+        <p className={journeyStageLine} aria-live="polite">{journey.trackFooter}</p>
       ) : null}
     </div>
   );

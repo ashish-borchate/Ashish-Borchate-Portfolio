@@ -67,14 +67,14 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
         )}
       >
         <motion.div
-          className="absolute inset-0 flex flex-col justify-between p-4 sm:p-5"
+          className="absolute inset-0 flex flex-col items-center justify-center px-4 py-5 text-center sm:px-5"
           initial={false}
           animate={{ opacity: showBack ? 0 : 1, y: showBack ? -6 : 0 }}
           transition={transition}
           aria-hidden={showBack}
           style={{ pointerEvents: showBack ? "none" : "auto" }}
         >
-          <div>
+          <div className="flex w-full flex-col items-center">
             <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl">
               {metric.value}
             </p>
@@ -82,8 +82,8 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
             <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted/70">
               {metric.context}
             </p>
+            <ImpactExploreHint showBack={showBack} />
           </div>
-          <ImpactExploreHint showBack={showBack} />
         </motion.div>
 
         <motion.div

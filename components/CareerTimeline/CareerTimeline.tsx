@@ -12,16 +12,6 @@ import { useMemo, useRef, useState } from "react";
 const foundationEntries = experienceTimeline.filter((e) => e.emphasis === "compressed");
 const coreEntries = experienceTimeline.filter((e) => e.emphasis === "primary");
 
-function CompanyMarker({ visible = true }: { visible?: boolean }) {
-  if (!visible) return null;
-  return (
-    <span
-      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-foreground shadow-[0_0_8px_rgba(255,255,255,0.35)]"
-      aria-hidden
-    />
-  );
-}
-
 function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
   const textOnly = entry.logoDisplay === "text-only";
 
@@ -37,7 +27,6 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
           />
         ) : null}
         <div className="flex items-start gap-2.5">
-          <CompanyMarker />
           <h3 className="text-base font-medium tracking-tight text-accent sm:text-lg">
             {entry.company}
           </h3>
