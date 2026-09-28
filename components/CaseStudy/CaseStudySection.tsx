@@ -23,6 +23,20 @@ type CaseStudyProps = {
   variant: VisualVariant;
 };
 
+function parseEmphasis(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={index} className="font-medium text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
 export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = usePrefersReducedMotion();
@@ -40,14 +54,12 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
       id={data.companySlug}
       ref={ref}
       className={cn(
-        "scroll-mt-20 border-t border-border py-14 sm:scroll-mt-24 sm:py-20 md:py-28",
+        "scroll-mt-20 border-t border-border py-12 sm:scroll-mt-24 sm:py-16 md:py-20",
         styles.border,
       )}
     >
       <motion.div
-        style={
-          reduceMotion || isMobile ? undefined : { y, opacity }
-        }
+        style={reduceMotion || isMobile ? undefined : { y, opacity }}
         className="relative mx-auto max-w-6xl px-4 sm:px-6"
       >
         <SectionHeading
@@ -56,30 +68,38 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
           subtitle={`${data.role} · ${data.period}`}
         />
 
-        <div className="mt-8 space-y-8 sm:mt-10 lg:grid lg:grid-cols-12 lg:gap-10 lg:space-y-0">
-          <div className="space-y-6 lg:col-span-7">
-            <StoryBlock title="Context" body={data.context} />
-            <StoryBlock title="Challenge" body={data.challenge} />
-            <StoryBlock title="Outcome" body={data.outcome} />
-          </div>
+        <div className="mt-8 space-y-7 sm:mt-9 sm:space-y-8">
+          <StoryBlock title="Context" body={data.context} />
+          <StoryBlock title="Challenge" body={data.challenge} />
 
-          <div className="lg:col-span-5 lg:pt-1">
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-              How I achieved it
+          <div>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">
+              Action
             </h3>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {data.howIAchieved.map((item) => (
+            <ul className="mt-3 space-y-2 sm:mt-3.5">
+              {data.action.map((item) => (
                 <li
                   key={item}
-                  className={cn(
-                    "rounded-full border border-border bg-surface/50 px-3 py-1.5 text-xs text-foreground sm:text-sm",
-                    styles.border,
-                  )}
+                  className="border-l border-border pl-3 text-sm leading-relaxed text-muted sm:text-[0.9375rem]"
                 >
                   {item}
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div
+            className={cn(
+              "rounded-xl border bg-surface/40 px-4 py-4 sm:px-5 sm:py-5",
+              styles.border,
+            )}
+          >
+            <h3 className={cn("font-mono text-[10px] uppercase tracking-[0.18em]", styles.accent)}>
+              Outcome
+            </h3>
+            <p className="mt-2.5 text-pretty text-sm leading-relaxed text-muted sm:text-base">
+              {parseEmphasis(data.outcome)}
+            </p>
           </div>
         </div>
       </motion.div>
@@ -93,7 +113,7 @@ function StoryBlock({ title, body }: { title: string; body: string }) {
       <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">
         {title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
+      <p className="mt-2 text-pretty text-sm leading-relaxed text-muted sm:text-base">
         {body}
       </p>
     </div>
