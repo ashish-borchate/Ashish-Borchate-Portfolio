@@ -1,6 +1,5 @@
 import { careerDirection } from "@/data/careerDirection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { cn } from "@/lib/utils";
 
 export function CareerDirection() {
   return (
@@ -20,12 +19,7 @@ export function CareerDirection() {
         <ul className="mt-4 flex flex-wrap gap-2">
           {careerDirection.coreAreas.map((area) => (
             <li key={area.label}>
-              <span
-                className={cn(
-                  "inline-flex min-h-10 items-center rounded-full border border-border bg-surface/40 px-4 py-2.5 text-xs font-medium",
-                  area.accent ? "text-accent" : "text-muted",
-                )}
-              >
+              <span className="inline-flex min-h-10 items-center rounded-full border border-border bg-surface/40 px-4 py-2.5 text-xs font-medium text-accent">
                 {area.label}
               </span>
             </li>

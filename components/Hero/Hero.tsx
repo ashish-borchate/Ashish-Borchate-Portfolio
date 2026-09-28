@@ -19,10 +19,7 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,141,239,0.07),transparent_50%)]" />
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
           <div className="order-2 min-w-0 lg:order-1 lg:col-span-7">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted min-[430px]:text-[11px]">
-              {profile.name}
-            </p>
-            <h1 className="mt-2.5 text-balance text-[1.6rem] font-medium leading-[1.1] tracking-tight min-[390px]:text-[2rem] sm:mt-3 sm:text-4xl md:text-[2.75rem] md:leading-[1.08]">
+            <h1 className="text-balance text-[1.6rem] font-medium leading-[1.1] tracking-tight min-[390px]:text-[2rem] sm:text-4xl md:text-[2.75rem] md:leading-[1.08]">
               {profile.headline}
             </h1>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-accent min-[430px]:text-base sm:mt-5 sm:text-lg">

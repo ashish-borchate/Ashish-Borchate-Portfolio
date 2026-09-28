@@ -18,11 +18,11 @@ export default function Home() {
       <Navigation />
       <main className="min-w-0">
         <Hero />
-        <ScrollStory />
-        <Metrics />
         <CareerTimeline />
         <WorkCaseStudies />
         <TestimonialsSection />
+        <ScrollStory />
+        <Metrics />
         <Tools />
         <DomainExperience />
         <TransferableSkills />

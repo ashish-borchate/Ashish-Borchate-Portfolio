@@ -7,12 +7,28 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { useMemo, useRef } from "react";
 
-const journeyMono =
-  "font-mono text-[10px] uppercase tracking-[0.2em] sm:text-[11px]";
+const journeyLineClass =
+  "font-mono text-[10px] leading-snug tracking-[0.2em] text-accent sm:text-[11px]";
 
-const journeyLabelBlue =
-  "font-mono text-[10px] tracking-[0.2em] text-accent sm:text-[11px]";
+function JourneySectionTitle() {
+  return (
+    <h2 className="text-balance text-2xl font-medium tracking-tight text-foreground min-[430px]:text-3xl sm:text-4xl">
+      How I work
+    </h2>
+  );
+}
 
+function JourneyIntroLine() {
+  return (
+    <p className={cn(journeyLineClass, "mt-3 text-pretty sm:mt-4")}>
+      <span className="uppercase">{journey.eyebrow}</span>
+      <span className="hidden px-2 text-accent/70 sm:inline" aria-hidden>
+        ·
+      </span>
+      <span className="mt-1 block normal-case sm:mt-0 sm:inline">{journey.closing}</span>
+    </p>
+  );
+}
 const journeyBlueLine =
   "text-pretty font-mono text-[10px] leading-relaxed tracking-[0.16em] text-accent normal-case sm:text-[11px] sm:leading-relaxed sm:tracking-[0.18em]";
 
@@ -27,7 +43,7 @@ function JourneyBelowTrack({
   showFooter: boolean;
 }) {
   return (
-    <div className="mx-auto mt-6 max-w-2xl space-y-4 text-center sm:mt-8">
+    <div className="mx-auto mt-10 max-w-2xl space-y-4 text-center sm:mt-12 md:mt-14">
       {stageDescription ? (
         <p key={stageDescription} className={journeyBlueLine} aria-live="polite">
           {stageDescription}
@@ -174,11 +190,9 @@ function JourneyStatic() {
       aria-label="Journey"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4">
-          <p className={cn(journeyMono, "text-muted")}>{journey.eyebrow}</p>
-          <p className={cn(journeyLabelBlue, "normal-case")}>{journey.closing}</p>
-        </div>
-        <p className="mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-muted sm:text-base">
+        <JourneySectionTitle />
+        <JourneyIntroLine />
+        <p className="mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-muted sm:mt-3.5 sm:text-base">
           {journey.introduction}
         </p>
         <ol className="mt-8 space-y-5 border-l border-border pl-5 md:grid md:grid-cols-4 md:gap-6 md:space-y-0 md:border-l-0 md:pl-0">
@@ -234,14 +248,8 @@ export function ScrollStory() {
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.03),transparent)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
-              <p className={cn(journeyMono, "shrink-0 text-muted")}>
-                {journey.eyebrow}
-              </p>
-              <p className={cn(journeyLabelBlue, "text-pretty leading-snug normal-case")}>
-                {journey.closing}
-              </p>
-            </div>
+            <JourneySectionTitle />
+            <JourneyIntroLine />
 
             <p className="mt-3 text-pretty text-sm leading-relaxed text-muted sm:mt-3.5 sm:text-base">
               {journey.introduction}
