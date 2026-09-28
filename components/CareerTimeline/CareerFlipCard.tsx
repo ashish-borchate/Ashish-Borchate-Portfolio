@@ -28,79 +28,47 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
 
   const transition = reducedMotion
     ? { duration: 0 }
-    : { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
-
-  if (reducedMotion) {
-    return (
-      <article className="overflow-hidden rounded-xl border border-border bg-surface/40 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
-        <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
-        <button
-          type="button"
-          aria-expanded={showBack}
-          onClick={toggleFlip}
-          className="mt-4 text-left font-mono text-[10px] uppercase tracking-wider text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          {showBack ? "COLLAPSE ↑" : "EXPLORE CASE STUDY →"}
-        </button>
-        {showBack ? (
-          <div className="mt-4 border-t border-border pt-4">
-            <CardBack detail={detail} />
-          </div>
-        ) : null}
-      </article>
-    );
-  }
-
-  const shellHeight = showBack
-    ? "min-h-[min(70vh,28rem)] sm:min-h-[26rem]"
-    : "min-h-[12.5rem] sm:min-h-[13.5rem]";
+    : { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
-    <div className={cn("w-full min-w-0", shellHeight)}>
-      <div
-        role="button"
-        tabIndex={0}
+    <article
+      className={cn(
+        "overflow-hidden rounded-xl border bg-surface/50 transition-colors",
+        showBack ? "border-accent/25" : "border-border",
+      )}
+    >
+      <button
+        type="button"
+        className="w-full min-w-0 px-5 py-5 text-left sm:p-7 md:p-8 lg:p-10"
         aria-expanded={showBack}
         aria-describedby={hintId}
         onClick={toggleFlip}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            toggleFlip();
-          }
-        }}
-        className={cn(
-          "relative h-full min-h-[inherit] w-full min-w-0 cursor-pointer overflow-hidden rounded-xl outline-none transition-colors",
-          "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          showBack ? "border border-accent/25" : "border border-border",
-        )}
       >
-        <motion.div
-          className="absolute inset-0 flex h-full min-h-[inherit] flex-col rounded-xl bg-surface/50 p-5 sm:p-7 md:p-8 lg:p-10"
-          initial={false}
-          animate={{ opacity: showBack ? 0 : 1, y: showBack ? -8 : 0 }}
-          transition={transition}
-          aria-hidden={showBack}
-        >
-          <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
-        </motion.div>
+        <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
+      </button>
 
-        <motion.div
-          className="absolute inset-0 flex h-full min-h-[inherit] flex-col rounded-xl bg-charcoal p-5 sm:p-7 md:p-8 lg:p-10"
-          initial={false}
-          animate={{ opacity: showBack ? 1 : 0, y: showBack ? 0 : 10 }}
-          transition={transition}
-          aria-hidden={!showBack}
-        >
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 [-webkit-overflow-scrolling:touch]">
-            <CardBack detail={detail} />
-          </div>
-          <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
+      <motion.div
+        initial={false}
+        animate={{
+          height: showBack ? "auto" : 0,
+          opacity: showBack ? 1 : 0,
+        }}
+        transition={transition}
+        className="overflow-hidden"
+        aria-hidden={!showBack}
+      >
+        <div className="border-t border-border px-5 pb-5 sm:px-7 sm:pb-7 md:px-8 md:pb-8 lg:px-10 lg:pb-10">
+          <CardBack detail={detail} />
+          <button
+            type="button"
+            onClick={toggleFlip}
+            className="mt-5 font-mono text-[10px] uppercase tracking-wider text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
             COLLAPSE ↑
-          </p>
-        </motion.div>
-      </div>
-    </div>
+          </button>
+        </div>
+      </motion.div>
+    </article>
   );
 }
 
@@ -114,7 +82,7 @@ function CardFront({
   showMarker?: boolean;
 }) {
   return (
-    <div className="flex h-full min-h-[10rem] flex-col justify-between sm:min-h-[11rem]">
+    <div className="flex min-w-0 flex-col">
       <div>
         <div className="flex items-start gap-2.5 sm:gap-3">
           {showMarker ? (
@@ -134,7 +102,7 @@ function CardFront({
         id={hintId}
         className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
       >
-        EXPLORE CASE STUDY →
+        TAP TO EXPLORE ROLE →
       </p>
     </div>
   );

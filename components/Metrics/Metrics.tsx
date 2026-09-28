@@ -72,6 +72,7 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
           animate={{ opacity: showBack ? 0 : 1, y: showBack ? -6 : 0 }}
           transition={transition}
           aria-hidden={showBack}
+          style={{ pointerEvents: showBack ? "none" : "auto" }}
         >
           <div>
             <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl">
@@ -86,13 +87,20 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 flex flex-col overflow-hidden bg-charcoal/95 p-4 sm:p-5"
+          className="absolute inset-0 flex items-center justify-center bg-charcoal/95 p-5 sm:p-6"
           initial={false}
           animate={{ opacity: showBack ? 1 : 0, y: showBack ? 0 : 8 }}
           transition={transition}
           aria-hidden={!showBack}
+          style={{ pointerEvents: showBack ? "auto" : "none" }}
         >
-          <p className="text-pretty text-sm leading-relaxed text-muted">{metric.back}</p>
+          <p className="max-w-[16.5rem] text-pretty text-center text-sm leading-relaxed text-muted sm:max-w-[18rem] sm:text-[0.9375rem]">
+            {metric.back.split("\n\n").map((paragraph, index) => (
+              <span key={index} className={index > 0 ? "mt-3 block" : undefined}>
+                {paragraph}
+              </span>
+            ))}
+          </p>
         </motion.div>
       </div>
     </div>
