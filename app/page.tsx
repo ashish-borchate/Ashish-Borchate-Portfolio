@@ -2,7 +2,6 @@ import { Navigation } from "@/components/Navigation/Navigation";
 import { Hero } from "@/components/Hero/Hero";
 import { ScrollStory } from "@/components/ScrollStory/ScrollStory";
 import { Metrics } from "@/components/Metrics/Metrics";
-import { IntroVideo } from "@/components/IntroVideo/IntroVideo";
 import { TestimonialsSection } from "@/components/Testimonial/TestimonialsSection";
 import { CareerTimeline } from "@/components/CareerTimeline/CareerTimeline";
 import { WorkCaseStudies } from "@/components/CaseStudy/WorkCaseStudies";
@@ -20,7 +19,6 @@ export default function Home() {
       <Navigation />
       <main className="overflow-x-clip">
         <Hero />
-        <IntroVideo />
         <ScrollStory />
         <Metrics />
         <TestimonialsSection />

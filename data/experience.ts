@@ -60,7 +60,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     company: "KoinX",
     companySlug: "koinx",
     role: "Customer Support & Operations Manager",
-    period: "June 2025 – October 2025",
+    period: "July 2025 – October 2025",
     emphasis: "primary",
     logo: "/assets/companies/koinx.svg",
     detail: {
@@ -68,7 +68,7 @@ export const experienceTimeline: ExperienceEntry[] = [
         "Built structured feedback loops between Support, Product and Engineering.",
         "Turned customer conversations and support data into actionable product and operational improvements.",
         "Created customer-facing FAQs, Product Guides and internal SOPs across product changes.",
-        "Trained internal teams on new features and optimized Intercom Copilot to automate 40–45% of repetitive queries.",
+        "Trained internal teams on new features and optimized Intercom workflows to automate an estimated 40% of repetitive agent tasks.",
         "Monitored product satisfaction and usage signals to identify friction and improve the customer experience.",
       ],
       learned:
@@ -85,8 +85,8 @@ export const experienceTimeline: ExperienceEntry[] = [
     logo: "/assets/companies/bybit.svg",
     detail: {
       workedOn: [
-        "Supported a 6-person India team and acted as an escalation point for complex customer cases.",
-        "Handled around 70–90 cases per day across trading, deposits, withdrawals, cross-chain transfers and account issues.",
+        "Supported the India client services team as an escalation point for complex customer cases.",
+        "Handled 70–80 cases per day across trading, deposits, withdrawals, cross-chain transfers and account issues.",
         "Investigated fraud and security cases alongside KYC/AML-related issues and high-risk customer situations.",
         "Worked against strict response and resolution targets while maintaining a 4.8/5 CSAT.",
       ],
@@ -98,7 +98,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     id: "yellow",
     company: "Yellow.pro",
     companySlug: "yellow",
-    role: "Community & Support Desk Manager",
+    role: "Community and Support Operations Manager",
     period: "April 2026 – September 2026",
     emphasis: "primary",
     logo: "/assets/companies/yellow.svg",

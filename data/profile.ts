@@ -13,14 +13,12 @@ export const profile = {
   },
   assets: {
     profileImage: "/assets/profile.jpg",
-    introVideo: "/assets/intro-video.mp4",
-    introPoster: "/assets/intro-poster.jpg",
     resumePdf: "/assets/Ashish-Borchate-Resume.pdf",
   },
   links: {
-    email: "[EMAIL TO BE ADDED]",
-    emailHref: "#contact",
-    linkedIn: "[LINKEDIN URL TO BE ADDED]",
-    linkedInHref: "#contact",
+    email: "ashishborchate3@gmail.com",
+    emailHref: "mailto:ashishborchate3@gmail.com",
+    linkedIn: "linkedin.com/in/ashishborchate",
+    linkedInHref: "https://www.linkedin.com/in/ashishborchate/",
   },
 } as const;

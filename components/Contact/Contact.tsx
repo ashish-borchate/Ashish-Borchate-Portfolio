@@ -23,9 +23,6 @@ export function Contact() {
             Download Resume
           </MagneticButton>
         </div>
-        <p className="mt-6 text-xs text-muted">
-          Contact URLs: {profile.links.email} · {profile.links.linkedIn}
-        </p>
       </div>
     </section>
   );

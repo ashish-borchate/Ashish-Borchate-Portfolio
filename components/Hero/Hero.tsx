@@ -41,16 +41,9 @@ export function Hero() {
             </p>
             <div className="mt-8 flex w-full max-w-xl flex-col gap-2.5 min-[430px]:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
               <MagneticButton
-                href="#intro"
+                href="#work"
                 variant="primary"
                 className="w-full shrink-0 sm:w-auto"
-              >
-                Watch Introduction
-              </MagneticButton>
-              <MagneticButton
-                href="#work"
-                variant="ghost"
-                className="w-full shrink-0 text-center leading-snug sm:w-auto"
               >
                 See What I&apos;ve Built
               </MagneticButton>

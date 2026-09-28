@@ -73,7 +73,7 @@ export function Metrics() {
         <SectionHeading
           eyebrow="Impact"
           title="Evidence, not exaggeration."
-          subtitle="Verified metrics will replace placeholders once finalized."
+          subtitle="Highlights drawn from verified support operations work."
         />
         <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {impactMetrics.map((m) => (
