@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="overflow-x-clip">
+      <main className="min-w-0">
         <Hero />
         <ScrollStory />
         <Metrics />

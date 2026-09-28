@@ -8,7 +8,19 @@ This portfolio is built with **Next.js** (many files + JavaScript bundles). Brow
 
 1. In Finder go to **`~/Documents/cursor/Ashish-Borchate-Portfolio`**
 2. Double-click **`index.html`** for styled layout and **tabs that switch without JavaScript**.
-3. For **Journey scroll pin** and **metric count-up**, double-click **`Open Portfolio.command`** (uses `http://localhost` — required for those animations).
+3. For **Journey scroll pin** and **metric count-up**, double-click **`Open Portfolio.command`**.
+
+The launcher runs **`npm run start`** from **`~/Ashish-Borchate-Portfolio`** (full Next.js). It **restarts** the server on port 8765 so you are not stuck on an old tab.
+
+After **`git pull`**, run:
+
+```bash
+cd ~/Ashish-Borchate-Portfolio
+npm run build
+npm run refresh:desktop
+```
+
+Then double-click **`Open Portfolio.command`** again.
 
 If the page looks unstyled (plain blue links): you have an **old copy** — in the repo run `git pull` and `npm run export:desktop` again.
 

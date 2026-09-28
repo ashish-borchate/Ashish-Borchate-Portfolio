@@ -8,6 +8,7 @@
     "build:static": "node scripts/build-static-site.mjs",
     "export:desktop": "node scripts/build-static-site.mjs --copy-desktop",
     "preview:static": "bash scripts/open-static-preview.sh",
+    "refresh:desktop": "bash scripts/refresh-desktop-copy.sh",
     "start": "next start",
     "lint": "eslint"
   },
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "playwright": "^1.49.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
