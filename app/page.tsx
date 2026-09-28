@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/Navigation/Navigation";
 import { Hero } from "@/components/Hero/Hero";
+import { CompaniesMarquee } from "@/components/CompaniesMarquee/CompaniesMarquee";
 import { ScrollStory } from "@/components/ScrollStory/ScrollStory";
 import { Metrics } from "@/components/Metrics/Metrics";
 import { TestimonialsSection } from "@/components/Testimonial/TestimonialsSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <Navigation />
       <main className="min-w-0">
         <Hero />
+        <CompaniesMarquee />
         <CareerTimeline />
         <WorkCaseStudies />
         <TestimonialsSection />
