@@ -2,7 +2,6 @@
 
 import type { ExperienceEntry } from "@/data/experience";
 import { usePrefersReducedMotion } from "@/lib/motion";
-import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useId, useState } from "react";
@@ -14,18 +13,11 @@ type CareerFlipCardProps = {
 export function CareerFlipCard({ entry }: CareerFlipCardProps) {
   const detail = entry.detail;
   const reducedMotion = usePrefersReducedMotion();
-  const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
-  const isNarrow = useMediaQuery("(max-width: 767px)");
-
-  const useTapInteraction = !hoverCapable || isNarrow;
-
-  const [hovered, setHovered] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const hintId = useId();
 
-  const showBack =
-    Boolean(detail) && (flipped || (hoverCapable && hovered && !useTapInteraction));
+  const showBack = Boolean(detail) && flipped;
 
   const toggleFlip = useCallback(() => {
     if (!detail) return;
@@ -37,12 +29,7 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
   if (reducedMotion) {
     return (
       <article className="overflow-hidden rounded-xl border border-border bg-surface/40 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
-        <CardFront
-          entry={entry}
-          hintId={hintId}
-          isMobile={useTapInteraction}
-          staticHint
-        />
+        <CardFront entry={entry} hintId={hintId} showMarker={!expanded} />
         <button
           type="button"
           aria-expanded={expanded}
@@ -50,7 +37,7 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
           onClick={() => setExpanded((v) => !v)}
           className="mt-4 text-left font-mono text-[10px] uppercase tracking-wider text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          {expanded ? "Hide details" : "Show role details"}
+          {expanded ? "Hide details" : "Tap to know more →"}
         </button>
         {expanded ? (
           <div id={`${entry.id}-details`} className="mt-4 border-t border-border pt-4">
@@ -66,21 +53,13 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
     : "min-h-[12.5rem] sm:min-h-[13.5rem]";
 
   return (
-    <div
-      className={cn("w-full min-w-0", shellHeight)}
-      onMouseEnter={() => hoverCapable && !useTapInteraction && setHovered(true)}
-      onMouseLeave={() => {
-        if (hoverCapable && !useTapInteraction) setHovered(false);
-      }}
-    >
+    <div className={cn("w-full min-w-0", shellHeight)}>
       <div
         role="button"
         tabIndex={0}
         aria-expanded={showBack}
         aria-describedby={hintId}
-        onClick={() => {
-          if (useTapInteraction) toggleFlip();
-        }}
+        onClick={toggleFlip}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -88,9 +67,8 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
           }
         }}
         className={cn(
-          "relative h-full min-h-[inherit] w-full min-w-0 overflow-hidden rounded-xl outline-none",
+          "relative h-full min-h-[inherit] w-full min-w-0 cursor-pointer overflow-hidden rounded-xl outline-none",
           "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          useTapInteraction ? "cursor-pointer" : "cursor-default",
         )}
       >
         <div className="h-full min-h-[inherit] [perspective:1200px]">
@@ -99,22 +77,15 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
             animate={{ rotateY: showBack ? 180 : 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Front */}
             <div
               className="absolute inset-0 h-full min-h-[inherit] [backface-visibility:hidden] [transform:translateZ(1px)]"
               aria-hidden={showBack}
             >
               <div className="flex h-full min-h-[inherit] flex-col rounded-xl border border-border bg-surface/50 p-5 sm:p-7 md:border-accent/20 md:p-8 lg:p-10">
-                <CardFront
-                  entry={entry}
-                  hintId={hintId}
-                  isMobile={useTapInteraction}
-                  showMarker={!showBack}
-                />
+                <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
               </div>
             </div>
 
-            {/* Back */}
             <div
               className="absolute inset-0 h-full min-h-[inherit] [backface-visibility:hidden] [transform:rotateY(180deg)_translateZ(1px)]"
               aria-hidden={!showBack}
@@ -123,11 +94,9 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
                 <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 [-webkit-overflow-scrolling:touch]">
                   <CardBack detail={detail} />
                 </div>
-                {useTapInteraction ? (
-                  <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
-                    Tap again to return
-                  </p>
-                ) : null}
+                <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
+                  Tap again to return
+                </p>
               </div>
             </div>
           </motion.div>
@@ -140,14 +109,10 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
 function CardFront({
   entry,
   hintId,
-  isMobile,
-  staticHint,
   showMarker = true,
 }: {
   entry: ExperienceEntry;
   hintId: string;
-  isMobile: boolean;
-  staticHint?: boolean;
   showMarker?: boolean;
 }) {
   return (
@@ -169,18 +134,9 @@ function CardFront({
       </div>
       <p
         id={hintId}
-        className={cn(
-          "mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] sm:mt-6",
-          isMobile || staticHint
-            ? "text-accent"
-            : "text-accent/90",
-        )}
+        className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
       >
-        {staticHint
-          ? "Expand for details"
-          : isMobile
-            ? "Tap to know more →"
-            : "Hover to explore →"}
+        Tap to know more →
       </p>
     </div>
   );

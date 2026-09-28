@@ -41,10 +41,9 @@ export const transferablePhases: SkillPhase[] = [
 ];
 
 export const transferableCopy = {
-  headline: "THE PRODUCT CAN CHANGE. THE SKILL DOESN'T.",
-  lines: [
-    "The product can change.",
-    "The industry can change.",
-    "The operating mindset stays the same.",
-  ],
+  headline: "DIFFERENT PRODUCTS. SAME SKILLS.",
+  intro:
+    "Throughout my career, I’ve worked across different industries, products, and types of users. I’ve been able to adapt because, in my opinion, the product may change, but the skills needed to make it work well stay the same.",
+  principles:
+    "Understand the product. Understand how people use it. Anticipate where things can go wrong. Diagnose the gaps. Connect the right teams. And build better ways of working.",
 };

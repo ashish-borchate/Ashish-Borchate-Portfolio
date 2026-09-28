@@ -10,7 +10,6 @@ export const siteNav: NavItem[] = [
   { id: "testimonials", label: "Testimonials", href: "#testimonials" },
   { id: "tools", label: "Tools", href: "#tools" },
   { id: "about", label: "About", href: "#about" },
-  { id: "resume", label: "Resume", href: "#resume" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
 

@@ -28,7 +28,7 @@ function parseEmphasis(text: string) {
   return parts.map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={index} className="font-medium text-foreground">
+        <strong key={index} className="font-medium text-accent">
           {part.slice(2, -2)}
         </strong>
       );
@@ -73,7 +73,7 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
           <StoryBlock title="Challenge" body={data.challenge} />
 
           <div>
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
               Action
             </h3>
             <ul className="mt-3 space-y-2 sm:mt-3.5">
@@ -94,10 +94,10 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
               styles.border,
             )}
           >
-            <h3 className={cn("font-mono text-[10px] uppercase tracking-[0.18em]", styles.accent)}>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
               Outcome
             </h3>
-            <p className="mt-2.5 text-pretty text-sm leading-relaxed text-muted sm:text-base">
+            <p className="mt-2.5 text-pretty text-sm leading-relaxed text-accent sm:text-base">
               {parseEmphasis(data.outcome)}
             </p>
           </div>
@@ -110,7 +110,7 @@ export function CaseStudySectionBlock({ data, variant }: CaseStudyProps) {
 function StoryBlock({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground">
+      <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
         {title}
       </h3>
       <p className="mt-2 text-pretty text-sm leading-relaxed text-muted sm:text-base">

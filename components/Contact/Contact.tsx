@@ -7,11 +7,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-16 sm:py-24 md:py-32">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-        <SectionHeading
-          title={contactSection.headline}
-          subtitle={contactSection.subline}
-          className="mx-auto text-center"
-        />
+        <SectionHeading title={contactSection.headline} className="mx-auto text-center" />
         <div className="mt-8 flex flex-col gap-2.5 sm:mt-10 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
           <MagneticButton href={profile.links.emailHref} variant="primary" className="w-full sm:w-auto">
             Email Me

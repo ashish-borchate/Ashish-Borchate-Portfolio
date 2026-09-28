@@ -7,7 +7,35 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { useMemo, useRef } from "react";
 
+const journeyMono =
+  "font-mono text-[10px] uppercase tracking-[0.2em] sm:text-[11px]";
+
+const journeyLabelBlue =
+  "font-mono text-[10px] tracking-[0.2em] text-accent sm:text-[11px]";
+
+const journeyBlueLine =
+  "text-pretty font-mono text-[10px] leading-relaxed tracking-[0.16em] text-accent normal-case sm:text-[11px] sm:leading-relaxed sm:tracking-[0.18em]";
+
 const STAGE_COUNT = journey.stages.length;
+
+function JourneyBelowTrack({
+  stageDescription,
+  showFooter,
+}: {
+  stageDescription: string | null;
+  showFooter: boolean;
+}) {
+  return (
+    <div className="mx-auto mt-6 max-w-2xl space-y-4 text-center sm:mt-8">
+      {stageDescription ? (
+        <p key={stageDescription} className={journeyBlueLine} aria-live="polite">
+          {stageDescription}
+        </p>
+      ) : null}
+      {showFooter ? <p className={journeyBlueLine}>{journey.trackFooter}</p> : null}
+    </div>
+  );
+}
 
 function stageProgress(raw: number) {
   return Math.min(1, Math.max(0, raw));
@@ -146,12 +174,8 @@ function JourneyStatic() {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
-            {journey.eyebrow}
-          </p>
-          <p className="text-sm font-medium text-muted/90 sm:text-base">
-            {journey.closing}
-          </p>
+          <p className={cn(journeyMono, "text-muted")}>{journey.eyebrow}</p>
+          <p className={cn(journeyLabelBlue, "normal-case")}>{journey.closing}</p>
         </div>
         <p className="mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-muted sm:text-base">
           {journey.introduction}
@@ -168,9 +192,10 @@ function JourneyStatic() {
             </li>
           ))}
         </ol>
-        <p className="mt-6 max-w-2xl text-pretty text-xs leading-snug text-muted/80 sm:text-sm">
-          {journey.trackFooter}
-        </p>
+        <JourneyBelowTrack
+          stageDescription={journey.stages[0]?.description ?? null}
+          showFooter
+        />
       </div>
     </section>
   );
@@ -188,6 +213,8 @@ export function ScrollStory() {
   const { activeIndex, lineFill, pos } = useJourneyState(scrollProgress);
 
   const stage = journey.stages[activeIndex];
+  const footerDuplicatesStage =
+    stage?.description.trim() === journey.trackFooter.trim();
 
   const sectionHeight = useMemo(
     () => 100 + (isMobile ? SCROLL_RUNWAY_VH.mobile : SCROLL_RUNWAY_VH.desktop),
@@ -211,34 +238,25 @@ export function ScrollStory() {
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
-              <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
+              <p className={cn(journeyMono, "shrink-0 text-muted")}>
                 {journey.eyebrow}
               </p>
-              <p className="text-pretty text-sm leading-snug text-muted/90 sm:text-base">
+              <p className={cn(journeyLabelBlue, "text-pretty leading-snug normal-case")}>
                 {journey.closing}
               </p>
             </div>
 
-            {stage ? (
-              <p
-                key={stage.id}
-                className="mt-3 text-pretty text-sm font-normal leading-snug text-accent sm:mt-3.5 sm:text-base"
-                aria-live="polite"
-              >
-                {stage.description}
-              </p>
-            ) : null}
-
-            <p className="mt-2 text-pretty text-sm leading-relaxed text-muted sm:mt-2.5 sm:text-base">
+            <p className="mt-3 text-pretty text-sm leading-relaxed text-muted sm:mt-3.5 sm:text-base">
               {journey.introduction}
             </p>
           </div>
 
           <JourneyTrack lineFill={lineFill} pos={pos} layout={layout} />
 
-          <p className="mt-5 max-w-2xl text-pretty text-xs leading-snug text-muted/80 sm:mt-6 sm:text-sm">
-            {journey.trackFooter}
-          </p>
+          <JourneyBelowTrack
+            stageDescription={stage?.description ?? null}
+            showFooter={!footerDuplicatesStage}
+          />
         </div>
       </div>
     </section>

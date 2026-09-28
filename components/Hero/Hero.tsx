@@ -40,8 +40,8 @@ export function Hero() {
                 type="button"
                 onClick={() => setResumeOpen(true)}
                 className={cn(
-                  "inline-flex min-h-11 w-full shrink-0 items-center justify-center rounded-full border border-border bg-surface/80 px-5 py-3 text-sm font-medium text-foreground transition-colors",
-                  "hover:border-accent/40 hover:bg-accent-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto",
+                  "inline-flex min-h-11 w-full shrink-0 items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-medium text-background transition-colors",
+                  "hover:bg-[#6b99f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto",
                 )}
               >
                 View My Resume

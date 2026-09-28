@@ -1,14 +1,15 @@
 export const careerDirection = {
   headline: "WHERE I CAN CREATE THE MOST VALUE",
-  roles: [
+  intro:
+    "I work best in roles where I can connect customer experience, support, operations, and product — understanding what users need, finding what isn’t working, and helping teams improve it.",
+  coreAreasLabel: "CORE AREAS",
+  coreAreas: [
     "Support Operations",
-    "Customer Support Operations",
-    "CX Operations",
-    "Product Operations",
-    "Product Support",
+    "Product & Operations",
+    "Customer Experience",
+    "QA & UAT",
     "Web3 Operations",
-    "Customer Success / Support Operations",
   ],
-  copy:
-    "Teams where customer problems, operational systems, and product decisions stay connected — Support Operations, Product Operations, and CX. Open to strong product companies outside Web3 when the role fits.",
+  closing:
+    "I’m open to both Web3 and non-Web3 companies where the role involves understanding products, solving customer and operational problems, and working closely with Product and Engineering.",
 };

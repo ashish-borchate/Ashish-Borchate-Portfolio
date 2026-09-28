@@ -14,11 +14,12 @@ export function TransferableSkills() {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading title={transferableCopy.headline} />
-        <div className="mt-4 space-y-1 text-sm text-muted sm:text-base">
-          {transferableCopy.lines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-        </div>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+          {transferableCopy.intro}
+        </p>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+          {transferableCopy.principles}
+        </p>
 
         <div className="transferable-tabs mt-10 sm:mt-12">
           {transferablePhases.map((p, index) => (
