@@ -17,6 +17,7 @@ const journeyBlueLine =
   "text-pretty font-mono text-[10px] leading-relaxed tracking-[0.16em] text-accent normal-case sm:text-[11px] sm:leading-relaxed sm:tracking-[0.18em]";
 
 const STAGE_COUNT = journey.stages.length;
+const IMPROVE_STAGE_INDEX = STAGE_COUNT - 1;
 
 function JourneyBelowTrack({
   stageDescription,
@@ -192,10 +193,7 @@ function JourneyStatic() {
             </li>
           ))}
         </ol>
-        <JourneyBelowTrack
-          stageDescription={journey.stages[0]?.description ?? null}
-          showFooter
-        />
+        <JourneyBelowTrack stageDescription={null} showFooter />
       </div>
     </section>
   );
@@ -213,8 +211,7 @@ export function ScrollStory() {
   const { activeIndex, lineFill, pos } = useJourneyState(scrollProgress);
 
   const stage = journey.stages[activeIndex];
-  const footerDuplicatesStage =
-    stage?.description.trim() === journey.trackFooter.trim();
+  const onImproveStage = activeIndex === IMPROVE_STAGE_INDEX;
 
   const sectionHeight = useMemo(
     () => 100 + (isMobile ? SCROLL_RUNWAY_VH.mobile : SCROLL_RUNWAY_VH.desktop),
@@ -254,8 +251,8 @@ export function ScrollStory() {
           <JourneyTrack lineFill={lineFill} pos={pos} layout={layout} />
 
           <JourneyBelowTrack
-            stageDescription={stage?.description ?? null}
-            showFooter={!footerDuplicatesStage}
+            stageDescription={!onImproveStage ? (stage?.description ?? null) : null}
+            showFooter={onImproveStage}
           />
         </div>
       </div>

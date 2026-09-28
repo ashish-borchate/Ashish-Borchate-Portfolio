@@ -13,7 +13,11 @@ export function TransferableSkills() {
       className="border-y border-border bg-charcoal/30 py-16 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading title={transferableCopy.headline} />
+        <SectionHeading
+          title={transferableCopy.headline}
+          className="max-w-none"
+          titleClassName="max-md:text-balance md:whitespace-nowrap"
+        />
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
           {transferableCopy.intro}
         </p>
@@ -34,18 +38,18 @@ export function TransferableSkills() {
           ))}
 
           <div
-            className="grid gap-6 lg:grid-cols-12 lg:items-start lg:gap-8"
+            className="grid gap-6 lg:grid-cols-12 lg:items-stretch lg:gap-8"
             role="tablist"
             aria-label="Transferable capabilities"
           >
-            <div className="flex gap-2 overflow-x-auto pb-1 lg:col-span-4 lg:flex-col lg:items-stretch lg:overflow-visible lg:pb-0 lg:pt-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex gap-2 overflow-x-auto pb-1 lg:col-span-4 lg:flex lg:flex-col lg:justify-between lg:gap-5 lg:overflow-visible lg:pb-0 lg:py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {transferablePhases.map((p) => (
                 <label
                   key={p.id}
                   htmlFor={`skill-${p.id}`}
                   id={`tab-${p.id}`}
                   className={cn(
-                    "skill-tab-label min-h-11 shrink-0 cursor-pointer rounded-full border px-4 py-2.5 text-left font-mono text-[10px] uppercase tracking-wider transition-colors min-[430px]:text-[11px] lg:w-full lg:shrink",
+                    "skill-tab-label flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border px-4 py-2.5 text-center font-mono text-[10px] uppercase tracking-wider transition-colors min-[430px]:text-[11px] lg:min-h-0 lg:flex-1 lg:w-full lg:shrink",
                     "border-border text-muted hover:border-accent/30 hover:text-foreground",
                   )}
                 >
@@ -54,7 +58,7 @@ export function TransferableSkills() {
               ))}
             </div>
 
-            <div className="min-w-0 lg:col-span-8 lg:pt-1">
+            <div className="min-w-0 lg:col-span-8">
               {transferablePhases.map((p) => (
                 <div
                   key={p.id}
@@ -62,7 +66,7 @@ export function TransferableSkills() {
                   role="tabpanel"
                   aria-labelledby={`tab-${p.id}`}
                   className={cn(
-                    "skill-tab-panel rounded-xl border border-border bg-surface/30 p-5 sm:p-8",
+                    "skill-tab-panel min-h-[16rem] rounded-xl border border-border bg-surface/30 p-5 sm:min-h-[18rem] sm:p-8",
                     `skill-tab-panel-${p.id}`,
                   )}
                 >

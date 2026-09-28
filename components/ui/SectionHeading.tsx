@@ -5,6 +5,7 @@ type SectionHeadingProps = {
   title: string;
   subtitle?: string;
   className?: string;
+  titleClassName?: string;
   id?: string;
 };
 
@@ -13,6 +14,7 @@ export function SectionHeading({
   title,
   subtitle,
   className,
+  titleClassName,
   id,
 }: SectionHeadingProps) {
   return (
@@ -24,7 +26,10 @@ export function SectionHeading({
       ) : null}
       <h2
         id={id}
-        className="text-balance text-2xl font-medium tracking-tight text-foreground min-[430px]:text-3xl sm:text-4xl md:text-5xl"
+        className={cn(
+          "text-balance text-2xl font-medium tracking-tight text-foreground min-[430px]:text-3xl sm:text-4xl md:text-5xl",
+          titleClassName,
+        )}
       >
         {title}
       </h2>
