@@ -2,14 +2,26 @@
 
 Premium, data-driven career portfolio built with Next.js, TypeScript, Tailwind CSS, Framer Motion, and Lenis smooth scrolling.
 
-## Run locally
+## Run locally (on your computer)
 
 ```bash
 npm install
 npm run dev -- --port 43123
 ```
 
-Open [http://localhost:43123](http://localhost:43123).
+Open [http://localhost:43123](http://localhost:43123) **in the same machine where the command is running**.
+
+## Preview while using a Cloud Agent
+
+**`http://127.0.0.1:43123` is not your laptop.** It is the remote agent’s machine. Pasting that address into Chrome on your PC will usually fail or behave inconsistently.
+
+Reliable options:
+
+1. **Cursor Preview** — On the agent’s reply, use the **Preview** control (opens the site inside Cursor’s cloud desktop). Do not rely on your own browser with `127.0.0.1`.
+2. **Public link for this session** — The agent may share a temporary URL (for example Cloudflare `trycloudflare.com`). It works until that agent session stops.
+3. **Always-on URL (recommended)** — Create a GitHub repo from this project, connect it to [Netlify](https://netlify.com) (this repo includes `netlify.toml`), and use your Netlify production URL. Redeploys automatically when you push.
+
+After you connect Netlify or Vercel to your repo, update `metadataBase` in `app/layout.tsx` to your production domain.
 
 ## Build
 
