@@ -16,7 +16,7 @@ function CompanyMarker({ visible = true }: { visible?: boolean }) {
   if (!visible) return null;
   return (
     <span
-      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgba(91,141,239,0.45)]"
+      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-foreground shadow-[0_0_8px_rgba(255,255,255,0.35)]"
       aria-hidden
     />
   );
@@ -38,7 +38,7 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
         ) : null}
         <div className="flex items-start gap-2.5">
           <CompanyMarker />
-          <h3 className="text-base font-medium tracking-tight text-foreground sm:text-lg">
+          <h3 className="text-base font-medium tracking-tight text-accent sm:text-lg">
             {entry.company}
           </h3>
         </div>

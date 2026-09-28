@@ -13,7 +13,7 @@ export function DomainExperience() {
           {domainAreas.map((area) => (
             <li
               key={area}
-              className="rounded-lg border border-border/80 bg-surface/20 px-4 py-3 text-sm text-muted transition-colors hover:border-accent/25 hover:text-foreground"
+              className="flex min-h-[3.25rem] items-center justify-center rounded-lg border border-border/80 bg-surface/20 px-3 py-3 text-center text-sm text-foreground transition-colors hover:border-accent/25 sm:min-h-[3.5rem] sm:px-4"
             >
               {area}
             </li>

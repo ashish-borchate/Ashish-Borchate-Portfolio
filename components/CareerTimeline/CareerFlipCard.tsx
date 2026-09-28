@@ -44,7 +44,12 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
         aria-describedby={hintId}
         onClick={toggleFlip}
       >
-        <CardFront entry={entry} hintId={hintId} showMarker={!showBack} />
+        <CardFront
+          entry={entry}
+          hintId={hintId}
+          showMarker={!showBack}
+          isOpen={showBack}
+        />
       </button>
 
       <motion.div
@@ -57,15 +62,8 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
         className="overflow-hidden"
         aria-hidden={!showBack}
       >
-        <div className="border-t border-border px-5 pb-5 sm:px-7 sm:pb-7 md:px-8 md:pb-8 lg:px-10 lg:pb-10">
+        <div className="border-t border-border px-5 pb-6 pt-6 sm:px-7 sm:pb-7 sm:pt-7 md:px-8 md:pb-8 md:pt-8 lg:px-10 lg:pb-10 lg:pt-8">
           <CardBack detail={detail} />
-          <button
-            type="button"
-            onClick={toggleFlip}
-            className="mt-5 font-mono text-[10px] uppercase tracking-wider text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            COLLAPSE ↑
-          </button>
         </div>
       </motion.div>
     </article>
@@ -76,10 +74,12 @@ function CardFront({
   entry,
   hintId,
   showMarker = true,
+  isOpen = false,
 }: {
   entry: ExperienceEntry;
   hintId: string;
   showMarker?: boolean;
+  isOpen?: boolean;
 }) {
   return (
     <div className="flex min-w-0 flex-col">
@@ -87,11 +87,11 @@ function CardFront({
         <div className="flex items-start gap-2.5 sm:gap-3">
           {showMarker ? (
             <span
-              className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgba(91,141,239,0.45)] sm:mt-3"
+              className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-foreground shadow-[0_0_8px_rgba(255,255,255,0.35)] sm:mt-3"
               aria-hidden
             />
           ) : null}
-          <h3 className="text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
+          <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
             {entry.company}
           </h3>
         </div>
@@ -102,7 +102,7 @@ function CardFront({
         id={hintId}
         className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
       >
-        TAP TO EXPLORE ROLE →
+        {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE ROLE →"}
       </p>
     </div>
   );

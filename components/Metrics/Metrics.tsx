@@ -95,11 +95,7 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
           style={{ pointerEvents: showBack ? "auto" : "none" }}
         >
           <p className="max-w-[16.5rem] text-pretty text-center text-sm leading-relaxed text-muted sm:max-w-[18rem] sm:text-[0.9375rem]">
-            {metric.back.split("\n\n").map((paragraph, index) => (
-              <span key={index} className={index > 0 ? "mt-3 block" : undefined}>
-                {paragraph}
-              </span>
-            ))}
+            {metric.back}
           </p>
         </motion.div>
       </div>

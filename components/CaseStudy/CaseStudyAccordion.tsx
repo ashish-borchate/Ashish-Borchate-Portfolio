@@ -156,7 +156,7 @@ function CaseStudyAccordionItem({
             {data.collapsedDescription}
           </span>
           <span className="mt-4 inline-flex min-h-10 items-center font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent sm:text-[11px]">
-            {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE ROLE →"}
+            {isOpen ? "COLLAPSE ↑" : "EXPLORE CASE STUDY →"}
           </span>
         </span>
       </button>

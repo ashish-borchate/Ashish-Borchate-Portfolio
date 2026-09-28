@@ -40,7 +40,7 @@ export const impactMetrics: ImpactMetric[] = [
     value: "20+",
     label: "Features & releases tested",
     context: "Yellow.pro · UAT & staging",
-    back: "Ran end-to-end UAT and staging validation across 20+ features and new releases.\n\nThis also included testing Yellow.pro’s flagship MCP-based AI trading agent, designed to let users perform trading activities through natural-language prompts.",
+    back: "Ran end-to-end UAT and staging validation across 20+ features and releases including Yellow.pro’s flagship MCP-based AI trading agent for prompt-based trading and platform usage.",
   },
   {
     id: "yellow-resolution",
