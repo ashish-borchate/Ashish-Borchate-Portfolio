@@ -2,7 +2,7 @@
 
 import { transferableCopy, transferablePhases } from "@/data/transferableSkills";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { usePrefersReducedMotion } from "@/lib/motion";
@@ -10,7 +10,6 @@ import { usePrefersReducedMotion } from "@/lib/motion";
 export function TransferableSkills() {
   const [active, setActive] = useState(transferablePhases[0]?.id);
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-12% 0px" });
   const reduced = usePrefersReducedMotion();
   const phase = transferablePhases.find((p) => p.id === active);
 
@@ -29,8 +28,9 @@ export function TransferableSkills() {
         </div>
 
         <motion.div
-          initial={reduced ? undefined : { opacity: 0, y: 12 }}
-          animate={inView && !reduced ? { opacity: 1, y: 0 } : undefined}
+          initial={false}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-8% 0px" }}
           transition={{ duration: 0.45 }}
           className="mt-10 grid gap-6 sm:mt-12 lg:grid-cols-12 lg:items-start lg:gap-8"
         >

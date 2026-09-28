@@ -48,8 +48,9 @@ function MetricCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      initial={false}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8% 0px" }}
       transition={{ duration: 0.6 }}
       className="rounded-xl border border-border bg-surface/50 p-4 sm:p-6"
     >

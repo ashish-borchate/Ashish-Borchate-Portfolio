@@ -40,7 +40,24 @@ export const toolCategories: ToolCategory[] = [
     id: "ops",
     title: "Operations & Collaboration",
     tools: [
-      { id: "slack", name: "Slack", uses: ["[USE CASE — VERIFY]"], verified: false },
+      {
+        id: "slack",
+        name: "Slack",
+        uses: ["Internal coordination", "[DETAIL — VERIFY]"],
+        verified: false,
+      },
+      {
+        id: "discord",
+        name: "Discord",
+        uses: ["Community support", "Yellow.pro stack"],
+        verified: true,
+      },
+      {
+        id: "telegram",
+        name: "Telegram",
+        uses: ["Community support", "Yellow.pro stack"],
+        verified: true,
+      },
       { id: "lark", name: "Lark", uses: ["[USE CASE — VERIFY]"], verified: false },
       {
         id: "notion",
@@ -51,8 +68,8 @@ export const toolCategories: ToolCategory[] = [
       {
         id: "confluence",
         name: "Confluence",
-        uses: ["[USE CASE — VERIFY]"],
-        verified: false,
+        uses: ["Internal documentation", "Yellow.pro stack"],
+        verified: true,
       },
       {
         id: "jira",
@@ -60,7 +77,12 @@ export const toolCategories: ToolCategory[] = [
         uses: ["Bug tracking", "Engineering collaboration", "Product requests"],
         verified: true,
       },
-      { id: "gitbook", name: "GitBook", uses: ["[USE CASE — VERIFY]"], verified: false },
+      {
+        id: "gitbook",
+        name: "GitBook",
+        uses: ["Help Center / docs", "Yellow.pro stack"],
+        verified: true,
+      },
     ],
   },
   {
@@ -76,14 +98,14 @@ export const toolCategories: ToolCategory[] = [
       {
         id: "explorers",
         name: "Blockchain explorers",
-        uses: ["Transaction investigation", "[VERIFY]"],
-        verified: false,
+        uses: ["Transaction investigation", "Deposit / withdrawal cases"],
+        verified: true,
       },
       {
         id: "exchange-systems",
         name: "Crypto exchange systems",
-        uses: ["[USE CASE — VERIFY]"],
-        verified: false,
+        uses: ["Spot", "Futures", "Wallet", "P2P workflows"],
+        verified: true,
       },
     ],
   },
@@ -94,8 +116,8 @@ export const toolCategories: ToolCategory[] = [
       {
         id: "intercom-copilot",
         name: "Intercom Copilot",
-        uses: ["[USE CASE — VERIFY]"],
-        verified: false,
+        uses: ["Agent assist", "Workflow automation", "KoinX optimization"],
+        verified: true,
       },
       {
         id: "ai-agents",
@@ -113,8 +135,8 @@ export const toolCategories: ToolCategory[] = [
       {
         id: "support-automation",
         name: "Support automation",
-        uses: ["[USE CASE — VERIFY]"],
-        verified: false,
+        uses: ["Intercom workflows", "Repetitive task reduction"],
+        verified: true,
       },
     ],
   },

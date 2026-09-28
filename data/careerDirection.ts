@@ -9,5 +9,6 @@ export const careerDirection = {
     "Web3 Operations",
     "Customer Success / Support Operations",
   ],
-  copy: "[FINAL COPY — teams where customer problems, operational systems and product decisions are closely connected. Open to non-Web3 companies.]",
+  copy:
+    "Teams where customer problems, operational systems, and product decisions stay connected — Support Operations, Product Operations, and CX. Open to strong product companies outside Web3 when the role fits.",
 };

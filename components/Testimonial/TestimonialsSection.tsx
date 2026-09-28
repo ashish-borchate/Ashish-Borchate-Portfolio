@@ -2,14 +2,13 @@
 
 import { getFeaturedTestimonials } from "@/data/testimonials";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import { usePrefersReducedMotion } from "@/lib/motion";
 
 export function TestimonialsSection() {
   const items = getFeaturedTestimonials();
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   const reduced = usePrefersReducedMotion();
 
   return (
@@ -25,8 +24,9 @@ export function TestimonialsSection() {
           {items.map((item, index) => (
             <motion.figure
               key={item.id}
-              initial={reduced ? undefined : { opacity: 0, y: 16 }}
-              animate={inView && !reduced ? { opacity: 1, y: 0 } : undefined}
+              initial={false}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-8% 0px" }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
               className="border-t border-border pt-8 first:border-t-0 first:pt-0 sm:pt-10"
             >
