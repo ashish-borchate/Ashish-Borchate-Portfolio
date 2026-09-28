@@ -12,13 +12,13 @@ export const marqueeCompanies: MarqueeCompany[] = [
     id: "yellow",
     name: "Yellow.pro",
     logo: "/assets/companies/yellow.png",
-    logoClassName: "w-[min(100%,11.5rem)]",
+    logoClassName: "w-[min(100%,10.25rem)]",
   },
   {
     id: "bybit",
     name: "Bybit",
     logo: "/assets/companies/bybit.png",
-    logoClassName: "w-[min(100%,10.5rem)]",
+    logoClassName: "w-[min(100%,11.25rem)]",
   },
   {
     id: "koinx",
