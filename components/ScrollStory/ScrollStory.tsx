@@ -8,12 +8,9 @@ import { cn } from "@/lib/utils";
 import { useMemo, useRef } from "react";
 
 const STAGE_COUNT = journey.stages.length;
-const STAGES_END = 0.88;
-const CLOSING_START = STAGES_END;
 
 function stageProgress(raw: number) {
-  if (raw >= STAGES_END) return 1;
-  return raw / STAGES_END;
+  return Math.min(1, Math.max(0, raw));
 }
 
 /** Single source of truth: line, labels, and description stay in sync. */
@@ -24,10 +21,11 @@ function useJourneyState(scrollProgress: number) {
     Math.max(0, Math.floor(pos)),
   );
   const lineFill =
-    STAGE_COUNT <= 1 ? stageProgress(scrollProgress) : Math.min(1, pos / (STAGE_COUNT - 1));
-  const showClosing = scrollProgress >= CLOSING_START;
+    STAGE_COUNT <= 1
+      ? stageProgress(scrollProgress)
+      : Math.min(1, pos / (STAGE_COUNT - 1));
 
-  return { activeIndex, lineFill, pos, showClosing };
+  return { activeIndex, lineFill, pos };
 }
 
 function JourneyStageNode({
@@ -151,7 +149,7 @@ function JourneyStatic() {
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
             {journey.eyebrow}
           </p>
-          <p className="text-sm font-medium text-accent/90 sm:text-base">
+          <p className="text-sm font-medium text-muted/90 sm:text-base">
             {journey.closing}
           </p>
         </div>
@@ -170,13 +168,16 @@ function JourneyStatic() {
             </li>
           ))}
         </ol>
+        <p className="mt-6 max-w-2xl text-pretty text-xs leading-snug text-muted/80 sm:text-sm">
+          {journey.trackFooter}
+        </p>
       </div>
     </section>
   );
 }
 
-/** Shorter runway = less empty scroll; still enough for four steps. */
-const SCROLL_RUNWAY_VH = { mobile: 165, desktop: 210 };
+/** Scroll runway: enough for four steps; ends when journey completes (no dead tail). */
+const SCROLL_RUNWAY_VH = { mobile: 150, desktop: 185 };
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
@@ -187,8 +188,6 @@ export function ScrollStory() {
   const { activeIndex, lineFill, pos } = useJourneyState(scrollProgress);
 
   const stage = journey.stages[activeIndex];
-  const introOpacity =
-    scrollProgress <= 0.05 ? 1 : scrollProgress <= 0.14 ? 0.65 : 0.5;
 
   const sectionHeight = useMemo(
     () => 100 + (isMobile ? SCROLL_RUNWAY_VH.mobile : SCROLL_RUNWAY_VH.desktop),
@@ -207,36 +206,39 @@ export function ScrollStory() {
       style={{ height: `${sectionHeight}vh` }}
       aria-label="Journey"
     >
-      <div className="sticky top-0 z-20 flex max-h-[100dvh] min-h-0 flex-col justify-start overflow-hidden pb-5 pt-[4.75rem] sm:pb-6 sm:pt-20">
+      <div className="sticky top-0 z-20 flex h-[100dvh] max-h-[100svh] flex-col justify-center overflow-hidden py-8 sm:py-10">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.03),transparent)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
-          <div
-            className="max-w-3xl transition-opacity duration-300"
-            style={{ opacity: introOpacity }}
-          >
+          <div className="max-w-3xl">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
               <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
                 {journey.eyebrow}
               </p>
-              {stage ? (
-                <p
-                  key={stage.id}
-                  className="text-pretty text-sm font-normal leading-snug text-accent sm:text-base"
-                  aria-live="polite"
-                >
-                  {stage.description}
-                </p>
-              ) : null}
+              <p className="text-pretty text-sm leading-snug text-muted/90 sm:text-base">
+                {journey.closing}
+              </p>
             </div>
+
+            {stage ? (
+              <p
+                key={stage.id}
+                className="mt-3 text-pretty text-sm font-normal leading-snug text-accent sm:mt-3.5 sm:text-base"
+                aria-live="polite"
+              >
+                {stage.description}
+              </p>
+            ) : null}
+
             <p className="mt-2 text-pretty text-sm leading-relaxed text-muted sm:mt-2.5 sm:text-base">
               {journey.introduction}
-            </p>
-            <p className="mt-2 text-pretty text-xs leading-snug text-muted/80 sm:text-sm">
-              {journey.closing}
             </p>
           </div>
 
           <JourneyTrack lineFill={lineFill} pos={pos} layout={layout} />
+
+          <p className="mt-5 max-w-2xl text-pretty text-xs leading-snug text-muted/80 sm:mt-6 sm:text-sm">
+            {journey.trackFooter}
+          </p>
         </div>
       </div>
     </section>

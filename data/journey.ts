@@ -3,6 +3,8 @@ export const journey = {
   introduction:
     "It starts with listening to users — understanding their questions and feedback, digging into the root cause, collaborating with the right internal teams, documenting what we learn, and turning those insights into product improvements.",
   closing: "From customer insight to a better product experience.",
+  trackFooter:
+    "Turn insights into practical changes that improve the product and user experience.",
   stages: [
     {
       id: "understand",

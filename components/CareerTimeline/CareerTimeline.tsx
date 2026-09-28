@@ -12,13 +12,11 @@ import { useMemo, useRef } from "react";
 const foundationEntries = experienceTimeline.filter((e) => e.emphasis === "compressed");
 const coreEntries = experienceTimeline.filter((e) => e.emphasis === "primary");
 
-function TimelineDot({ className }: { className?: string }) {
+function CompanyMarker({ visible = true }: { visible?: boolean }) {
+  if (!visible) return null;
   return (
     <span
-      className={cn(
-        "absolute z-10 h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(91,141,239,0.45)]",
-        className,
-      )}
+      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgba(91,141,239,0.45)]"
       aria-hidden
     />
   );
@@ -38,9 +36,12 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
             className="h-9 min-w-[6rem]"
           />
         ) : null}
-        <h3 className="text-base font-medium tracking-tight text-foreground sm:text-lg">
-          {entry.company}
-        </h3>
+        <div className="flex items-start gap-2.5">
+          <CompanyMarker />
+          <h3 className="text-base font-medium tracking-tight text-foreground sm:text-lg">
+            {entry.company}
+          </h3>
+        </div>
         <p className="mt-1 text-xs text-muted sm:text-sm">{entry.role}</p>
         <p className="mt-0.5 text-xs text-muted/90 sm:text-sm">{entry.period}</p>
       </div>
@@ -79,11 +80,7 @@ export function CareerTimeline() {
   return (
     <section id="experience" ref={ref} className="py-14 sm:py-20 md:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Experience"
-          title="Career evolution"
-          subtitle="Six companies — early foundation compressed, core chapters expanded."
-        />
+        <SectionHeading eyebrow="Experience" title="Career evolution" />
 
         <div className="relative mt-8 md:mt-12">
           <div className="absolute left-[7px] top-2 hidden h-[calc(100%-1rem)] w-px overflow-hidden bg-border sm:left-4 md:block">
@@ -115,7 +112,6 @@ export function CareerTimeline() {
                 >
                   {section.entries.map((entry) => (
                     <li key={entry.id} className="relative min-w-0">
-                      <TimelineDot className="left-[7px] top-7 -translate-x-1/2 sm:top-8 sm:left-4 md:left-[3.75rem]" />
                       {section.tier === "foundation" ? (
                         <FoundationEntry entry={entry} />
                       ) : (

@@ -16,10 +16,10 @@ export function Contact() {
           <MagneticButton href={profile.links.emailHref} variant="primary" className="w-full sm:w-auto">
             Email Me
           </MagneticButton>
-          <MagneticButton href={profile.links.linkedInHref} variant="ghost" className="w-full sm:w-auto" external>
+          <MagneticButton href={profile.links.linkedInHref} variant="primary" className="w-full sm:w-auto" external>
             LinkedIn
           </MagneticButton>
-          <MagneticButton href={profile.assets.resumePdf} variant="ghost" className="w-full sm:w-auto" external>
+          <MagneticButton href={profile.assets.resumePdf} variant="primary" className="w-full sm:w-auto" external>
             Download Resume
           </MagneticButton>
         </div>

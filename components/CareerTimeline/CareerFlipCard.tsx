@@ -109,6 +109,7 @@ export function CareerFlipCard({ entry }: CareerFlipCardProps) {
                   entry={entry}
                   hintId={hintId}
                   isMobile={useTapInteraction}
+                  showMarker={!showBack}
                 />
               </div>
             </div>
@@ -141,18 +142,28 @@ function CardFront({
   hintId,
   isMobile,
   staticHint,
+  showMarker = true,
 }: {
   entry: ExperienceEntry;
   hintId: string;
   isMobile: boolean;
   staticHint?: boolean;
+  showMarker?: boolean;
 }) {
   return (
     <div className="flex h-full min-h-[10rem] flex-col justify-between sm:min-h-[11rem]">
       <div>
-        <h3 className="text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
-          {entry.company}
-        </h3>
+        <div className="flex items-start gap-2.5 sm:gap-3">
+          {showMarker ? (
+            <span
+              className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgba(91,141,239,0.45)] sm:mt-3"
+              aria-hidden
+            />
+          ) : null}
+          <h3 className="text-xl font-medium tracking-tight text-foreground sm:text-2xl md:text-3xl">
+            {entry.company}
+          </h3>
+        </div>
         <p className="mt-2 text-sm text-foreground/90 sm:text-base">{entry.role}</p>
         <p className="mt-1 text-sm text-muted">{entry.period}</p>
       </div>

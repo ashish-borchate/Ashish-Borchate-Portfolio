@@ -44,7 +44,7 @@ export function Navigation() {
               <li key={item.id}>
                 <Link
                   href={item.href}
-                  className="text-xs text-muted transition-colors hover:text-foreground"
+                  className="text-xs font-medium text-accent transition-colors hover:text-[#6b99f2]"
                 >
                   {item.label}
                 </Link>
@@ -100,7 +100,7 @@ export function Navigation() {
                 <li key={item.id}>
                   <Link
                     href={item.href}
-                    className="block rounded-lg px-2 py-3 text-sm text-foreground active:bg-surface/50"
+                    className="block rounded-lg px-2 py-3 text-sm font-medium text-accent active:bg-surface/50"
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.label}

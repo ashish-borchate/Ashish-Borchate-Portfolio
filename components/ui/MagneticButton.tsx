@@ -46,5 +46,9 @@ export function MagneticButton({
     );
   }
 
+  if (href.startsWith("mailto:")) {
+    return <a href={href}>{content}</a>;
+  }
+
   return <Link href={href}>{content}</Link>;
 }
