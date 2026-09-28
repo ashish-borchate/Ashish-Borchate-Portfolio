@@ -31,6 +31,15 @@ if (!existsSync(join(outDir, "index.html"))) {
   process.exit(1);
 }
 
+const rewrite = spawnSync(
+  "node",
+  [join(root, "scripts", "rewrite-static-for-file.mjs"), outDir],
+  { cwd: root, stdio: "inherit" },
+);
+if (rewrite.status !== 0) {
+  process.exit(rewrite.status ?? 1);
+}
+
 if (process.argv.includes("--copy-desktop")) {
   mkdirSync(copyTarget, { recursive: true });
   rmSync(copyTarget, { recursive: true, force: true });
@@ -46,9 +55,9 @@ if (process.argv.includes("--copy-desktop")) {
   console.log("Copied static site to:");
   console.log(`  ${copyTarget}`);
   console.log("");
-  console.log("Open in browser (recommended — do not rely on file:// alone):");
-  console.log(`  cd "${copyTarget}" && npx serve -p 8765`);
-  console.log("  Then visit http://localhost:8765");
+  console.log("Open in browser:");
+  console.log(`  Double-click index.html in Finder, or`);
+  console.log(`  cd "${copyTarget}" && npx serve -p 8765  →  http://localhost:8765`);
   console.log("");
   console.log("Entry file (folder, not single HTML like Altura):");
   console.log(`  file://${join(copyTarget, "index.html")}`);

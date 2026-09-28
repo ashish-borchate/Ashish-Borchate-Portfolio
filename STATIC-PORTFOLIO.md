@@ -7,12 +7,10 @@ This portfolio is built with **Next.js** (many files + JavaScript bundles). Brow
 ## One-click on your Mac (after `export:desktop`)
 
 1. In Finder go to **`~/Documents/cursor/Ashish-Borchate-Portfolio`**
-2. Double-click **`Open Portfolio.command`**
-3. If macOS warns “unidentified developer”: **Right-click → Open → Open** once
+2. Double-click **`index.html`** — styles and images should load (paths are fixed for `file://`).
+3. Or double-click **`Open Portfolio.command`** if scroll/animations act odd in Chrome (uses `http://localhost`).
 
-Bookmark **http://localhost:8765** if you like. Close the Terminal window when you’re done (stops the server).
-
-To refresh the site after edits: in the repo run `npm run export:desktop` again, then double-click the launcher.
+If the page looks unstyled (plain blue links): you have an **old copy** — in the repo run `git pull` and `npm run export:desktop` again.
 
 ---
 
