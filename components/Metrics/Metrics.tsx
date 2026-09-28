@@ -7,7 +7,17 @@ import { usePrefersReducedMotion } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useCallback, useId, useState } from "react";
+import { useCallback, useState } from "react";
+
+function ImpactExploreHint({ showBack }: { showBack: boolean }) {
+  const isTouch = useMediaQuery("(max-width: 767px)");
+  if (showBack || !isTouch) return null;
+  return (
+    <p className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent/90">
+      TAP TO EXPLORE
+    </p>
+  );
+}
 
 type ImpactFlipCardProps = {
   metric: ImpactMetric;
@@ -19,7 +29,6 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
   const reduced = usePrefersReducedMotion();
   const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
   const [hovered, setHovered] = useState(false);
-  const hintId = useId();
 
   const showBack = hoverCapable ? hovered || isOpen : isOpen;
 
@@ -47,7 +56,6 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
         role="button"
         tabIndex={0}
         aria-expanded={showBack}
-        aria-describedby={hintId}
         onClick={() => {
           if (!hoverCapable) onToggle();
         }}
@@ -74,12 +82,7 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
               {metric.context}
             </p>
           </div>
-          <p
-            id={hintId}
-            className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent/90"
-          >
-            FLIP TO EXPLORE →
-          </p>
+          <ImpactExploreHint showBack={showBack} />
         </motion.div>
 
         <motion.div
@@ -90,11 +93,6 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
           aria-hidden={!showBack}
         >
           <p className="text-pretty text-sm leading-relaxed text-muted">{metric.back}</p>
-          {!hoverCapable ? (
-            <p className="mt-auto pt-4 font-mono text-[10px] uppercase tracking-wider text-muted">
-              Tap again to return
-            </p>
-          ) : null}
         </motion.div>
       </div>
     </div>

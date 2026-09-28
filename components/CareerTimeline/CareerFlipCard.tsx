@@ -40,7 +40,7 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
           onClick={toggleFlip}
           className="mt-4 text-left font-mono text-[10px] uppercase tracking-wider text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          {showBack ? "Hide details" : "Tap to know more →"}
+          {showBack ? "COLLAPSE ↑" : "EXPLORE CASE STUDY →"}
         </button>
         {showBack ? (
           <div className="mt-4 border-t border-border pt-4">
@@ -96,7 +96,7 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
             <CardBack detail={detail} />
           </div>
           <p className="mt-4 shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted">
-            Tap again to return
+            COLLAPSE ↑
           </p>
         </motion.div>
       </div>
@@ -134,7 +134,7 @@ function CardFront({
         id={hintId}
         className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
       >
-        Tap to know more →
+        EXPLORE CASE STUDY →
       </p>
     </div>
   );

@@ -3,6 +3,7 @@ export type CaseStudySection = {
   company: string;
   companySlug: string;
   theme: string;
+  collapsedDescription: string;
   role: string;
   period: string;
   context: string;
@@ -17,6 +18,8 @@ export const caseStudies: CaseStudySection[] = [
     company: "Yellow.pro",
     companySlug: "yellow",
     theme: "BUILDING SUPPORT FROM ZERO",
+    collapsedDescription:
+      "Building support infrastructure, documentation, and release-validation processes from the ground up.",
     role: "Community and Support Operations Manager",
     period: "April 2026 – September 2026",
     context:
@@ -38,6 +41,8 @@ export const caseStudies: CaseStudySection[] = [
     company: "Binance",
     companySlug: "binance",
     theme: "OPERATING AT SCALE",
+    collapsedDescription:
+      "Managing customer experience, team performance, and complex support operations across a global crypto platform.",
     role: "L2 Customer Support Team Leader",
     period: "December 2022 – February 2025",
     context:
@@ -59,6 +64,8 @@ export const caseStudies: CaseStudySection[] = [
     company: "KoinX",
     companySlug: "koinx",
     theme: "FROM SUPPORT TO PRODUCT FEEDBACK",
+    collapsedDescription:
+      "Turning customer conversations into product improvements, better documentation, and more efficient support workflows.",
     role: "Customer Support & Operations Manager",
     period: "July 2025 – October 2025",
     context:
@@ -81,6 +88,8 @@ export const caseStudies: CaseStudySection[] = [
     company: "Bybit",
     companySlug: "bybit",
     theme: "SPEED UNDER PRESSURE",
+    collapsedDescription:
+      "Balancing response speed, complex escalations, customer experience, and risk controls in a high-volume environment.",
     role: "L4 Senior Client Service Analyst (Managed India CS Team)",
     period: "October 2025 – April 2026",
     context:
