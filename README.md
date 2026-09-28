@@ -44,6 +44,10 @@ See `public/assets/README.md`.
 
 Repository includes `netlify.toml` for the Next.js Netlify plugin. Connect the repo and deploy; set your production URL in `app/layout.tsx` `metadataBase` when known.
 
+### Static folder (Altura-style local copy + Netlify Drop)
+
+See **`STATIC-PORTFOLIO.md`** — build a self-contained `out/` folder, copy to `~/Documents/cursor/Ashish-Borchate-Portfolio`, open with `npm run preview:static`, or drag `out/` to [Netlify Drop](https://app.netlify.com/drop).
+
 ## Sound
 
 Optional sound architecture lives in `context/sound-context.tsx`. `SOUND_GLOBALLY_DISABLED` is `true` until audio assets and UX are ready.
