@@ -6,6 +6,33 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/lib/motion";
 
+/** Values like 80–100 or 4 hr should not run broken numeric animation. */
+function metricDisplayParts(value: string) {
+  const range = value.match(/^(\d[\d.]*)\s*[–-]\s*(\d[\d.]*)$/);
+  if (range) {
+    return { primary: `${range[1]}–${range[2]}`, animatable: false };
+  }
+  const hours = value.match(/^(\d+)\s*hr$/i);
+  if (hours) {
+    return { primary: hours[1], animatable: true, numeric: Number(hours[1]), suffix: "" };
+  }
+  const plus = value.match(/^(\d+)\+$/);
+  if (plus) {
+    return { primary: value, animatable: true, numeric: Number(plus[1]), suffix: "+" };
+  }
+  const pct = value.match(/^(\d+(?:\.\d+)?)%$/);
+  if (pct) {
+    return {
+      primary: value,
+      animatable: true,
+      numeric: Number(pct[1]),
+      suffix: "%",
+      decimals: value.includes(".") ? 1 : 0,
+    };
+  }
+  return { primary: value, animatable: false };
+}
+
 function MetricCard({
   value,
   label,
@@ -17,13 +44,14 @@ function MetricCard({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
-  const [display, setDisplay] = useState(value);
+  const parts = metricDisplayParts(value);
+  const [display, setDisplay] = useState(parts.primary);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node || reduced) {
-      setDisplay(value);
+      setDisplay(parts.primary);
       return;
     }
 
@@ -38,34 +66,28 @@ function MetricCard({
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [reduced, value]);
+  }, [reduced, parts.primary]);
 
   useEffect(() => {
-    if (!started || reduced) {
-      setDisplay(value);
+    if (!started || reduced || !parts.animatable || parts.numeric === undefined) {
+      setDisplay(parts.primary);
       return;
     }
-    const numeric = parseFloat(value.replace(/[^0-9.]/g, ""));
-    if (Number.isNaN(numeric)) {
-      setDisplay(value);
-      return;
-    }
-    const prefix = value.match(/^[^\d]*/)?.[0] ?? "";
-    const suffix = value.match(/[^\d.]*$/)?.[0] ?? "";
+    const numeric = parts.numeric;
+    const suffix = parts.suffix ?? "";
+    const decimals = "decimals" in parts ? parts.decimals : 0;
     const duration = 1400;
     const start = performance.now();
     let frame = 0;
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
-      setDisplay(
-        `${prefix}${(numeric * eased).toFixed(value.includes(".") ? 1 : 0)}${suffix}`,
-      );
+      setDisplay(`${(numeric * eased).toFixed(decimals)}${suffix}`);
       if (t < 1) frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [started, reduced, value]);
+  }, [started, reduced, parts]);
 
   return (
     <motion.div
@@ -73,10 +95,10 @@ function MetricCard({
       initial={false}
       className="rounded-xl border border-border bg-surface/50 p-4 sm:p-6"
     >
-      <p className="font-mono text-2xl font-medium tracking-tight text-foreground min-[430px]:text-3xl sm:text-4xl">
+      <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl sm:text-4xl">
         {display}
       </p>
-      <p className="mt-2 text-sm text-muted">{label}</p>
+      <p className="mt-2 text-sm text-foreground/90">{label}</p>
       {note ? (
         <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted/70">
           {note}
@@ -88,14 +110,14 @@ function MetricCard({
 
 export function Metrics() {
   return (
-    <section id="impact" className="py-16 sm:py-24 md:py-32">
+    <section id="impact" className="py-14 sm:py-20 md:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Impact"
           title="Evidence, not exaggeration."
           subtitle="Highlights drawn from verified support operations work."
         />
-        <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {impactMetrics.map((m) => (
             <MetricCard key={m.id} value={m.value} label={m.label} note={m.note} />
           ))}

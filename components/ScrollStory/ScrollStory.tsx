@@ -73,7 +73,7 @@ function JourneyStageNode({
         <span
           className={cn(
             "font-mono text-[10px] uppercase tracking-[0.16em] sm:text-[11px]",
-            isActive ? "text-foreground" : "text-muted",
+            isActive ? "text-accent" : "text-muted",
           )}
         >
           {title}
@@ -176,7 +176,7 @@ function JourneyStatic() {
 }
 
 /** Shorter runway = less empty scroll; still enough for four steps. */
-const SCROLL_RUNWAY_VH = { mobile: 240, desktop: 300 };
+const SCROLL_RUNWAY_VH = { mobile: 165, desktop: 210 };
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
@@ -184,7 +184,7 @@ export function ScrollStory() {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const layout = isMobile ? "vertical" : "horizontal";
   const scrollProgress = useSectionScrollProgress(ref);
-  const { activeIndex, lineFill, pos, showClosing } = useJourneyState(scrollProgress);
+  const { activeIndex, lineFill, pos } = useJourneyState(scrollProgress);
 
   const stage = journey.stages[activeIndex];
   const introOpacity =
@@ -207,45 +207,36 @@ export function ScrollStory() {
       style={{ height: `${sectionHeight}vh` }}
       aria-label="Journey"
     >
-      <div className="sticky top-0 z-20 flex h-[100svh] min-h-0 max-h-[100dvh] flex-col justify-center overflow-hidden py-5 sm:py-6">
+      <div className="sticky top-0 z-20 flex max-h-[100dvh] min-h-0 flex-col justify-start overflow-hidden pb-5 pt-[4.75rem] sm:pb-6 sm:pt-20">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.03),transparent)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div
             className="max-w-3xl transition-opacity duration-300"
             style={{ opacity: introOpacity }}
           >
-            <div className="flex flex-col gap-1.5 min-[430px]:flex-row min-[430px]:flex-wrap min-[430px]:items-baseline min-[430px]:gap-x-4">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
+              <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">
                 {journey.eyebrow}
               </p>
-              <p className="text-pretty text-sm font-medium leading-snug text-accent/90 sm:text-base">
-                {journey.closing}
-              </p>
+              {stage ? (
+                <p
+                  key={stage.id}
+                  className="text-pretty text-sm font-normal leading-snug text-accent sm:text-base"
+                  aria-live="polite"
+                >
+                  {stage.description}
+                </p>
+              ) : null}
             </div>
-            <p className="mt-2.5 text-pretty text-sm leading-relaxed text-muted sm:mt-3 sm:text-base">
+            <p className="mt-2 text-pretty text-sm leading-relaxed text-muted sm:mt-2.5 sm:text-base">
               {journey.introduction}
+            </p>
+            <p className="mt-2 text-pretty text-xs leading-snug text-muted/80 sm:text-sm">
+              {journey.closing}
             </p>
           </div>
 
           <JourneyTrack lineFill={lineFill} pos={pos} layout={layout} />
-
-          <div
-            className="mx-auto mt-4 flex min-h-[3.25rem] max-w-xl items-center justify-center sm:mt-5"
-            aria-live="polite"
-          >
-            {!showClosing && stage ? (
-              <p
-                key={stage.id}
-                className="text-pretty text-center text-sm leading-relaxed text-muted sm:text-base"
-              >
-                {stage.description}
-              </p>
-            ) : (
-              <p className="text-pretty text-center text-sm font-medium text-foreground sm:text-base">
-                {journey.closing}
-              </p>
-            )}
-          </div>
         </div>
       </div>
     </section>

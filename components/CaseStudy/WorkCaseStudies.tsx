@@ -11,7 +11,7 @@ const order: { slug: string; variant: "build" | "scale" | "feedback" | "speed" }
 
 export function WorkCaseStudies() {
   return (
-    <div id="work">
+    <div id="case-studies">
       {order.map(({ slug, variant }) => {
         const data = caseStudies.find((c) => c.companySlug === slug);
         if (!data) return null;

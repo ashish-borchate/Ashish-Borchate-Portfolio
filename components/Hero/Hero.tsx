@@ -28,9 +28,9 @@ export function Hero() {
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-accent min-[430px]:text-base sm:mt-5 sm:text-lg">
               {profile.description}
             </p>
-            <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+            <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3" id="resume">
               <MagneticButton
-                href="#work"
+                href="#case-studies"
                 variant="primary"
                 className="w-full shrink-0 sm:w-auto"
               >
