@@ -6,8 +6,7 @@ import { CareerFlipCard } from "@/components/CareerTimeline/CareerFlipCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const foundationEntries = experienceTimeline.filter((e) => e.emphasis === "compressed");
 const coreEntries = experienceTimeline.filter((e) => e.emphasis === "primary");
@@ -40,12 +39,29 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
 
 export function CareerTimeline() {
   const ref = useRef<HTMLElement>(null);
+  const lineTrackRef = useRef<HTMLDivElement>(null);
+  const [lineFill, setLineFill] = useState(0);
   const [openEntryId, setOpenEntryId] = useState<string | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const updateLineFill = useCallback(() => {
+    const track = lineTrackRef.current;
+    if (!track) return;
+    const rect = track.getBoundingClientRect();
+    const viewportCenter = window.innerHeight * 0.5;
+    const fillPx = viewportCenter - rect.top;
+    const ratio = rect.height > 0 ? fillPx / rect.height : 0;
+    setLineFill(Math.min(1, Math.max(0, ratio)));
+  }, []);
+
+  useEffect(() => {
+    updateLineFill();
+    window.addEventListener("scroll", updateLineFill, { passive: true });
+    window.addEventListener("resize", updateLineFill);
+    return () => {
+      window.removeEventListener("scroll", updateLineFill);
+      window.removeEventListener("resize", updateLineFill);
+    };
+  }, [updateLineFill]);
 
   const sections = useMemo(
     () => [
@@ -73,10 +89,13 @@ export function CareerTimeline() {
         <SectionHeading eyebrow="Experience" title="Career evolution" />
 
         <div className="relative mt-8 md:mt-12">
-          <div className="absolute left-[7px] top-2 hidden h-[calc(100%-1rem)] w-px overflow-hidden bg-border sm:left-4 md:block">
-            <motion.div
-              style={{ scaleY: lineScale }}
-              className="h-full w-full origin-top bg-accent"
+          <div
+            ref={lineTrackRef}
+            className="absolute left-[7px] top-2 hidden h-[calc(100%-1rem)] w-px overflow-hidden bg-border sm:left-4 md:block"
+          >
+            <div
+              className="h-full w-full origin-top bg-accent transition-[transform] duration-150 ease-out will-change-transform"
+              style={{ transform: `scaleY(${lineFill})` }}
             />
           </div>
 

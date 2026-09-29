@@ -20,7 +20,7 @@ export function Contact() {
             LinkedIn
           </MagneticButton>
           <MagneticButton href={profile.assets.resumePdf} variant="primary" className="w-full sm:w-auto" external>
-            Download Resume
+            Resume
           </MagneticButton>
         </div>
       </div>

@@ -33,6 +33,13 @@ export function Hero() {
               >
                 See What I&apos;ve Built
               </MagneticButton>
+              <MagneticButton
+                href="#story"
+                variant="ghost"
+                className="w-full shrink-0 sm:w-auto"
+              >
+                How I Work
+              </MagneticButton>
               <button
                 type="button"
                 onClick={() => setResumeOpen(true)}
@@ -47,10 +54,7 @@ export function Hero() {
           </div>
 
           <div className="order-1 min-w-0 lg:order-2 lg:col-span-5 lg:flex lg:justify-end">
-            <ProfileImage
-              className="mx-auto w-full max-w-[220px] min-[390px]:max-w-[260px] sm:max-w-[280px] lg:mx-0 lg:max-w-[320px]"
-              priority
-            />
+            <ProfileImage className="lg:mx-0 lg:ml-auto" priority />
           </div>
         </div>
       </section>

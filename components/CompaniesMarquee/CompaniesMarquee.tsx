@@ -1,7 +1,6 @@
 "use client";
 
 import { marqueeCompanies } from "@/data/companiesMarquee";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -87,8 +86,12 @@ export function CompaniesMarquee() {
       aria-label="Companies I've worked with"
       onMouseLeave={clearActive}
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading title="COMPANIES I'VE WORKED WITH" className="max-w-none" />
+      <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+        <h2
+          className="font-mono text-[10px] font-medium uppercase tracking-[0.28em] text-muted sm:text-[11px]"
+        >
+          COMPANIES I&apos;VE WORKED WITH
+        </h2>
       </div>
 
       <div className="relative mx-auto mt-8 min-w-0 max-w-6xl overflow-hidden px-4 sm:mt-10 sm:px-6">

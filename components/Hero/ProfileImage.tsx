@@ -17,16 +17,12 @@ export function ProfileImage({ className, priority }: ProfileImageProps) {
     return (
       <div
         className={cn(
-          "flex aspect-[4/5] w-full max-w-sm flex-col justify-end rounded-sm border border-border bg-gradient-to-br from-charcoal to-background p-6",
+          "flex aspect-square w-full max-w-[280px] flex-col items-center justify-center rounded-full border border-border bg-gradient-to-br from-charcoal to-background p-6",
           className,
         )}
       >
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
           Profile photo
-        </p>
-        <p className="mt-2 text-sm text-muted">
-          Replace{" "}
-          <code className="text-accent">/public/assets/profile.jpg</code>
         </p>
       </div>
     );
@@ -35,20 +31,29 @@ export function ProfileImage({ className, priority }: ProfileImageProps) {
   return (
     <div
       className={cn(
-        "relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-sm border border-border",
+        "relative mx-auto aspect-square w-full max-w-[260px] min-[390px]:max-w-[280px] sm:max-w-[300px] lg:max-w-[320px]",
         className,
       )}
     >
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-background/55 via-transparent to-transparent" />
-      <Image
-        src={profile.assets.profileImage}
-        alt="Ashish Borchate"
-        fill
-        priority={priority}
-        className="object-cover object-[center_18%] contrast-[1.02]"
-        sizes="(max-width: 768px) 100vw, 400px"
-        onError={() => setFailed(true)}
+      <div
+        className="absolute inset-0 rounded-full border-2 border-[#d4af37]/85 shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
+        aria-hidden
       />
+      <div
+        className="absolute inset-[6px] rounded-full border border-[#e8c547]/70"
+        aria-hidden
+      />
+      <div className="relative m-[10px] aspect-square overflow-hidden rounded-full bg-[#f5c400]">
+        <Image
+          src={profile.assets.profileImage}
+          alt="Ashish Borchate"
+          fill
+          priority={priority}
+          className="object-cover object-[center_18%] contrast-[1.02]"
+          sizes="(max-width: 768px) 72vw, 320px"
+          onError={() => setFailed(true)}
+        />
+      </div>
     </div>
   );
 }
