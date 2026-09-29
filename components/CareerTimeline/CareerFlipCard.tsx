@@ -41,12 +41,17 @@ function ExperienceLogo({
 function RoleLines({
   entry,
   className,
+  align = "left",
 }: {
   entry: ExperienceEntry;
   className?: string;
+  align?: "left" | "right" | "center";
 }) {
+  const alignClass =
+    align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
+
   return (
-    <div className={className}>
+    <div className={cn(alignClass, className)}>
       {entry.roleMobile ? (
         <>
           <p className={cn("truncate sm:hidden", roleTitle)}>{entry.roleMobile}</p>
@@ -72,6 +77,14 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
     onToggle();
   }, [detail, onToggle]);
 
+  const collapseFromControl = useCallback(
+    (event: React.MouseEvent) => {
+      event.stopPropagation();
+      toggleFlip();
+    },
+    [toggleFlip],
+  );
+
   if (!detail) return null;
 
   const transition = reducedMotion
@@ -79,10 +92,8 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
     : { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
   const periodLabel = formatExperiencePeriod(entry.period);
-  const experienceCtaClassName = cn(
-    monoCtaBlock,
-    "justify-center sm:justify-start",
-  );
+  const experienceCtaClassName = cn(monoCtaBlock, "justify-center");
+  const collapseCtaClassName = cn(monoCtaBlock, "w-auto shrink-0 justify-center sm:justify-end");
 
   return (
     <article
@@ -91,79 +102,109 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
         showBack ? "border-border-hover" : "border-border hover:border-border-hover",
       )}
     >
-      <button
-        type="button"
-        className="w-full min-w-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
-        aria-expanded={showBack}
-        aria-describedby={!showBack ? hintId : undefined}
-        onClick={toggleFlip}
-      >
-        {!showBack ? (
-          <>
-            {showLogo ? (
-              <div className="flex justify-center px-5 py-8 sm:hidden">
-                <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
-              </div>
-            ) : (
-              <div className="px-5 py-8 sm:hidden">
-                <p className="text-center text-lg font-medium text-accent">{entry.company}</p>
-              </div>
-            )}
-
-            <div className="hidden min-w-0 sm:block sm:p-7 md:p-8 lg:p-10">
-              <div className="flex min-w-0 items-center justify-between gap-6 md:gap-8">
-                {showLogo ? (
-                  <ExperienceLogo
-                    entry={entry}
-                    className="h-9 max-w-[7rem] md:h-10 md:max-w-[8rem]"
-                  />
-                ) : (
-                  <p className="text-xl font-medium text-accent">{entry.company}</p>
-                )}
-                <div className="min-w-0 flex-1 text-left">
-                  <RoleLines entry={entry} />
-                  <p className={cn("mt-1", dateMeta)}>{periodLabel}</p>
-                  <p id={hintId} className={cn("mt-5", experienceCtaClassName)}>
-                    TAP TO EXPLORE MORE
-                  </p>
-                </div>
-              </div>
+      {!showBack ? (
+        <button
+          type="button"
+          className="w-full min-w-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+          aria-expanded={false}
+          aria-describedby={hintId}
+          onClick={toggleFlip}
+        >
+          {showLogo ? (
+            <div className="flex justify-center px-5 py-8 sm:hidden">
+              <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
             </div>
-          </>
-        ) : null}
-      </button>
+          ) : (
+            <div className="px-5 py-8 sm:hidden">
+              <p className="text-center text-lg font-medium text-accent">{entry.company}</p>
+            </div>
+          )}
 
-      {showBack ? (
-        <div className="w-full min-w-0">
-          <div className="flex flex-col items-center px-5 pb-2 pt-6 text-center sm:hidden">
+          <div className="hidden min-h-[5.5rem] min-w-0 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-6 sm:p-7 md:min-h-[6rem] md:gap-8 md:p-8 lg:p-10">
+            <div className="flex min-w-0 items-center justify-self-start">
+              {showLogo ? (
+                <ExperienceLogo
+                  entry={entry}
+                  className="h-9 max-w-[7rem] md:h-10 md:max-w-[8rem]"
+                />
+              ) : (
+                <p className="text-xl font-medium text-accent">{entry.company}</p>
+              )}
+            </div>
+
+            <p
+              id={hintId}
+              className={cn(
+                experienceCtaClassName,
+                "justify-self-center self-center px-2 text-center",
+              )}
+            >
+              TAP TO EXPLORE MORE
+            </p>
+
+            <div className="min-w-0 justify-self-end text-right">
+              <RoleLines entry={entry} align="right" />
+              <p className={cn("mt-1", dateMeta)}>{periodLabel}</p>
+            </div>
+          </div>
+        </button>
+      ) : (
+        <>
+          <div
+            role="button"
+            tabIndex={0}
+            className="flex cursor-pointer flex-col items-center px-5 pb-2 pt-6 text-center outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset sm:hidden"
+            aria-expanded
+            onClick={toggleFlip}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleFlip();
+              }
+            }}
+          >
             {showLogo ? (
               <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
             ) : (
               <p className="text-lg font-medium text-accent">{entry.company}</p>
             )}
-            <RoleLines entry={entry} className="mt-3 w-full max-w-md" />
+            <RoleLines entry={entry} align="center" className="mt-3 w-full max-w-md" />
             <p className={cn("mt-1", dateMeta)}>{periodLabel}</p>
           </div>
 
-          <div className="hidden sm:flex sm:items-center sm:justify-between sm:gap-6 sm:px-7 sm:pb-2 sm:pt-7 md:px-8 md:pt-8 lg:px-10 lg:pt-10">
-            {showLogo ? (
-              <ExperienceLogo
-                entry={entry}
-                className="h-9 max-w-[7rem] md:h-10 md:max-w-[8rem]"
-              />
-            ) : (
-              <p className="text-xl font-medium text-accent">{entry.company}</p>
-            )}
+          <div
+            role="button"
+            tabIndex={0}
+            className="hidden min-h-[4.5rem] cursor-pointer items-center justify-between gap-6 px-7 pb-2 pt-7 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset sm:flex md:min-h-[5rem] md:px-8 md:pt-8 lg:px-10 lg:pt-10"
+            aria-expanded
+            onClick={toggleFlip}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleFlip();
+              }
+            }}
+          >
+            <div className="flex min-h-[2.5rem] items-center">
+              {showLogo ? (
+                <ExperienceLogo
+                  entry={entry}
+                  className="h-9 max-w-[7rem] md:h-10 md:max-w-[8rem]"
+                />
+              ) : (
+                <p className="text-xl font-medium text-accent">{entry.company}</p>
+              )}
+            </div>
             <button
               type="button"
-              className={cn(experienceCtaClassName, "w-auto shrink-0")}
-              onClick={toggleFlip}
+              className={collapseCtaClassName}
+              onClick={collapseFromControl}
             >
               COLLAPSE ↑
             </button>
           </div>
-        </div>
-      ) : null}
+        </>
+      )}
 
       <motion.div
         initial={false}
@@ -179,7 +220,7 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
           {showBack ? (
             <button
               type="button"
-              className={cn(experienceCtaClassName, "mb-5 sm:hidden")}
+              className={cn(monoCtaBlock, "mb-5 justify-start sm:hidden")}
               onClick={toggleFlip}
             >
               COLLAPSE ↑

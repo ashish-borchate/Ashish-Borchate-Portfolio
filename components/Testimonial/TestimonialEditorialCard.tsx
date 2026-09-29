@@ -153,19 +153,51 @@ export function TestimonialEditorialCard({
                         <p className={cn(monoLabel, "whitespace-nowrap text-accent sm:text-[11px]")}>
                           {testimonial.name}
                         </p>
-                        <p
-                          className={cn(
-                            bodyCopy,
-                            "transition-[margin] ease-out",
-                            isOpen ? "mt-0.5" : "mt-1",
-                          )}
-                          style={{
-                            transitionDuration: panelDuration,
-                            transitionTimingFunction: expandEase,
-                          }}
-                        >
-                          {testimonial.role}
-                        </p>
+                        {testimonial.roleMobile ? (
+                          <>
+                            <p
+                              className={cn(
+                                bodyCopy,
+                                "whitespace-nowrap text-[0.6875rem] leading-snug min-[390px]:text-xs sm:hidden",
+                                "transition-[margin] ease-out",
+                                isOpen ? "mt-0.5" : "mt-1",
+                              )}
+                              style={{
+                                transitionDuration: panelDuration,
+                                transitionTimingFunction: expandEase,
+                              }}
+                            >
+                              {testimonial.roleMobile}
+                            </p>
+                            <p
+                              className={cn(
+                                bodyCopy,
+                                "hidden transition-[margin] ease-out sm:block",
+                                isOpen ? "mt-0.5" : "mt-1",
+                              )}
+                              style={{
+                                transitionDuration: panelDuration,
+                                transitionTimingFunction: expandEase,
+                              }}
+                            >
+                              {testimonial.role}
+                            </p>
+                          </>
+                        ) : (
+                          <p
+                            className={cn(
+                              bodyCopy,
+                              "transition-[margin] ease-out",
+                              isOpen ? "mt-0.5" : "mt-1",
+                            )}
+                            style={{
+                              transitionDuration: panelDuration,
+                              transitionTimingFunction: expandEase,
+                            }}
+                          >
+                            {testimonial.role}
+                          </p>
+                        )}
                       </div>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img

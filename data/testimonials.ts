@@ -6,6 +6,8 @@ export type Testimonial = {
   id: string;
   name: string;
   role: string;
+  /** Shorter or tighter role line on narrow viewports (optional). */
+  roleMobile?: string;
   company: string;
   companySlug: "koinx" | "yellow";
   /** Expanded: HOW WE WORKED TOGETHER — shown as `{workingTogether} - {relationship}` */
@@ -75,6 +77,7 @@ His strong background in crypto and blockchain gave him a particularly good unde
     id: "louis-benassy",
     name: "Louis Benassy",
     role: "COO | Head of Exchange",
+    roleMobile: "COO | Head of Exchange",
     company: "Yellow.pro",
     companySlug: "yellow",
     workingTogether: "Support Operations",

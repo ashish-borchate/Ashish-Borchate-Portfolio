@@ -7,11 +7,8 @@ export const heroIntro = {
 export const heroContent = {
   name: "Ashish Borchate",
   descriptor: "Community Support · Product Operations · Customer Experience",
-  headlineLines: [
-    "I get to the core of the product.",
-    "I diagnose the problem.",
-    "I make things work better.",
-  ],
+  headlineLead: "Bridging customer ",
+  headlineAccent: ["Feedback", "Product", "Operations"] as const,
   cta: "EXPLORE MY WORK ↓",
   ctaHref: "#experience",
 } as const;

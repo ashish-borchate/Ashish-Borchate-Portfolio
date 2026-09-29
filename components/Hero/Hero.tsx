@@ -119,35 +119,16 @@ export function Hero() {
               </motion.p>
 
               <motion.div variants={itemVariant} className="mt-6 sm:mt-8">
-                <h1 className="space-y-1 text-pretty text-[1.35rem] font-medium leading-[1.15] tracking-tight text-primary min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:space-y-1.5 sm:text-[1.85rem] sm:leading-[1.12] md:text-[2.15rem] md:leading-[1.1]">
-                  {heroContent.headlineLines.map((line) => {
-                    if (line === "I get to the core of the product.") {
-                      return (
-                        <span key={line} className="block">
-                          I <span className="text-accent">get to the core</span> of the product.
-                        </span>
-                      );
-                    }
-                    if (line === "I diagnose the problem.") {
-                      return (
-                        <span key={line} className="block">
-                          I <span className="text-accent">diagnose</span> the problem.
-                        </span>
-                      );
-                    }
-                    if (line === "I make things work better.") {
-                      return (
-                        <span key={line} className="block">
-                          I make things <span className="text-accent">work better</span>.
-                        </span>
-                      );
-                    }
-                    return (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    );
-                  })}
+                <h1 className="text-pretty text-[1.35rem] font-medium leading-[1.15] tracking-tight text-primary min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:text-[1.85rem] sm:leading-[1.12] md:text-[2.15rem] md:leading-[1.1]">
+                  {heroContent.headlineLead}
+                  {heroContent.headlineAccent.map((word, index) => (
+                    <span key={word}>
+                      {index > 0 &&
+                        (index === heroContent.headlineAccent.length - 1 ? ", and " : ", ")}
+                      <span className="text-accent">{word}</span>
+                    </span>
+                  ))}
+                  .
                 </h1>
               </motion.div>
 
