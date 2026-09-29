@@ -21,12 +21,25 @@ function JourneySectionTitle() {
 function JourneyIntroLine() {
   return (
     <p className={cn(journeyLineClass, "mt-3 text-pretty sm:mt-4")}>
-      <span className="block uppercase">
+      <span className="hidden uppercase sm:inline">
         {journey.eyebrow}
-        <span className="px-2 text-accent/70" aria-hidden>·</span>
-        <span className="normal-case">{journey.closingLine1}</span>
+        <span className="px-2 text-accent/70" aria-hidden>
+          ·
+        </span>
+        <span className="normal-case">
+          {journey.closingLine1} {journey.closingLine2}
+        </span>
       </span>
-      <span className="mt-1 block normal-case">{journey.closingLine2}</span>
+      <span className="sm:hidden">
+        <span className="uppercase">
+          {journey.eyebrow}
+          <span className="px-2 text-accent/70" aria-hidden>
+            ·
+          </span>
+          <span className="normal-case">{journey.closingLine1}</span>
+        </span>
+        <span className="mt-1 block normal-case">{journey.closingLine2}</span>
+      </span>
     </p>
   );
 }

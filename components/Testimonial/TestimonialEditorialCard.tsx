@@ -105,10 +105,6 @@ export function TestimonialEditorialCard({
                 />
               </div>
 
-              <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.16em] text-accent/85 sm:text-[10px]">
-                {testimonial.contextLine}
-              </p>
-
               {!isOpen ? (
                 <>
                   <p className="mt-3 text-pretty text-sm leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
@@ -138,8 +134,9 @@ export function TestimonialEditorialCard({
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
               How we worked together
             </p>
-            <p className="mt-2 text-sm text-foreground">{testimonial.workingTogether}</p>
-            <p className="mt-1 text-pretty text-xs leading-relaxed text-muted">
+            <p className="mt-2 text-pretty text-sm text-foreground">
+              {testimonial.workingTogether}
+              <span className="text-muted"> — </span>
               {testimonial.relationship}
             </p>
 
@@ -148,14 +145,11 @@ export function TestimonialEditorialCard({
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
               Full feedback
             </p>
-            {testimonial.quoteStatus === "sample" ? (
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted/80">
-                Placeholder copy — replace in data/testimonials.ts
-              </p>
-            ) : null}
-            <blockquote className="mt-3 text-pretty text-sm leading-relaxed text-foreground sm:text-base">
-              &ldquo;{testimonial.fullQuote}&rdquo;
-            </blockquote>
+            <div className="mt-3 space-y-3 text-pretty text-sm leading-relaxed text-foreground sm:text-base">
+              {testimonial.fullQuote.split(/\n\n+/).map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              ))}
+            </div>
 
             {testimonial.profileUrl ? (
               <a
