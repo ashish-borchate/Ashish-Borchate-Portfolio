@@ -150,7 +150,7 @@ export function TestimonialEditorialCard({
                       }}
                     >
                       <div className="min-w-0">
-                        <p className={cn(monoLabel, "text-primary sm:text-[11px]")}>
+                        <p className={cn(monoLabel, "whitespace-nowrap text-accent sm:text-[11px]")}>
                           {testimonial.name}
                         </p>
                         <p

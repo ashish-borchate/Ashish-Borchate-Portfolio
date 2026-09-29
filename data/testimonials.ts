@@ -55,7 +55,7 @@ His ownership, adaptability, and willingness to take on responsibilities beyond 
   },
   {
     id: "guna-shekar",
-    name: "Guna Shekar Proddaturi",
+    name: "Guna Proddaturi",
     role: "CTO & Co-founder",
     company: "KoinX",
     companySlug: "koinx",
@@ -90,7 +90,7 @@ His strong background in crypto and blockchain gave him a particularly good unde
   {
     id: "joris-colleret",
     name: "Joris Colleret",
-    role: "Senior Product Manager",
+    role: "Sr Product Manager",
     company: "Yellow.pro",
     companySlug: "yellow",
     workingTogether: "Product",

@@ -5,7 +5,6 @@ import { formatExperiencePeriod } from "@/lib/formatExperiencePeriod";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import {
   bodyCopy,
-  companyNameDisplay,
   dateMeta,
   monoCtaBlock,
   monoLabelAccent,
@@ -21,12 +20,52 @@ type CareerFlipCardProps = {
   onToggle: () => void;
 };
 
+function ExperienceLogo({
+  entry,
+  className,
+}: {
+  entry: ExperienceEntry;
+  className?: string;
+}) {
+  if (entry.logoDisplay === "text-only") return null;
+  return (
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      src={entry.logo}
+      alt={`${entry.company} logo`}
+      className={cn("w-auto shrink-0 object-contain opacity-95", className)}
+    />
+  );
+}
+
+function RoleLines({
+  entry,
+  className,
+}: {
+  entry: ExperienceEntry;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      {entry.roleMobile ? (
+        <>
+          <p className={cn("truncate sm:hidden", roleTitle)}>{entry.roleMobile}</p>
+          <p className={cn("mt-2 hidden truncate sm:block", roleTitle)}>{entry.role}</p>
+        </>
+      ) : (
+        <p className={cn("truncate", roleTitle)}>{entry.role}</p>
+      )}
+    </div>
+  );
+}
+
 export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps) {
   const detail = entry.detail;
   const reducedMotion = usePrefersReducedMotion();
   const hintId = useId();
 
   const showBack = Boolean(detail) && isOpen;
+  const showLogo = entry.logoDisplay !== "text-only";
 
   const toggleFlip = useCallback(() => {
     if (!detail) return;
@@ -39,6 +78,12 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
     ? { duration: 0 }
     : { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
+  const periodLabel = formatExperiencePeriod(entry.period);
+  const experienceCtaClassName = cn(
+    monoCtaBlock,
+    "justify-center sm:justify-start",
+  );
+
   return (
     <article
       className={cn(
@@ -48,18 +93,77 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
     >
       <button
         type="button"
-        className="w-full min-w-0 px-5 py-5 text-left sm:p-7 md:p-8 lg:p-10"
+        className="w-full min-w-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
         aria-expanded={showBack}
-        aria-describedby={hintId}
+        aria-describedby={!showBack ? hintId : undefined}
         onClick={toggleFlip}
       >
-        <CardHeader
-          entry={entry}
-          hintId={hintId}
-          isOpen={showBack}
-          compact={showBack}
-        />
+        {!showBack ? (
+          <>
+            {showLogo ? (
+              <div className="flex justify-center px-5 py-8 sm:hidden">
+                <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
+              </div>
+            ) : (
+              <div className="px-5 py-8 sm:hidden">
+                <p className="text-center text-lg font-medium text-accent">{entry.company}</p>
+              </div>
+            )}
+
+            <div className="hidden min-w-0 sm:block sm:p-7 md:p-8 lg:p-10">
+              <div className="flex min-w-0 items-center justify-between gap-6 md:gap-8">
+                {showLogo ? (
+                  <ExperienceLogo
+                    entry={entry}
+                    className="h-9 max-w-[7rem] md:h-10 md:max-w-[8rem]"
+                  />
+                ) : (
+                  <p className="text-xl font-medium text-accent">{entry.company}</p>
+                )}
+                <div className="min-w-0 flex-1 text-left">
+                  <RoleLines entry={entry} />
+                  <p className={cn("mt-1", dateMeta)}>{periodLabel}</p>
+                  <p id={hintId} className={cn("mt-5", experienceCtaClassName)}>
+                    TAP TO EXPLORE MORE
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : null}
       </button>
+
+      {showBack ? (
+        <div className="w-full min-w-0">
+          <div className="flex flex-col items-center px-5 pb-2 pt-6 text-center sm:hidden">
+            {showLogo ? (
+              <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
+            ) : (
+              <p className="text-lg font-medium text-accent">{entry.company}</p>
+            )}
+            <RoleLines entry={entry} className="mt-3 w-full max-w-md" />
+            <p className={cn("mt-1", dateMeta)}>{periodLabel}</p>
+          </div>
+
+          <div className="hidden sm:flex sm:items-center sm:justify-between sm:gap-6 sm:px-7 sm:pb-2 sm:pt-7 md:px-8 md:pt-8 lg:px-10 lg:pt-10">
+            {showLogo ? (
+              <ExperienceLogo
+                entry={entry}
+                className="h-9 max-w-[7rem] md:h-10 md:max-w-[8rem]"
+              />
+            ) : (
+              <p className="text-xl font-medium text-accent">{entry.company}</p>
+            )}
+            <button
+              type="button"
+              className={cn(experienceCtaClassName, "w-auto shrink-0")}
+              onClick={toggleFlip}
+            >
+              COLLAPSE ↑
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       <motion.div
         initial={false}
@@ -71,94 +175,20 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
         className="overflow-hidden"
         aria-hidden={!showBack}
       >
-        <div className="border-t border-border px-5 pb-6 pt-6 sm:px-7 sm:pb-7 sm:pt-7 md:px-8 md:pb-8 md:pt-8 lg:px-10 lg:pb-10 lg:pt-8">
+        <div className="border-t border-border px-5 pb-6 pt-4 sm:px-7 sm:pb-7 sm:pt-6 md:px-8 md:pb-8 md:pt-7 lg:px-10 lg:pb-10 lg:pt-8">
+          {showBack ? (
+            <button
+              type="button"
+              className={cn(experienceCtaClassName, "mb-5 sm:hidden")}
+              onClick={toggleFlip}
+            >
+              COLLAPSE ↑
+            </button>
+          ) : null}
           <CardBack detail={detail} />
         </div>
       </motion.div>
     </article>
-  );
-}
-
-const experienceCtaClassName = cn(
-  monoCtaBlock,
-  "justify-center sm:justify-start",
-);
-
-function CardHeader({
-  entry,
-  hintId,
-  isOpen,
-  compact,
-}: {
-  entry: ExperienceEntry;
-  hintId: string;
-  isOpen: boolean;
-  compact: boolean;
-}) {
-  const showLogo = entry.logoDisplay !== "text-only";
-  const periodLabel = formatExperiencePeriod(entry.period);
-
-  return (
-    <div
-      className={cn(
-        "flex min-w-0 flex-col gap-5 sm:gap-6",
-        compact && "items-center sm:items-stretch",
-      )}
-    >
-      <div
-        className={cn(
-          "flex min-w-0 w-full items-center justify-between gap-4 sm:gap-6 md:gap-8",
-          compact && "justify-center sm:justify-between",
-        )}
-      >
-        <div
-          className={cn(
-            "min-w-0 flex-1",
-            compact && "flex-none text-center sm:flex-1 sm:text-left",
-          )}
-        >
-          <h3
-            className={cn(
-              "text-xl sm:text-2xl md:text-3xl",
-              companyNameDisplay,
-              compact && "w-full text-center sm:text-left",
-            )}
-          >
-            {entry.company}
-          </h3>
-          {!compact ? (
-            <>
-              {entry.roleMobile ? (
-                <>
-                  <p className={cn("mt-2 truncate sm:hidden", roleTitle)}>
-                    {entry.roleMobile}
-                  </p>
-                  <p className={cn("mt-2 hidden truncate sm:block", roleTitle)}>
-                    {entry.role}
-                  </p>
-                </>
-              ) : (
-                <p className={cn("mt-2 truncate", roleTitle)}>
-                  {entry.role}
-                </p>
-              )}
-              <p className={cn("mt-1", dateMeta)}>{periodLabel}</p>
-            </>
-          ) : null}
-        </div>
-        {showLogo && !compact ? (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src={entry.logo}
-            alt={`${entry.company} logo`}
-            className="h-8 w-auto max-w-[5.5rem] shrink-0 object-contain opacity-95 sm:h-9 sm:max-w-[6.5rem] md:h-10 md:max-w-[7.5rem]"
-          />
-        ) : null}
-      </div>
-      <p id={hintId} className={experienceCtaClassName}>
-        {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE MORE"}
-      </p>
-    </div>
   );
 }
 

@@ -40,15 +40,15 @@ export function Navigation() {
       />
       <div
         className={cn(
-          "relative mx-auto flex max-w-6xl items-center justify-between px-3 transition-all duration-300 min-[430px]:px-4 sm:px-6",
+          "relative mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6",
           scrolled ? "py-2 min-[430px]:py-3" : "py-3 min-[430px]:py-5",
         )}
       >
         <nav
           className={cn(
-            "flex w-full min-w-0 items-center justify-between gap-2 rounded-full border border-transparent px-2.5 py-2 transition-all duration-300 min-[430px]:px-4 sm:px-5",
+            "flex w-full min-w-0 items-center justify-between gap-2 rounded-full border border-transparent py-2 transition-all duration-300",
             scrolled &&
-              "border-border/70 bg-charcoal/90 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md",
+              "border-border/70 bg-charcoal/90 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-4",
           )}
           aria-label="Primary"
         >
