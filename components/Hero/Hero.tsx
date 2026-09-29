@@ -1,6 +1,7 @@
 "use client";
 
 import { heroContent, heroIntro } from "@/data/hero";
+import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { HeroIntro } from "@/components/Hero/HeroIntro";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { scrollToHash } from "@/lib/scrollToHash";
@@ -95,60 +96,69 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,141,239,0.08),transparent_52%)]" />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div
-            className="mx-auto flex max-w-3xl flex-col lg:mx-0 lg:max-w-[42rem]"
-            variants={heroStagger}
-            initial="hidden"
-            animate={heroReady ? "show" : "hidden"}
-          >
-            <motion.p
-              variants={itemVariant}
-              className="text-[1.65rem] font-medium tracking-tight text-foreground min-[375px]:text-[1.85rem] min-[390px]:text-[2rem] sm:text-[2.35rem] md:text-[2.65rem]"
+          <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-12">
+            <motion.div
+              className="order-2 mx-auto flex max-w-3xl flex-col lg:order-1 lg:col-span-7 lg:mx-0 lg:max-w-none"
+              variants={heroStagger}
+              initial="hidden"
+              animate={heroReady ? "show" : "hidden"}
             >
-              {heroContent.name}
-            </motion.p>
-
-            <motion.p
-              variants={itemVariant}
-              className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-accent min-[390px]:text-[0.9375rem] sm:mt-4 sm:text-base"
-            >
-              {heroContent.descriptor}
-            </motion.p>
-
-            <motion.div variants={itemVariant} className="mt-6 sm:mt-8">
-              <h1 className="space-y-1 text-pretty text-[1.35rem] font-medium leading-[1.22] tracking-tight text-foreground min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:space-y-1.5 sm:text-[1.85rem] sm:leading-[1.2] md:text-[2.15rem] md:leading-[1.18]">
-                {heroContent.headlineLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h1>
-            </motion.div>
-
-            <motion.ul
-              variants={itemVariant}
-              className="mt-7 flex flex-wrap gap-2 sm:mt-8 sm:gap-2.5"
-              aria-label="Previous companies"
-            >
-              {heroContent.badges.map((badge) => (
-                <li key={badge}>
-                  <span className="inline-flex min-h-9 items-center rounded-full border border-border/80 bg-surface/25 px-3 py-1.5 font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-muted min-[390px]:text-[10px] sm:px-3.5">
-                    {badge}
-                  </span>
-                </li>
-              ))}
-            </motion.ul>
-
-            <motion.div variants={itemVariant} className="mt-9 sm:mt-10">
-              <button
-                type="button"
-                onClick={() => scrollToHash(heroContent.ctaHref)}
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-accent/35 bg-accent/10 px-6 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-accent transition-[border-color,background-color,color,transform] duration-200 hover:border-accent/50 hover:bg-accent/15 hover:text-[#6b99f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.99]"
+              <motion.p
+                variants={itemVariant}
+                className="text-[1.65rem] font-medium tracking-tight text-foreground min-[375px]:text-[1.85rem] min-[390px]:text-[2rem] sm:text-[2.35rem] md:text-[2.65rem]"
               >
-                {heroContent.cta}
-              </button>
+                {heroContent.name}
+              </motion.p>
+
+              <motion.p
+                variants={itemVariant}
+                className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-accent min-[390px]:text-[0.9375rem] sm:mt-4 sm:text-base"
+              >
+                {heroContent.descriptor}
+              </motion.p>
+
+              <motion.div variants={itemVariant} className="mt-6 sm:mt-8">
+                <h1 className="space-y-1 text-pretty text-[1.35rem] font-medium leading-[1.22] tracking-tight text-foreground min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:space-y-1.5 sm:text-[1.85rem] sm:leading-[1.2] md:text-[2.15rem] md:leading-[1.18]">
+                  {heroContent.headlineLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </h1>
+              </motion.div>
+
+              <motion.ul
+                variants={itemVariant}
+                className="mt-7 flex flex-wrap gap-2 sm:mt-8 sm:gap-2.5"
+                aria-label="Previous companies"
+              >
+                {heroContent.badges.map((badge) => (
+                  <li key={badge}>
+                    <span className="inline-flex min-h-9 items-center rounded-full border border-border/80 bg-surface/25 px-3 py-1.5 font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-muted min-[390px]:text-[10px] sm:px-3.5">
+                      {badge}
+                    </span>
+                  </li>
+                ))}
+              </motion.ul>
+
+              <motion.div variants={itemVariant} className="mt-9 sm:mt-10">
+                <button
+                  type="button"
+                  onClick={() => scrollToHash(heroContent.ctaHref)}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-accent/35 bg-accent/10 px-6 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-accent transition-[border-color,background-color,color,transform] duration-200 hover:border-accent/50 hover:bg-accent/15 hover:text-[#6b99f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.99]"
+                >
+                  {heroContent.cta}
+                </button>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            <motion.div
+              variants={itemVariant}
+              className="order-1 mt-10 flex justify-center lg:order-2 lg:col-span-5 lg:mt-0 lg:justify-end"
+            >
+              <ProfileImage className="lg:ml-auto" priority={heroReady} />
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

@@ -1,15 +1,33 @@
 "use client";
 
-import { getFeaturedTestimonials } from "@/data/testimonials";
+import { getFeaturedTestimonials, testimonialsSection } from "@/data/testimonials";
+import { TestimonialEditorialCard } from "@/components/Testimonial/TestimonialEditorialCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { motion } from "framer-motion";
-import { useRef } from "react";
-import { usePrefersReducedMotion } from "@/lib/motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function TestimonialsSection() {
   const items = getFeaturedTestimonials();
   const ref = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const toggle = useCallback((id: string) => {
+    setOpenId((current) => (current === id ? null : id));
+  }, []);
+
+  useEffect(() => {
+    if (!openId) return;
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (ref.current && !ref.current.contains(target)) {
+        setOpenId(null);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [openId]);
 
   return (
     <section
@@ -17,31 +35,34 @@ export function TestimonialsSection() {
       ref={ref}
       className="scroll-mt-20 border-y border-border py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading title="Testimonials" />
+      <div className="mx-auto max-w-6xl min-w-0 px-4 sm:px-6">
+        <motion.div
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10% 0px" }}
+          transition={{ duration: 0.5, ease: easeOut }}
+        >
+          <SectionHeading
+            title={testimonialsSection.title}
+            subtitle={testimonialsSection.subtitle}
+          />
+        </motion.div>
 
-        <div className="mt-10 space-y-8 sm:mt-12 sm:space-y-10">
+        <motion.ul
+          className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 md:grid-cols-2 md:gap-5 lg:mt-14 lg:gap-6"
+        >
           {items.map((item, index) => (
-            <motion.figure
+            <TestimonialEditorialCard
               key={item.id}
-              initial={false}
-              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-8% 0px" }}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
-              className="border-t border-border pt-8 first:border-t-0 first:pt-0 sm:pt-10"
-            >
-              <blockquote className="text-pretty text-lg font-medium leading-snug tracking-tight text-foreground min-[430px]:text-xl sm:text-2xl">
-                “{item.quote}”
-              </blockquote>
-              <figcaption className="mt-5 flex flex-col gap-1 sm:mt-6">
-                <p className="text-sm font-medium text-foreground">{item.name}</p>
-                <p className="text-sm text-muted">
-                  {item.role}, {item.company}
-                </p>
-              </figcaption>
-            </motion.figure>
+              testimonial={item}
+              isOpen={openId === item.id}
+              isDimmed={openId !== null && openId !== item.id}
+              onToggle={() => toggle(item.id)}
+              layoutIndex={index}
+              revealDelay={reduced ? 0 : index * 0.08}
+            />
           ))}
-        </div>
+        </motion.ul>
       </div>
     </section>
   );

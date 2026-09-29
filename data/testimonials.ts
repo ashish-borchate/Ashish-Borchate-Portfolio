@@ -1,62 +1,110 @@
+export type TestimonialQuoteStatus = "sample" | "verified";
+
 export type Testimonial = {
   id: string;
-  quote: string;
   name: string;
   role: string;
   company: string;
-  companySlug: string;
+  companySlug: "koinx" | "yellow";
+  /** Shown on card front, e.g. WORKED TOGETHER · SUPPORT OPERATIONS */
+  contextLine: string;
+  /** Expanded: HOW WE WORKED TOGETHER body */
+  workingTogether: string;
+  relationship: string;
+  previewQuote: string;
+  fullQuote: string;
+  quoteStatus: TestimonialQuoteStatus;
   photo?: string;
-  logo?: string;
+  logo: string;
+  profileUrl?: string;
 };
 
-/** Featured testimonial slots shown in the dedicated section. */
+export const testimonialsSection = {
+  title: "WHAT THEY SAW",
+  subtitle: "A few words from people I've worked with along the way.",
+} as const;
+
 export const featuredTestimonialIds = [
-  "koinx-ceo",
-  "koinx-cto",
-  "yellow-coo",
-  "yellow-pm",
+  "punit-agarwal",
+  "guna-shekar",
+  "louis-benassy",
+  "joris-colleret",
 ] as const;
 
+/** Replace sample `fullQuote` values in this file only — UI reads from here. */
 export const testimonials: Testimonial[] = [
   {
-    id: "koinx-ceo",
-    quote: "[TESTIMONIAL TO BE ADDED]",
-    name: "[NAME]",
-    role: "CEO",
+    id: "punit-agarwal",
+    name: "Punit Agarwal",
+    role: "CEO & Founder",
     company: "KoinX",
     companySlug: "koinx",
-    logo: "/assets/companies/koinx.svg",
+    contextLine: "WORKED TOGETHER · SUPPORT OPERATIONS",
+    workingTogether: "Support Operations",
+    relationship: "Direct manager · Support Operations",
+    previewQuote:
+      "Ashish played an important role in building and improving the support operation...",
+    fullQuote:
+      "[SAMPLE FEEDBACK — TO BE REPLACED WITH PUNIT'S FINAL TESTIMONIAL]",
+    quoteStatus: "sample",
+    photo: "/assets/testimonials/punit-agarwal.jpg",
+    logo: "/assets/companies/koinx.png",
   },
   {
-    id: "koinx-cto",
-    quote: "[TESTIMONIAL TO BE ADDED]",
-    name: "[NAME]",
-    role: "CTO",
+    id: "guna-shekar",
+    name: "Guna Shekar Proddaturi",
+    role: "CTO & Co-founder",
     company: "KoinX",
     companySlug: "koinx",
-    logo: "/assets/companies/koinx.svg",
+    contextLine: "WORKED TOGETHER · PRODUCT",
+    workingTogether: "Product",
+    relationship: "Worked closely on product issues and implementations",
+    previewQuote:
+      "Ashish was consistently involved in understanding product issues and helping move implementations forward...",
+    fullQuote:
+      "[SAMPLE FEEDBACK — TO BE REPLACED WITH GUNA'S FINAL TESTIMONIAL]",
+    quoteStatus: "sample",
+    photo: "/assets/testimonials/guna-shekar.jpg",
+    logo: "/assets/companies/koinx.png",
   },
   {
-    id: "yellow-coo",
-    quote: "[TESTIMONIAL TO BE ADDED]",
-    name: "[NAME]",
-    role: "COO",
+    id: "louis-benassy",
+    name: "Louis Benassy",
+    role: "COO · Yellow.pro | Head of Exchange",
     company: "Yellow.pro",
     companySlug: "yellow",
-    logo: "/assets/companies/yellow.svg",
+    contextLine: "WORKED TOGETHER · SUPPORT OPERATIONS",
+    workingTogether: "Support Operations",
+    relationship: "Direct manager · Support Operations",
+    previewQuote:
+      "Ashish took ownership of the support operation and consistently worked to improve how the team handled users and issues...",
+    fullQuote:
+      "[SAMPLE FEEDBACK — TO BE REPLACED WITH LOUIS'S FINAL TESTIMONIAL]",
+    quoteStatus: "sample",
+    photo: "/assets/testimonials/louis-benassy.jpg",
+    logo: "/assets/companies/yellow.png",
   },
   {
-    id: "yellow-pm",
-    quote: "[TESTIMONIAL TO BE ADDED]",
-    name: "[NAME]",
-    role: "Product Manager",
+    id: "joris-colleret",
+    name: "Joris Colleret",
+    role: "Senior Product Manager",
     company: "Yellow.pro",
     companySlug: "yellow",
-    logo: "/assets/companies/yellow.svg",
+    contextLine: "WORKED TOGETHER · PRODUCT · QA · UAT",
+    workingTogether: "Product · QA · UAT",
+    relationship: "Product feedback · QA · UAT · Product collaboration",
+    previewQuote:
+      "Ashish has a strong understanding of crypto and Web3 products, with hands-on knowledge across trading, DeFi, wallets, blockchain transactions and APIs...",
+    fullQuote:
+      "Ashish has a strong understanding of crypto and Web3 products, with hands-on knowledge of trading, DeFi, wallets, blockchain transactions, APIs and the broader crypto ecosystem. What stands out is that he consistently goes beyond his assigned responsibilities to understand the product in depth and identify areas that need attention. He has also taken an active role in QA and UAT, including staging, regression and end-to-end testing, reproducing issues and validating fixes across complex product workflows. He has a strong focus on documentation as well, turning complex product knowledge and findings into clear, useful documentation and processes for both users and internal teams. His combination of strong domain knowledge, product understanding, operational thinking and ownership makes him a valuable contributor beyond the traditional support function.",
+    quoteStatus: "verified",
+    photo: "/assets/testimonials/joris-colleret.jpg",
+    logo: "/assets/companies/yellow.png",
+    profileUrl: "https://www.linkedin.com/in/joris-colleret-web3-xyz/",
   },
 ];
 
-export function getFeaturedTestimonials() {
+export function getFeaturedTestimonials(): Testimonial[] {
   return featuredTestimonialIds
     .map((id) => testimonials.find((t) => t.id === id))
     .filter((t): t is Testimonial => Boolean(t));
