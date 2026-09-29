@@ -89,10 +89,30 @@ function CardHeader({
   const periodLabel = formatExperiencePeriod(entry.period);
 
   return (
-    <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
-      <div className="flex min-w-0 items-center justify-between gap-4 sm:gap-6 md:gap-8">
-        <div className="min-w-0 flex-1">
-          <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
+    <div
+      className={cn(
+        "flex min-w-0 flex-col gap-5 sm:gap-6",
+        compact && "items-center sm:items-stretch",
+      )}
+    >
+      <div
+        className={cn(
+          "flex min-w-0 w-full items-center justify-between gap-4 sm:gap-6 md:gap-8",
+          compact && "justify-center sm:justify-between",
+        )}
+      >
+        <div
+          className={cn(
+            "min-w-0 flex-1",
+            compact && "flex-none text-center sm:flex-1 sm:text-left",
+          )}
+        >
+          <h3
+            className={cn(
+              "text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl",
+              compact && "w-full text-center sm:text-left",
+            )}
+          >
             {entry.company}
           </h3>
           {!compact ? (
