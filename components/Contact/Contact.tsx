@@ -18,7 +18,7 @@ export function Contact() {
         />
         <div className="mx-auto mt-8 flex w-full max-w-[11.5rem] flex-col gap-2 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
           <Link href={profile.links.emailHref} className={outlineCtaClassName}>
-            Email Me
+            Email
           </Link>
           <Link
             href={profile.links.linkedInHref}
