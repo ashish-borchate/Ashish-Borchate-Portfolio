@@ -1,3 +1,5 @@
+import { companyLogoAssets } from "@/data/companyLogos";
+
 export type TestimonialQuoteStatus = "sample" | "verified";
 
 export type Testimonial = {
@@ -48,7 +50,7 @@ export const testimonials: Testimonial[] = [
       "[SAMPLE FEEDBACK — TO BE REPLACED WITH PUNIT'S FINAL TESTIMONIAL]",
     quoteStatus: "sample",
     photo: "/assets/testimonials/punit-agarwal.jpg",
-    logo: "/assets/companies/koinx.png",
+    logo: companyLogoAssets.koinx,
   },
   {
     id: "guna-shekar",
@@ -65,12 +67,12 @@ export const testimonials: Testimonial[] = [
       "[SAMPLE FEEDBACK — TO BE REPLACED WITH GUNA'S FINAL TESTIMONIAL]",
     quoteStatus: "sample",
     photo: "/assets/testimonials/guna-shekar.jpg",
-    logo: "/assets/companies/koinx.png",
+    logo: companyLogoAssets.koinx,
   },
   {
     id: "louis-benassy",
     name: "Louis Benassy",
-    role: "COO · Yellow.pro | Head of Exchange",
+    role: "COO | Head of Exchange · Yellow.pro",
     company: "Yellow.pro",
     companySlug: "yellow",
     contextLine: "WORKED TOGETHER · SUPPORT OPERATIONS",
@@ -82,7 +84,7 @@ export const testimonials: Testimonial[] = [
       "[SAMPLE FEEDBACK — TO BE REPLACED WITH LOUIS'S FINAL TESTIMONIAL]",
     quoteStatus: "sample",
     photo: "/assets/testimonials/louis-benassy.jpg",
-    logo: "/assets/companies/yellow.png",
+    logo: companyLogoAssets.yellow,
   },
   {
     id: "joris-colleret",
@@ -99,7 +101,7 @@ export const testimonials: Testimonial[] = [
       "Ashish has a strong understanding of crypto and Web3 products, with hands-on knowledge of trading, DeFi, wallets, blockchain transactions, APIs and the broader crypto ecosystem. What stands out is that he consistently goes beyond his assigned responsibilities to understand the product in depth and identify areas that need attention. He has also taken an active role in QA and UAT, including staging, regression and end-to-end testing, reproducing issues and validating fixes across complex product workflows. He has a strong focus on documentation as well, turning complex product knowledge and findings into clear, useful documentation and processes for both users and internal teams. His combination of strong domain knowledge, product understanding, operational thinking and ownership makes him a valuable contributor beyond the traditional support function.",
     quoteStatus: "verified",
     photo: "/assets/testimonials/joris-colleret.jpg",
-    logo: "/assets/companies/yellow.png",
+    logo: companyLogoAssets.yellow,
     profileUrl: "https://www.linkedin.com/in/joris-colleret-web3-xyz/",
   },
 ];

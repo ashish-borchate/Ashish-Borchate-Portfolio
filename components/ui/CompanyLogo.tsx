@@ -14,7 +14,7 @@ export function CompanyLogo({ src, alt, label, className }: CompanyLogoProps) {
   return (
     <div
       className={cn(
-        "flex h-10 min-w-[7rem] items-center justify-center rounded-md border border-border bg-surface px-3",
+        "flex h-10 min-w-[7rem] items-center justify-center rounded-md border border-border/60 bg-surface/20 px-2",
         className,
       )}
     >
@@ -22,7 +22,7 @@ export function CompanyLogo({ src, alt, label, className }: CompanyLogoProps) {
       <img
         src={src}
         alt={alt}
-        className="max-h-6 max-w-[5rem] object-contain opacity-90"
+        className="max-h-7 max-w-[5.5rem] object-contain"
         onError={(e) => {
           const target = e.currentTarget;
           target.style.display = "none";

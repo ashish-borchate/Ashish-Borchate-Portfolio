@@ -1,3 +1,5 @@
+import { companyLogoAssets } from "@/data/companyLogos";
+
 export type ExperienceDetail = {
   workedOn: string[];
   learned: string;
@@ -24,7 +26,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     role: "Operations Supervisor",
     period: "October 2019 – October 2020",
     emphasis: "compressed",
-    logo: "/assets/companies/cinepolis.svg",
+    logo: companyLogoAssets.cinepolis,
     logoDisplay: "text-only",
   },
   {
@@ -34,7 +36,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     role: "Customer Service Manager",
     period: "December 2020 – November 2022",
     emphasis: "compressed",
-    logo: "/assets/companies/arsh.svg",
+    logo: companyLogoAssets.arsh,
     logoDisplay: "text-only",
   },
   {
@@ -44,7 +46,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     role: "L2 Customer Support Team Leader",
     period: "December 2022 – February 2025",
     emphasis: "primary",
-    logo: "/assets/companies/binance.svg",
+    logo: companyLogoAssets.binance,
     detail: {
       workedOn: [
         "Led a 10+ member support team serving institutional clients and high-value B2B users across 20+ crypto products.",
@@ -63,7 +65,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     role: "Customer Support & Operations Manager",
     period: "July 2025 – October 2025",
     emphasis: "primary",
-    logo: "/assets/companies/koinx.svg",
+    logo: companyLogoAssets.koinx,
     detail: {
       workedOn: [
         "Built structured feedback loops between Support, Product and Engineering.",
@@ -83,7 +85,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     role: "L4 Senior Client Service Analyst",
     period: "October 2025 – April 2026",
     emphasis: "primary",
-    logo: "/assets/companies/bybit.svg",
+    logo: companyLogoAssets.bybit,
     detail: {
       workedOn: [
         "Supported the India client services team as an escalation point for complex customer cases.",
@@ -102,7 +104,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     role: "Community and Support Operations Manager",
     period: "April 2026 – September 2026",
     emphasis: "primary",
-    logo: "/assets/companies/yellow.svg",
+    logo: companyLogoAssets.yellow,
     detail: {
       workedOn: [
         "Built the support function from the ground up for the Yellow.pro Trading Portal.",

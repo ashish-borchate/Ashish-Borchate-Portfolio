@@ -5,6 +5,7 @@ import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { HeroIntro } from "@/components/Hero/HeroIntro";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { scrollToHash } from "@/lib/scrollToHash";
+import { outlineBadgeClassName, outlineCtaClassName } from "@/lib/outlineCta";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
@@ -134,9 +135,7 @@ export function Hero() {
               >
                 {heroContent.badges.map((badge) => (
                   <li key={badge}>
-                    <span className="inline-flex min-h-9 items-center rounded-full border border-border/80 bg-surface/25 px-3 py-1.5 font-mono text-[9px] font-medium uppercase tracking-[0.16em] text-muted min-[390px]:text-[10px] sm:px-3.5">
-                      {badge}
-                    </span>
+                    <span className={outlineBadgeClassName}>{badge}</span>
                   </li>
                 ))}
               </motion.ul>
@@ -145,7 +144,7 @@ export function Hero() {
                 <button
                   type="button"
                   onClick={() => scrollToHash(heroContent.ctaHref)}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-accent/35 bg-accent/10 px-6 py-3 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-accent transition-[border-color,background-color,color,transform] duration-200 hover:border-accent/50 hover:bg-accent/15 hover:text-[#6b99f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.99]"
+                  className={outlineCtaClassName}
                 >
                   {heroContent.cta}
                 </button>

@@ -6,13 +6,13 @@ export const heroIntro = {
 
 export const heroContent = {
   name: "Ashish Borchate.",
-  descriptor: "Support Operations · Product · Customer Experience",
+  descriptor: "Community Support · Product Operations · Customer Experience",
   headlineLines: [
     "I get to the core of the product.",
     "I diagnose the problem.",
     "I make things work better.",
   ],
-  badges: ["EX-BINANCE", "EX-BYBIT", "EX-KOINX", "EX-YELLOW.PRO"] as const,
+  badges: ["EX-BINANCE", "EX-BYBIT", "EX-KOINX"] as const,
   cta: "EXPLORE MY WORK ↓",
   ctaHref: "#experience",
 } as const;

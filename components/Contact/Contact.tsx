@@ -1,7 +1,8 @@
 import { contactSection } from "@/data/contact";
 import { profile } from "@/data/profile";
+import { outlineCtaClassName } from "@/lib/outlineCta";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { MagneticButton } from "@/components/ui/MagneticButton";
+import Link from "next/link";
 
 export function Contact() {
   return (
@@ -16,29 +17,25 @@ export function Contact() {
           titleClassName="whitespace-nowrap text-[clamp(1.2rem,4.2vw,3rem)] tracking-tight"
         />
         <div className="mx-auto mt-8 flex w-full max-w-[11.5rem] flex-col gap-2 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
-          <MagneticButton
-            href={profile.links.emailHref}
-            variant="primary"
-            className="w-full min-w-0 px-4 sm:w-auto"
-          >
+          <Link href={profile.links.emailHref} className={outlineCtaClassName}>
             Email Me
-          </MagneticButton>
-          <MagneticButton
+          </Link>
+          <Link
             href={profile.links.linkedInHref}
-            variant="primary"
-            className="w-full min-w-0 px-4 sm:w-auto"
-            external
+            target="_blank"
+            rel="noopener noreferrer"
+            className={outlineCtaClassName}
           >
             LinkedIn
-          </MagneticButton>
-          <MagneticButton
+          </Link>
+          <Link
             href={profile.assets.resumePdf}
-            variant="primary"
-            className="w-full min-w-0 px-5 sm:w-auto"
-            external
+            target="_blank"
+            rel="noopener noreferrer"
+            className={outlineCtaClassName}
           >
             Resume
-          </MagneticButton>
+          </Link>
         </div>
       </div>
     </section>

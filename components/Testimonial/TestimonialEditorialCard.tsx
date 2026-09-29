@@ -105,7 +105,7 @@ export function TestimonialEditorialCard({
                 <img
                   src={testimonial.logo}
                   alt=""
-                  className="mt-0.5 h-6 w-auto max-w-[4.5rem] object-contain opacity-55 grayscale transition-opacity duration-300 group-hover:opacity-75"
+                  className="mt-0.5 h-6 w-auto max-w-[4.5rem] object-contain opacity-90 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </div>
 
