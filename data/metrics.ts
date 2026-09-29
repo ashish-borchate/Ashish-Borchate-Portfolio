@@ -24,7 +24,7 @@ export const impactMetrics: ImpactMetric[] = [
   {
     id: "koinx-features",
     value: "70+",
-    label: "Product features implemented",
+    label: "Feature implemented",
     context: "KoinX · User feedback",
     back: "Turned recurring user feedback into 70+ implemented product features by working with Product and Engineering.",
   },
