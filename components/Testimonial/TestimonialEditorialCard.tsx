@@ -95,17 +95,13 @@ export function TestimonialEditorialCard({
                   <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-foreground sm:text-xs">
                     {testimonial.name}
                   </p>
-                  <p className="mt-1 text-pretty text-sm text-muted">
-                    {testimonial.role}
-                    <span className="text-muted/70"> · </span>
-                    {testimonial.company}
-                  </p>
+                  <p className="mt-1 text-pretty text-sm text-muted">{testimonial.role}</p>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={testimonial.logo}
-                  alt=""
-                  className="mt-0.5 h-6 w-auto max-w-[4.5rem] object-contain opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+                  alt={`${testimonial.company} logo`}
+                  className="mt-0.5 h-7 w-auto max-w-[5rem] shrink-0 object-contain opacity-95 transition-opacity duration-300 group-hover:opacity-100"
                 />
               </div>
 

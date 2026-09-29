@@ -72,7 +72,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "louis-benassy",
     name: "Louis Benassy",
-    role: "COO | Head of Exchange · Yellow.pro",
+    role: "COO | Head of Exchange",
     company: "Yellow.pro",
     companySlug: "yellow",
     contextLine: "WORKED TOGETHER · SUPPORT OPERATIONS",

@@ -5,7 +5,7 @@ import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { HeroIntro } from "@/components/Hero/HeroIntro";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { scrollToHash } from "@/lib/scrollToHash";
-import { outlineBadgeClassName, outlineCtaClassName } from "@/lib/outlineCta";
+import { outlineCtaClassName } from "@/lib/outlineCta";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
@@ -127,18 +127,6 @@ export function Hero() {
                   ))}
                 </h1>
               </motion.div>
-
-              <motion.ul
-                variants={itemVariant}
-                className="mt-7 flex flex-wrap gap-2 sm:mt-8 sm:gap-2.5"
-                aria-label="Previous companies"
-              >
-                {heroContent.badges.map((badge) => (
-                  <li key={badge}>
-                    <span className={outlineBadgeClassName}>{badge}</span>
-                  </li>
-                ))}
-              </motion.ul>
 
               <motion.div variants={itemVariant} className="mt-9 sm:mt-10">
                 <button

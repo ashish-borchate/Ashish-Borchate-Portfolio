@@ -12,7 +12,6 @@ export const heroContent = {
     "I diagnose the problem.",
     "I make things work better.",
   ],
-  badges: ["EX-BINANCE", "EX-BYBIT", "EX-KOINX"] as const,
   cta: "EXPLORE MY WORK ↓",
   ctaHref: "#experience",
 } as const;

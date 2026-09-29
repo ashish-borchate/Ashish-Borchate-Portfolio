@@ -32,7 +32,7 @@ export function TestimonialPortrait({
     <div
       className={cn(
         "relative shrink-0 overflow-hidden rounded-full border border-border/80 bg-surface/40 transition-[border-color,filter,transform] duration-300",
-        active ? "border-accent/35 grayscale-0" : "grayscale-[0.35]",
+        active ? "border-accent/35 grayscale-0" : "grayscale-[0.15]",
         className,
       )}
     >
