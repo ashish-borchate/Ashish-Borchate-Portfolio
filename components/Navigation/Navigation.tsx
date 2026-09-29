@@ -1,10 +1,11 @@
 "use client";
 
 import { brandName, siteNav } from "@/data/navigation";
+import { scrollToHash } from "@/lib/scrollToHash";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { SoundToggle } from "@/components/ui/SoundToggle";
 
 export function Navigation() {
@@ -16,11 +17,30 @@ export function Navigation() {
     setScrolled(v > 24);
   });
 
+  const onAnchorClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      if (!href.startsWith("#")) return;
+      event.preventDefault();
+      scrollToHash(href);
+      setMobileOpen(false);
+    },
+    [],
+  );
+
   return (
     <header className="fixed inset-x-0 top-0 z-40">
       <div
+        aria-hidden
         className={cn(
-          "mx-auto flex max-w-6xl items-center justify-between px-3 transition-all duration-300 min-[430px]:px-4 sm:px-6",
+          "pointer-events-none absolute inset-x-0 top-0 border-b transition-all duration-300",
+          scrolled
+            ? "h-full border-border/55 bg-background/[0.98] backdrop-blur-xl"
+            : "h-0 border-transparent bg-transparent",
+        )}
+      />
+      <div
+        className={cn(
+          "relative mx-auto flex max-w-6xl items-center justify-between px-3 transition-all duration-300 min-[430px]:px-4 sm:px-6",
           scrolled ? "py-2 min-[430px]:py-3" : "py-3 min-[430px]:py-5",
         )}
       >
@@ -28,13 +48,14 @@ export function Navigation() {
           className={cn(
             "flex w-full min-w-0 items-center justify-between gap-2 rounded-full border border-transparent px-2.5 py-2 transition-all duration-300 min-[430px]:px-4 sm:px-5",
             scrolled &&
-              "border-border/80 bg-charcoal/70 py-2 shadow-sm backdrop-blur-md",
+              "border-border/70 bg-charcoal/90 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md",
           )}
           aria-label="Primary"
         >
           <Link
             href="#top"
             className="truncate font-mono text-[10px] font-medium tracking-[0.12em] text-foreground min-[390px]:text-[11px] min-[430px]:tracking-[0.18em] sm:text-xs"
+            onClick={(e) => onAnchorClick(e, "#top")}
           >
             {brandName}
           </Link>
@@ -45,6 +66,7 @@ export function Navigation() {
                 <Link
                   href={item.href}
                   className="text-xs font-medium text-accent transition-colors hover:text-[#6b99f2]"
+                  onClick={(e) => onAnchorClick(e, item.href)}
                 >
                   {item.label}
                 </Link>
@@ -56,7 +78,7 @@ export function Navigation() {
             <SoundToggle />
             <button
               type="button"
-              className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-surface lg:hidden"
+              className="relative flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-surface/90 lg:hidden"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -93,7 +115,7 @@ export function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="mx-3 mt-2 max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-border bg-charcoal/95 p-3 backdrop-blur-lg min-[430px]:mx-4 min-[430px]:p-4 lg:hidden"
+            className="relative mx-3 mt-2 max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-border bg-charcoal/98 p-3 backdrop-blur-xl min-[430px]:mx-4 min-[430px]:p-4 lg:hidden"
           >
             <ul className="flex flex-col gap-1">
               {siteNav.map((item) => (
@@ -101,7 +123,7 @@ export function Navigation() {
                   <Link
                     href={item.href}
                     className="block rounded-lg px-2 py-3 text-sm font-medium text-accent active:bg-surface/50"
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => onAnchorClick(e, item.href)}
                   >
                     {item.label}
                   </Link>

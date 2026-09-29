@@ -9,6 +9,7 @@
   --accent: #5b8def;
   --accent-muted: rgba(91, 141, 239, 0.15);
   --charcoal: #12141a;
+  --header-offset: 5.5rem;
 }
 
 @theme inline {
@@ -26,13 +27,13 @@
 
 html {
   scroll-behavior: auto;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: var(--header-offset);
   /* Do not set overflow-x on html/body — it breaks position:sticky (Journey pin). */
 }
 
 @media (min-width: 640px) {
-  html {
-    scroll-padding-top: 6rem;
+  :root {
+    --header-offset: 6rem;
   }
 }
 

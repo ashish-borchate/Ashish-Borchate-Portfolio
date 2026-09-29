@@ -1,5 +1,6 @@
 "use client";
 
+import { scrollToHash } from "@/lib/scrollToHash";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -50,5 +51,17 @@ export function MagneticButton({
     return <a href={href}>{content}</a>;
   }
 
-  return <Link href={href}>{content}</Link>;
+  return (
+    <Link
+      href={href}
+      onClick={(event) => {
+        if (href.startsWith("#")) {
+          event.preventDefault();
+          scrollToHash(href);
+        }
+      }}
+    >
+      {content}
+    </Link>
+  );
 }

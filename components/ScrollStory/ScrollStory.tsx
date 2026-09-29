@@ -189,7 +189,7 @@ function JourneyStatic() {
   return (
     <section
       id="story"
-      className="scroll-mt-20 border-y border-border py-12 sm:scroll-mt-24 sm:py-16"
+      className="scroll-mt-[var(--header-offset)] border-b border-border py-12 sm:py-16"
       aria-label="Journey"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -241,13 +241,15 @@ export function ScrollStory() {
 
   return (
     <section
-      id="story"
       ref={ref}
-      className="relative scroll-mt-20 border-y border-border sm:scroll-mt-24"
+      className="relative border-b border-border"
       style={{ height: `${sectionHeight}vh` }}
       aria-label="Journey"
     >
-      <div className="sticky top-0 z-20 flex h-[100dvh] max-h-[100svh] flex-col justify-center overflow-hidden py-8 sm:py-10">
+      <div
+        id="story"
+        className="sticky top-[var(--header-offset)] z-20 flex h-[calc(100dvh-var(--header-offset))] max-h-[calc(100svh-var(--header-offset))] scroll-mt-[var(--header-offset)] flex-col justify-center overflow-hidden py-6 sm:py-8"
+      >
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.03),transparent)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
