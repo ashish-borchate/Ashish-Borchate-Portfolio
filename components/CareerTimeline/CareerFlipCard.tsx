@@ -111,12 +111,18 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
           onClick={toggleFlip}
         >
           {showLogo ? (
-            <div className="flex justify-center px-5 py-8 sm:hidden">
+            <div className="flex flex-col items-center px-5 py-8 sm:hidden">
               <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
+              <p id={hintId} className={cn("mt-5", experienceCtaClassName)}>
+                TAP TO EXPLORE MORE
+              </p>
             </div>
           ) : (
-            <div className="px-5 py-8 sm:hidden">
+            <div className="flex flex-col items-center px-5 py-8 sm:hidden">
               <p className="text-center text-lg font-medium text-accent">{entry.company}</p>
+              <p id={hintId} className={cn("mt-5", experienceCtaClassName)}>
+                TAP TO EXPLORE MORE
+              </p>
             </div>
           )}
 
