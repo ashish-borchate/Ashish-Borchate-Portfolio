@@ -1,14 +1,15 @@
+/** Grid is 2 columns; order defines left-to-right pairs per row on mobile. */
 export const domainAreas: string[] = [
   "Spot Trading",
-  "Perpetuals / Futures",
-  "Margin & Leverage",
   "API Trading",
-  "Web3 Wallets",
+  "Margin & Leverage",
+  "Perpetuals / Futures",
+  "Blockchain Transfer",
   "Deposits & Withdrawals",
   "P2P",
-  "Staking",
+  "Web3 Wallets",
   "Crypto Loans",
-  "Multi-chain Transfers",
+  "Staking",
   "KYC / AML",
   "Fraud & Security",
 ];

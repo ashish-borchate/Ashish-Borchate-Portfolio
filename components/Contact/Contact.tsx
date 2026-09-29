@@ -12,7 +12,7 @@ export function Contact() {
           className="mx-auto max-w-none text-center"
           titleClassName="whitespace-nowrap text-[clamp(1.2rem,4.2vw,3rem)] tracking-tight"
         />
-        <div className="mx-auto mt-8 grid max-w-xs grid-cols-2 gap-2 sm:mt-10 sm:flex sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
+        <div className="mx-auto mt-8 flex w-full max-w-[11.5rem] flex-col gap-2 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
           <MagneticButton
             href={profile.links.emailHref}
             variant="primary"
@@ -31,7 +31,7 @@ export function Contact() {
           <MagneticButton
             href={profile.assets.resumePdf}
             variant="primary"
-            className="col-span-2 w-full max-w-[10.5rem] justify-self-center px-5 sm:col-span-1 sm:max-w-none sm:w-auto"
+            className="w-full min-w-0 px-5 sm:w-auto"
             external
           >
             Resume
