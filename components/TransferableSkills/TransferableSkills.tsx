@@ -56,20 +56,21 @@ export function TransferableSkills() {
             ))}
           </div>
 
-          <div
-            className="grid gap-6 lg:grid-cols-12 lg:items-stretch lg:gap-8"
-            role="tablist"
-            aria-label="Transferable capabilities"
-          >
-            <div className="flex gap-2 overflow-x-auto pb-1 lg:col-span-4 lg:flex lg:flex-col lg:justify-between lg:gap-5 lg:overflow-visible lg:pb-0 lg:py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="grid gap-4 lg:grid-cols-12 lg:items-stretch lg:gap-8">
+            <div
+              className="grid min-w-0 grid-cols-4 gap-1.5 sm:gap-2 lg:col-span-4 lg:flex lg:flex-col lg:justify-between lg:gap-5 lg:py-1"
+              role="tablist"
+              aria-label="Transferable capabilities"
+            >
               {transferablePhases.map((p) => (
                 <label
                   key={p.id}
                   htmlFor={`skill-${p.id}`}
                   id={`tab-${p.id}`}
                   className={cn(
-                    "skill-tab-label flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border px-4 py-2.5 text-center min-[430px]:px-5 lg:min-h-0 lg:flex-1 lg:w-full lg:shrink",
+                    "skill-tab-label flex min-h-10 min-w-0 cursor-pointer items-center justify-center rounded-full border px-1.5 py-2 text-center leading-tight min-[390px]:min-h-11 min-[390px]:px-2 sm:px-3 sm:py-2.5 lg:min-h-0 lg:flex-1 lg:w-full lg:px-4",
                     frameworkStageLabel,
+                    "text-[9px] tracking-[0.06em] min-[390px]:text-[10px] min-[430px]:tracking-[0.1em] lg:text-[11px] lg:tracking-[0.16em]",
                     "border-border text-muted transition-[color,border-color,background-color] duration-300 hover:border-border-hover hover:text-secondary",
                   )}
                 >

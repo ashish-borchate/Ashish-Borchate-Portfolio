@@ -131,7 +131,7 @@ body {
 .transferable-tabs:has(#skill-build:checked) label[for="skill-build"] {
   border-color: var(--border-hover);
   background: var(--accent-muted);
-  color: var(--text-primary);
+  color: var(--accent);
 }
 
 /* Expertise framework thread (desktop) */
@@ -179,7 +179,10 @@ body {
   color: var(--accent);
 }
 
-.transferable-tabs:has(#skill-diagnose:checked) .skill-tab-panel-diagnose .skill-panel-title {
+.transferable-tabs:has(#skill-understand:checked) .skill-tab-panel-understand .skill-panel-title,
+.transferable-tabs:has(#skill-diagnose:checked) .skill-tab-panel-diagnose .skill-panel-title,
+.transferable-tabs:has(#skill-connect:checked) .skill-tab-panel-connect .skill-panel-title,
+.transferable-tabs:has(#skill-build:checked) .skill-tab-panel-build .skill-panel-title {
   color: var(--accent);
 }
 
