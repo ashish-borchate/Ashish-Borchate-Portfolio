@@ -4,6 +4,7 @@ import { getFeaturedTestimonials, testimonialsSection } from "@/data/testimonial
 import { TestimonialEditorialCard } from "@/components/Testimonial/TestimonialEditorialCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -49,14 +50,19 @@ export function TestimonialsSection() {
         </motion.div>
 
         <motion.ul
-          className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 md:grid-cols-2 md:gap-5 lg:mt-14 lg:gap-6"
+          layout={!reduced}
+          className={cn(
+            "mt-10 grid grid-cols-1 gap-4 sm:mt-12 lg:mt-14",
+            !openId && "md:grid-cols-2 md:gap-5 lg:gap-6",
+          )}
+          transition={{ layout: { duration: reduced ? 0.1 : 0.45, ease: easeOut } }}
         >
           {items.map((item, index) => (
             <TestimonialEditorialCard
               key={item.id}
               testimonial={item}
               isOpen={openId === item.id}
-              isDimmed={openId !== null && openId !== item.id}
+              anyExpanded={openId !== null}
               onToggle={() => toggle(item.id)}
               layoutIndex={index}
               revealDelay={reduced ? 0 : index * 0.08}
