@@ -3,7 +3,7 @@
 import { transferableCopy, transferablePhases } from "@/data/transferableSkills";
 import { DomainExperienceBlock } from "@/components/DomainExperience/DomainExperience";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { bodyCopy, monoLabel, monoLabelAccent } from "@/lib/typography";
+import { bodyCopy, frameworkStageLabel, monoLabelAccent } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 const inputName = "transferable-skill";
@@ -12,7 +12,7 @@ export function TransferableSkills() {
   return (
     <section
       id="expertise"
-      className="scroll-mt-20 border-y border-border bg-charcoal/30 py-16 sm:py-24 md:py-32 sm:scroll-mt-24"
+      className="scroll-mt-20 border-y border-border bg-charcoal/30 py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
@@ -36,6 +36,27 @@ export function TransferableSkills() {
           ))}
 
           <div
+            className="skill-framework-rail"
+            aria-hidden
+          >
+            {transferablePhases.map((p, index) => (
+              <span key={p.id} className="contents">
+                <span
+                  className={cn(
+                    "skill-framework-node",
+                    `skill-framework-node-${p.id}`,
+                  )}
+                >
+                  {p.title}
+                </span>
+                {index < transferablePhases.length - 1 ? (
+                  <span className="skill-framework-connector" />
+                ) : null}
+              </span>
+            ))}
+          </div>
+
+          <div
             className="grid gap-6 lg:grid-cols-12 lg:items-stretch lg:gap-8"
             role="tablist"
             aria-label="Transferable capabilities"
@@ -47,9 +68,9 @@ export function TransferableSkills() {
                   htmlFor={`skill-${p.id}`}
                   id={`tab-${p.id}`}
                   className={cn(
-                    "skill-tab-label flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border px-4 py-2.5 text-center transition-colors min-[430px]:text-[11px] lg:min-h-0 lg:flex-1 lg:w-full lg:shrink",
-                    monoLabel,
-                    "border-border text-muted hover:border-border-hover hover:text-secondary",
+                    "skill-tab-label flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border px-4 py-2.5 text-center min-[430px]:px-5 lg:min-h-0 lg:flex-1 lg:w-full lg:shrink",
+                    frameworkStageLabel,
+                    "border-border text-muted transition-[color,border-color,background-color] duration-300 hover:border-border-hover hover:text-secondary",
                   )}
                 >
                   {p.title}
@@ -70,7 +91,7 @@ export function TransferableSkills() {
                   )}
                 >
                   <p className={monoLabelAccent}>{p.number}</p>
-                  <h3 className="mt-2 text-lg font-medium tracking-tight text-primary sm:text-xl">
+                  <h3 className="skill-panel-title mt-2 text-lg font-medium tracking-tight text-primary sm:text-xl">
                     {p.title}
                   </h3>
                   <ul className="mt-5 space-y-2.5 sm:mt-6">

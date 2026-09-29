@@ -12,7 +12,7 @@ const journeyLineClass = cn(monoLabelAccent, "leading-snug");
 
 function JourneySectionTitle() {
   return (
-    <h2 className={cn(sectionTitle, "md:text-4xl")}>How I work</h2>
+    <h2 className={cn(sectionTitle, "md:text-[2.75rem]")}>How I work</h2>
   );
 }
 

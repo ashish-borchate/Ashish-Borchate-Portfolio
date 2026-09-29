@@ -77,6 +77,36 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Hero — soft atmospheric light (static; no animation) */
+.hero-atmosphere {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 65% 45%,
+    rgba(107, 140, 255, 0.1) 0%,
+    rgba(107, 140, 255, 0.04) 30%,
+    transparent 65%
+  );
+}
+
+@media (max-width: 639px) {
+  .hero-atmosphere {
+    background: radial-gradient(
+      circle at 58% 38%,
+      rgba(107, 140, 255, 0.07) 0%,
+      rgba(107, 140, 255, 0.03) 28%,
+      transparent 62%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-card-interactive:hover {
+    transform: none !important;
+  }
+}
+
 /* Transferable skills — CSS tabs (works without React / on file://) */
 .transferable-tabs .skill-tab-panel {
   display: none;
@@ -102,6 +132,55 @@ body {
   border-color: var(--border-hover);
   background: var(--accent-muted);
   color: var(--text-primary);
+}
+
+/* Expertise framework thread (desktop) */
+.skill-framework-rail {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .skill-framework-rail {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    padding: 0 0.125rem;
+  }
+
+  .skill-framework-node {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .skill-framework-connector {
+    flex: 0 0 1.5rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--border-subtle),
+      rgba(107, 140, 255, 0.22),
+      var(--border-subtle)
+    );
+  }
+}
+
+.transferable-tabs:has(#skill-understand:checked) .skill-framework-node-understand,
+.transferable-tabs:has(#skill-diagnose:checked) .skill-framework-node-diagnose,
+.transferable-tabs:has(#skill-connect:checked) .skill-framework-node-connect,
+.transferable-tabs:has(#skill-build:checked) .skill-framework-node-build {
+  color: var(--accent);
+}
+
+.transferable-tabs:has(#skill-diagnose:checked) .skill-tab-panel-diagnose .skill-panel-title {
+  color: var(--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

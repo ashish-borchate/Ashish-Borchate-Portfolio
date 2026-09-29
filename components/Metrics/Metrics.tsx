@@ -3,7 +3,13 @@
 import type { ImpactMetric } from "@/data/metrics";
 import { impactMetrics } from "@/data/metrics";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { bodyCopy, monoCtaRow, monoLabelMuted } from "@/lib/typography";
+import {
+  bodyCopy,
+  impactStatLabel,
+  impactStatValue,
+  monoCtaRow,
+  monoLabelMuted,
+} from "@/lib/typography";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
@@ -14,7 +20,7 @@ function ImpactExploreHint({ showBack }: { showBack: boolean }) {
   const isTouch = useMediaQuery("(max-width: 767px)");
   if (showBack || !isTouch) return null;
   return (
-    <p className={cn("mt-4", monoCtaRow, "justify-center text-accent/90")}>
+    <p className={cn("mt-5", monoCtaRow, "justify-center text-accent/90")}>
       TAP TO EXPLORE
     </p>
   );
@@ -47,9 +53,12 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
     ? { duration: 0 }
     : { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
 
+  const cardInteractive =
+    hoverCapable && !reduced && !showBack;
+
   return (
     <div
-      className="min-h-[11.5rem] sm:min-h-[12.5rem]"
+      className="min-h-[12rem] sm:min-h-[13rem]"
       onMouseEnter={() => hoverCapable && setHovered(true)}
       onMouseLeave={() => hoverCapable && setHovered(false)}
     >
@@ -62,13 +71,15 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
         }}
         onKeyDown={handleKeyDown}
         className={cn(
-          "relative h-full min-h-[inherit] w-full cursor-pointer overflow-hidden rounded-xl border border-border bg-surface/50 outline-none transition-colors",
+          "group/impact impact-card-interactive relative h-full min-h-[inherit] w-full cursor-pointer overflow-hidden rounded-xl border border-border bg-surface/50 outline-none",
+          "transition-[border-color,transform,box-shadow] duration-300 ease-out",
           "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           showBack && "border-border-hover",
+          cardInteractive && "hover:-translate-y-1 hover:border-border-hover",
         )}
       >
         <motion.div
-          className="absolute inset-0 flex flex-col items-center justify-center px-4 py-5 text-center sm:px-5"
+          className="absolute inset-0 flex flex-col items-center justify-center px-4 py-6 text-center sm:px-5 sm:py-7"
           initial={false}
           animate={{ opacity: showBack ? 0 : 1, y: showBack ? -6 : 0 }}
           transition={transition}
@@ -76,11 +87,17 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
           style={{ pointerEvents: showBack ? "none" : "auto" }}
         >
           <div className="flex w-full flex-col items-center">
-            <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl">
+            <p
+              className={cn(
+                impactStatValue,
+                cardInteractive &&
+                  "transition-[color,filter] duration-300 group-hover/impact:brightness-110",
+              )}
+            >
               {metric.value}
             </p>
-            <p className="mt-2 text-sm text-secondary">{metric.label}</p>
-            <p className={cn("mt-1", monoLabelMuted, "tracking-[0.1em]")}>
+            <p className={impactStatLabel}>{metric.label}</p>
+            <p className={cn("mt-2", monoLabelMuted, "tracking-[0.1em]")}>
               {metric.context}
             </p>
             <ImpactExploreHint showBack={showBack} />
@@ -117,10 +134,7 @@ export function Metrics() {
       className="scroll-mt-20 py-14 sm:scroll-mt-24 sm:py-20 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Impact"
-          title="THE WORK, IN NUMBERS."
-        />
+        <SectionHeading eyebrow="Impact" title="THE WORK, IN NUMBERS." />
         <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {impactMetrics.map((metric) => (
             <ImpactFlipCard
