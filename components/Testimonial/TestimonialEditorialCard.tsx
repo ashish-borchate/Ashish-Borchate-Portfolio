@@ -56,6 +56,7 @@ export function TestimonialEditorialCard({
       className={cn(
         "min-w-0 list-none transition-[opacity,transform] duration-500 ease-out",
         isOpen && "md:col-span-2",
+        isOpen && layoutIndex % 2 === 1 && "md:col-start-1",
         layoutIndex % 2 === 1 && !isOpen && "md:translate-y-3 lg:translate-y-4",
         isDimmed && !reduced && "opacity-55 md:scale-[0.995]",
         isDimmed && reduced && "opacity-50",

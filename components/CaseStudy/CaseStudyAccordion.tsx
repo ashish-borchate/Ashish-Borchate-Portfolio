@@ -147,7 +147,7 @@ function CaseStudyAccordionItem({
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
               {sequence}
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted sm:text-[11px]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent sm:text-[11px]">
               {data.company}
             </span>
           </span>

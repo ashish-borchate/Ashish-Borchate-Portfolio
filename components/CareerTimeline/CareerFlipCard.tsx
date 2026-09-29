@@ -72,7 +72,7 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
 }
 
 const experienceCtaClassName =
-  "flex w-full min-h-10 items-center justify-center font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent sm:text-[11px]";
+  "flex w-full min-h-10 items-center justify-center font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent sm:justify-start sm:text-[11px]";
 
 function CardHeader({
   entry,

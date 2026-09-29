@@ -6,7 +6,7 @@ export function DomainExperienceBlock() {
   return (
     <div
       id="domain"
-      className="mt-14 border-t border-border/80 pt-12 sm:mt-16 sm:pt-14 md:mt-20 md:pt-16"
+      className="mt-14 sm:mt-16 md:mt-20"
     >
       <SectionHeading
         title="DOMAIN EXPERIENCE"
