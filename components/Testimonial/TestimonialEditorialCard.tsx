@@ -3,6 +3,14 @@
 import type { Testimonial } from "@/data/testimonials";
 import { TestimonialPortrait } from "@/components/Testimonial/TestimonialPortrait";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
+import {
+  bodyCopy,
+  bodyCopySecondary,
+  monoCtaRow,
+  monoLabel,
+  monoLabelAccent,
+  monoLabelMuted,
+} from "@/lib/typography";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -64,10 +72,10 @@ export function TestimonialEditorialCard({
     >
       <article
         className={cn(
-          "group relative overflow-hidden rounded-xl border bg-surface/25 transition-[border-color,box-shadow,background-color] duration-500 ease-out",
+          "group/cta group relative overflow-hidden rounded-xl border bg-surface/25 transition-[border-color,box-shadow,background-color] duration-500 ease-out",
           isOpen
-            ? "border-accent/35 shadow-[0_0_0_1px_rgba(91,141,239,0.12),0_24px_48px_rgba(0,0,0,0.35)]"
-            : "border-border/80 hover:border-accent/25",
+            ? "border-border-hover shadow-[0_0_0_1px_rgba(107,140,255,0.12),0_24px_48px_rgba(0,0,0,0.35)]"
+            : "border-border hover:border-border-hover",
           !isOpen &&
             hoverCapable &&
             "hover:-translate-y-0.5 hover:bg-surface/35 hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)]",
@@ -113,12 +121,13 @@ export function TestimonialEditorialCard({
                   }}
                 >
                   <div className="min-w-0">
-                    <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-foreground sm:text-xs">
+                    <p className={cn(monoLabel, "text-primary sm:text-[11px]")}>
                       {testimonial.name}
                     </p>
                     <p
                       className={cn(
-                        "text-pretty text-sm text-muted transition-[margin] ease-out",
+                        bodyCopy,
+                        "transition-[margin] ease-out",
                         isOpen ? "mt-0.5" : "mt-1",
                       )}
                       style={{
@@ -152,10 +161,10 @@ export function TestimonialEditorialCard({
                   aria-hidden={isOpen}
                 >
                   <div className="min-h-0 overflow-hidden">
-                    <p className="mt-3 text-pretty text-sm leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
+                    <p className={cn("mt-3", bodyCopySecondary)}>
                       &ldquo;{testimonial.previewQuote}&rdquo;
                     </p>
-                    <p className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-transform duration-200 group-hover:translate-x-0.5 sm:text-[11px]">
+                    <p className={cn("mt-4", monoCtaRow)}>
                       {hoverCapable ? "READ FULL FEEDBACK →" : "TAP TO READ FULL FEEDBACK →"}
                     </p>
                   </div>
@@ -180,7 +189,7 @@ export function TestimonialEditorialCard({
           <div className="min-h-0 overflow-hidden">
             <div
               className={cn(
-                "border-t border-border/80 px-4 pb-5 pt-4 transition-opacity ease-out sm:px-5 sm:pb-6 sm:pt-5",
+                "border-t border-border px-4 pb-5 pt-4 transition-opacity ease-out sm:px-5 sm:pb-6 sm:pt-5",
                 isOpen ? "opacity-100 delay-75" : "opacity-0",
               )}
               style={{
@@ -188,21 +197,17 @@ export function TestimonialEditorialCard({
                 transitionTimingFunction: expandEase,
               }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-                How we worked together
-              </p>
-              <p className="mt-2 text-pretty text-sm text-foreground">
+              <p className={monoLabelAccent}>How we worked together</p>
+              <p className={cn("mt-2", bodyCopySecondary)}>
                 {testimonial.workingTogether}
                 <span className="text-muted"> — </span>
                 {testimonial.relationship}
               </p>
 
-              <div className="my-5 border-t border-border/80" aria-hidden />
+              <div className="my-5 border-t border-border" aria-hidden />
 
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-                Full feedback
-              </p>
-              <div className="mt-3 space-y-3 text-pretty text-sm leading-relaxed text-foreground sm:text-base">
+              <p className={monoLabelMuted}>Full feedback</p>
+              <div className={cn("mt-3 space-y-3", bodyCopySecondary)}>
                 {testimonial.fullQuote.split(/\n\n+/).map((paragraph) => (
                   <p key={paragraph.slice(0, 48)}>{paragraph}</p>
                 ))}
@@ -220,14 +225,14 @@ export function TestimonialEditorialCard({
                 </a>
               ) : null}
 
-              <div className="my-5 border-t border-border/80" aria-hidden />
+              <div className="my-5 border-t border-border" aria-hidden />
 
               <button
                 type="button"
                 onClick={onToggle}
-                className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-colors hover:text-[#6b99f2] sm:text-[11px]"
+                className={monoCtaRow}
               >
-                Collapse ↑
+                COLLAPSE ↑
               </button>
             </div>
           </div>

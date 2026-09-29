@@ -23,9 +23,9 @@ export function MagneticButton({
   const base =
     "inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:min-h-0";
   const variants = {
-    primary: "bg-accent text-background hover:bg-[#6b99f2]",
+    primary: "bg-accent text-background hover:opacity-90",
     ghost:
-      "border border-border bg-surface text-foreground hover:border-accent/40 hover:bg-accent-muted",
+      "border border-border bg-surface text-primary hover:border-border-hover hover:bg-accent-muted",
   };
 
   const content = (

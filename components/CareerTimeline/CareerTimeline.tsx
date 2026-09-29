@@ -5,6 +5,7 @@ import { experienceTimeline } from "@/data/experience";
 import { CareerFlipCard } from "@/components/CareerTimeline/CareerFlipCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
+import { bodyCopy, companyNameDisplay, dateMeta, monoLabelAccent, roleTitle } from "@/lib/typography";
 import { formatExperiencePeriod } from "@/lib/formatExperiencePeriod";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -16,7 +17,7 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
   const textOnly = entry.logoDisplay === "text-only";
 
   return (
-    <article className="relative flex h-full min-h-[7.5rem] flex-col rounded-xl border border-border/70 bg-surface/30 p-4 sm:min-h-[8rem] sm:p-5">
+    <article className="relative flex h-full min-h-[7.5rem] flex-col rounded-xl border border-border bg-surface/30 p-4 sm:min-h-[8rem] sm:p-5">
       <div className="min-w-0">
         {!textOnly ? (
           <CompanyLogo
@@ -27,12 +28,12 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
           />
         ) : null}
         <div className="flex items-start gap-2.5">
-          <h3 className="text-base font-medium tracking-tight text-accent sm:text-lg">
+          <h3 className={cn("text-base sm:text-lg", companyNameDisplay)}>
             {entry.company}
           </h3>
         </div>
-        <p className="mt-1 text-xs text-muted sm:text-sm">{entry.role}</p>
-        <p className="mt-0.5 text-xs text-muted/90 sm:text-sm">
+        <p className={cn("mt-1 text-xs sm:text-sm", roleTitle)}>{entry.role}</p>
+        <p className={cn("mt-0.5 text-xs sm:text-sm", dateMeta)}>
           {formatExperiencePeriod(entry.period)}
         </p>
       </div>
@@ -110,10 +111,8 @@ export function CareerTimeline() {
             {sections.map((section) => (
               <div key={section.id}>
                 <div className="md:pl-16">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent sm:text-[11px]">
-                    {section.label}
-                  </p>
-                  <p className="mt-2 max-w-2xl text-sm text-muted">
+                  <p className={monoLabelAccent}>{section.label}</p>
+                  <p className={cn("mt-2 max-w-2xl", bodyCopy)}>
                     {section.description}
                   </p>
                 </div>

@@ -2,6 +2,7 @@
 
 import { marqueeCompanies } from "@/data/companiesMarquee";
 import { usePrefersReducedMotion } from "@/lib/motion";
+import { monoLabelMuted } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -25,8 +26,8 @@ function CompanyMarqueeItem({
         "company-marquee-item group flex items-center justify-center rounded-xl border bg-surface/25 px-2 py-3 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-3 sm:py-3.5",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive
-          ? "border-accent/45 bg-surface/45 shadow-[0_0_0_1px_rgba(91,141,239,0.12)]"
-          : "border-border/80 hover:border-accent/30",
+          ? "border-border-hover bg-surface/45 shadow-[0_0_0_1px_rgba(107,140,255,0.12)]"
+          : "border-border hover:border-border-hover",
         isDimmed && "opacity-40",
       )}
       onMouseEnter={onHover}
@@ -82,16 +83,12 @@ export function CompaniesMarquee() {
     <section
       id="companies"
       ref={sectionRef}
-      className="border-y border-border/80 bg-charcoal/20 py-12 sm:py-16 md:py-20"
+      className="border-y border-border bg-charcoal/20 py-12 sm:py-16 md:py-20"
       aria-label="Companies I've worked with"
       onMouseLeave={clearActive}
     >
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-        <h2
-          className="font-mono text-[10px] font-medium uppercase tracking-[0.28em] text-muted sm:text-[11px]"
-        >
-          COMPANIES I&apos;VE WORKED WITH
-        </h2>
+        <h2 className={monoLabelMuted}>COMPANIES I&apos;VE WORKED WITH</h2>
       </div>
 
       <div className="relative mx-auto mt-8 min-w-0 max-w-6xl overflow-hidden px-4 sm:mt-10 sm:px-6">

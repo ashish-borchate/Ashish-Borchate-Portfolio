@@ -3,6 +3,7 @@
 import { transferableCopy, transferablePhases } from "@/data/transferableSkills";
 import { DomainExperienceBlock } from "@/components/DomainExperience/DomainExperience";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { bodyCopy, monoLabel, monoLabelAccent } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 
 const inputName = "transferable-skill";
@@ -19,12 +20,8 @@ export function TransferableSkills() {
           className="max-w-none"
           titleClassName="max-md:text-balance md:whitespace-nowrap"
         />
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-          {transferableCopy.intro}
-        </p>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-          {transferableCopy.principles}
-        </p>
+        <p className={cn("mt-4 max-w-3xl", bodyCopy)}>{transferableCopy.intro}</p>
+        <p className={cn("mt-3 max-w-3xl", bodyCopy)}>{transferableCopy.principles}</p>
 
         <div className="transferable-tabs mt-10 sm:mt-12">
           {transferablePhases.map((p, index) => (
@@ -50,8 +47,9 @@ export function TransferableSkills() {
                   htmlFor={`skill-${p.id}`}
                   id={`tab-${p.id}`}
                   className={cn(
-                    "skill-tab-label flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border px-4 py-2.5 text-center font-mono text-[10px] uppercase tracking-wider transition-colors min-[430px]:text-[11px] lg:min-h-0 lg:flex-1 lg:w-full lg:shrink",
-                    "border-border text-muted hover:border-accent/30 hover:text-foreground",
+                    "skill-tab-label flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border px-4 py-2.5 text-center transition-colors min-[430px]:text-[11px] lg:min-h-0 lg:flex-1 lg:w-full lg:shrink",
+                    monoLabel,
+                    "border-border text-muted hover:border-border-hover hover:text-secondary",
                   )}
                 >
                   {p.title}
@@ -71,15 +69,15 @@ export function TransferableSkills() {
                     `skill-tab-panel-${p.id}`,
                   )}
                 >
-                  <p className="font-mono text-[10px] text-accent/90">{p.number}</p>
-                  <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground sm:text-xl">
+                  <p className={monoLabelAccent}>{p.number}</p>
+                  <h3 className="mt-2 text-lg font-medium tracking-tight text-primary sm:text-xl">
                     {p.title}
                   </h3>
                   <ul className="mt-5 space-y-2.5 sm:mt-6">
                     {p.items.map((item) => (
                       <li
                         key={item}
-                        className="border-l border-border pl-3 text-sm leading-relaxed text-muted"
+                        className={cn("border-l border-border pl-3", bodyCopy)}
                       >
                         {item}
                       </li>

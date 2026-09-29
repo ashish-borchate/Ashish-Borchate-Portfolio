@@ -4,25 +4,23 @@ import type { CaseStudySection } from "@/data/caseStudies";
 import { caseStudies } from "@/data/caseStudies";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { usePrefersReducedMotion } from "@/lib/motion";
+import {
+  bodyCopy,
+  bodyCopySecondary,
+  editorialTitle,
+  monoCtaRow,
+  monoLabelAccent,
+} from "@/lib/typography";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useId, useState } from "react";
 
-type VisualVariant = "build" | "scale" | "feedback" | "speed";
-
-const order: { slug: string; variant: VisualVariant; sequence: string }[] = [
-  { slug: "yellow", variant: "build", sequence: "01" },
-  { slug: "binance", variant: "scale", sequence: "02" },
-  { slug: "koinx", variant: "feedback", sequence: "03" },
-  { slug: "bybit", variant: "speed", sequence: "04" },
+const order: { slug: string; sequence: string }[] = [
+  { slug: "yellow", sequence: "01" },
+  { slug: "binance", sequence: "02" },
+  { slug: "koinx", sequence: "03" },
+  { slug: "bybit", sequence: "04" },
 ];
-
-const variantStyles: Record<VisualVariant, { border: string }> = {
-  build: { border: "border-amber-500/15" },
-  scale: { border: "border-accent/20" },
-  feedback: { border: "border-emerald-500/15" },
-  speed: { border: "border-cyan-500/15" },
-};
 
 function plainOutcome(text: string) {
   return text.replace(/\*\*([^*]+)\*\*/g, "$1");
@@ -31,55 +29,30 @@ function plainOutcome(text: string) {
 function StoryBlock({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-        {title}
-      </h3>
-      <p className="mt-2 text-pretty text-sm leading-relaxed text-muted sm:text-base">
-        {body}
-      </p>
+      <h3 className={monoLabelAccent}>{title}</h3>
+      <p className={cn("mt-2", bodyCopy)}>{body}</p>
     </div>
   );
 }
 
-function CaseStudyExpandedBody({
-  data,
-  variant,
-}: {
-  data: CaseStudySection;
-  variant: VisualVariant;
-}) {
-  const styles = variantStyles[variant];
+function CaseStudyExpandedBody({ data }: { data: CaseStudySection }) {
   return (
     <div className="space-y-7 border-t border-border pt-6 sm:space-y-8 sm:pt-7">
       <StoryBlock title="Context" body={data.context} />
       <StoryBlock title="Challenge" body={data.challenge} />
       <div>
-        <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-          Action
-        </h3>
+        <h3 className={monoLabelAccent}>Action</h3>
         <ul className="mt-3 space-y-2 sm:mt-3.5">
           {data.action.map((item) => (
-            <li
-              key={item}
-              className="border-l border-border pl-3 text-sm leading-relaxed text-muted sm:text-[0.9375rem]"
-            >
+            <li key={item} className={cn("border-l border-border pl-3", bodyCopy)}>
               {item}
             </li>
           ))}
         </ul>
       </div>
-      <div
-        className={cn(
-          "rounded-xl border bg-surface/40 px-4 py-4 sm:px-5 sm:py-5",
-          styles.border,
-        )}
-      >
-        <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-          Outcome
-        </h3>
-        <p className="mt-2.5 text-pretty text-sm leading-relaxed text-accent sm:text-base">
-          {plainOutcome(data.outcome)}
-        </p>
+      <div className="rounded-xl border border-border bg-surface/40 px-4 py-4 sm:px-5 sm:py-5">
+        <h3 className={monoLabelAccent}>Outcome</h3>
+        <p className={cn("mt-2.5", bodyCopySecondary)}>{plainOutcome(data.outcome)}</p>
       </div>
     </div>
   );
@@ -109,29 +82,26 @@ function ChevronIcon({ expanded }: { expanded: boolean }) {
 
 function CaseStudyAccordionItem({
   data,
-  variant,
   sequence,
   isOpen,
   onToggle,
 }: {
   data: CaseStudySection;
-  variant: VisualVariant;
   sequence: string;
   isOpen: boolean;
   onToggle: () => void;
 }) {
   const reduced = usePrefersReducedMotion();
   const panelId = useId();
-  const styles = variantStyles[variant];
 
   return (
     <article
       id={data.companySlug}
       className={cn(
-        "scroll-mt-20 rounded-xl border bg-surface/30 transition-[border-color,background-color,box-shadow] duration-200 sm:scroll-mt-24",
+        "group/cta scroll-mt-20 rounded-xl border bg-surface/30 transition-[border-color,background-color] duration-200 sm:scroll-mt-24",
         isOpen
-          ? cn("border-accent/25", styles.border)
-          : "border-border hover:border-accent/25 hover:bg-surface/40",
+          ? "border-border-hover"
+          : "border-border hover:border-border-hover hover:bg-surface/40",
       )}
     >
       <button
@@ -144,20 +114,12 @@ function CaseStudyAccordionItem({
         <ChevronIcon expanded={isOpen} />
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
-              {sequence}
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent sm:text-[11px]">
-              {data.company}
-            </span>
+            <span className={monoLabelAccent}>{sequence}</span>
+            <span className={cn(monoLabelAccent, "tracking-[0.12em]")}>{data.company}</span>
           </span>
-          <span className="mt-2 block text-base font-medium tracking-tight text-foreground sm:text-lg">
-            {data.theme}
-          </span>
-          <span className="mt-2 block text-pretty text-sm leading-snug text-muted">
-            {data.collapsedDescription}
-          </span>
-          <span className="mt-4 inline-flex min-h-10 items-center font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent sm:text-[11px]">
+          <span className={cn("mt-2 block uppercase", editorialTitle)}>{data.theme}</span>
+          <span className={cn("mt-2 block leading-snug", bodyCopy)}>{data.collapsedDescription}</span>
+          <span className={cn("mt-4", monoCtaRow)}>
             {isOpen ? "COLLAPSE ↑" : "EXPLORE CASE STUDY →"}
           </span>
         </span>
@@ -178,7 +140,7 @@ function CaseStudyAccordionItem({
         className="overflow-hidden"
       >
         <div className="px-4 pb-5 sm:px-5 sm:pb-6">
-          <CaseStudyExpandedBody data={data} variant={variant} />
+          <CaseStudyExpandedBody data={data} />
         </div>
       </motion.div>
     </article>
@@ -200,14 +162,13 @@ export function WorkCaseStudies() {
       <div className="mx-auto max-w-6xl min-w-0 px-4 sm:px-6">
         <SectionHeading title="Case studies" />
         <div className="mt-8 space-y-3 sm:mt-10 sm:space-y-4">
-          {order.map(({ slug, variant, sequence }) => {
+          {order.map(({ slug, sequence }) => {
             const data = caseStudies.find((c) => c.companySlug === slug);
             if (!data) return null;
             return (
               <CaseStudyAccordionItem
                 key={slug}
                 data={data}
-                variant={variant}
                 sequence={sequence}
                 isOpen={openSlug === slug}
                 onToggle={() => handleToggle(slug)}

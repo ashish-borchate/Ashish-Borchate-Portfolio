@@ -94,7 +94,7 @@ export function Hero() {
           introActive && "pointer-events-none select-none",
         )}
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,141,239,0.08),transparent_52%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(107,140,255,0.08),transparent_52%)]" />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-12">
@@ -106,20 +106,20 @@ export function Hero() {
             >
               <motion.p
                 variants={itemVariant}
-                className="text-[1.65rem] font-medium tracking-tight text-foreground min-[375px]:text-[1.85rem] min-[390px]:text-[2rem] sm:text-[2.35rem] md:text-[2.65rem]"
+                className="text-[1.65rem] font-medium tracking-tight text-primary min-[375px]:text-[1.85rem] min-[390px]:text-[2rem] sm:text-[2.35rem] md:text-[2.65rem]"
               >
                 {heroContent.name}
               </motion.p>
 
               <motion.p
                 variants={itemVariant}
-                className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-accent min-[390px]:text-[0.9375rem] sm:mt-4 sm:text-base"
+                className="mt-3 max-w-xl text-pretty text-sm leading-[1.65] text-secondary min-[390px]:text-[0.9375rem] sm:mt-4 sm:text-base"
               >
                 {heroContent.descriptor}
               </motion.p>
 
               <motion.div variants={itemVariant} className="mt-6 sm:mt-8">
-                <h1 className="space-y-1 text-pretty text-[1.35rem] font-medium leading-[1.22] tracking-tight text-foreground min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:space-y-1.5 sm:text-[1.85rem] sm:leading-[1.2] md:text-[2.15rem] md:leading-[1.18]">
+                <h1 className="space-y-1 text-pretty text-[1.35rem] font-medium leading-[1.15] tracking-tight text-primary min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:space-y-1.5 sm:text-[1.85rem] sm:leading-[1.12] md:text-[2.15rem] md:leading-[1.1]">
                   {heroContent.headlineLines.map((line) => (
                     <span key={line} className="block">
                       {line}

@@ -2,19 +2,17 @@
 
 import { journey } from "@/data/journey";
 import { usePrefersReducedMotion } from "@/lib/motion";
+import { bodyCopy, monoLabelAccent, sectionTitle } from "@/lib/typography";
 import { useSectionScrollProgress } from "@/lib/useSectionScrollProgress";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { useMemo, useRef } from "react";
 
-const journeyLineClass =
-  "font-mono text-[10px] leading-snug tracking-[0.2em] text-accent sm:text-[11px]";
+const journeyLineClass = cn(monoLabelAccent, "leading-snug");
 
 function JourneySectionTitle() {
   return (
-    <h2 className="text-balance text-2xl font-medium tracking-tight text-foreground min-[430px]:text-3xl sm:text-4xl">
-      How I work
-    </h2>
+    <h2 className={cn(sectionTitle, "md:text-4xl")}>How I work</h2>
   );
 }
 
@@ -43,8 +41,7 @@ function JourneyIntroLine() {
     </p>
   );
 }
-const journeyStageLine =
-  "text-pretty text-sm leading-relaxed text-muted sm:text-base";
+const journeyStageLine = bodyCopy;
 
 const STAGE_COUNT = journey.stages.length;
 const IMPROVE_STAGE_INDEX = STAGE_COUNT - 1;
@@ -131,8 +128,9 @@ function JourneyStageNode({
         />
         <span
           className={cn(
-            "font-mono text-[10px] uppercase tracking-[0.16em] sm:text-[11px]",
-            isActive ? "text-accent" : "text-muted",
+            monoLabelAccent,
+            "tracking-[0.12em]",
+            !isActive && "text-muted",
           )}
         >
           {title}
@@ -208,18 +206,14 @@ function JourneyStatic() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <JourneySectionTitle />
         <JourneyIntroLine />
-        <p className="mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-muted sm:mt-3.5 sm:text-base">
+        <p className={cn("mt-3 max-w-2xl sm:mt-3.5", bodyCopy)}>
           {journey.introduction}
         </p>
         <ol className="mt-8 space-y-5 border-l border-border pl-5 md:grid md:grid-cols-4 md:gap-6 md:space-y-0 md:border-l-0 md:pl-0">
           {journey.stages.map((stage) => (
             <li key={stage.id} className="md:border-l md:border-border md:pl-4">
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground">
-                {stage.title}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {stage.description}
-              </p>
+              <p className={cn(monoLabelAccent, "text-primary")}>{stage.title}</p>
+              <p className={cn("mt-2", bodyCopy)}>{stage.description}</p>
             </li>
           ))}
         </ol>

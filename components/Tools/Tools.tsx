@@ -15,7 +15,7 @@ export function Tools() {
         <ul className="mt-10 flex flex-wrap gap-2 sm:mt-12">
           {toolsList.map((name) => (
             <li key={name}>
-              <span className="inline-flex min-h-10 items-center rounded-full border border-border bg-surface/40 px-4 py-2.5 text-xs font-medium text-muted transition-[border-color,color] duration-200 hover:border-accent/25 hover:text-foreground">
+              <span className="inline-flex min-h-10 items-center rounded-full border border-border bg-surface/40 px-4 py-2.5 text-xs font-medium text-muted transition-[border-color,color] duration-200 hover:border-border-hover hover:text-secondary">
                 {name}
               </span>
             </li>

@@ -1,6 +1,7 @@
 "use client";
 
 import { profile } from "@/data/profile";
+import { monoLabelMuted } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
@@ -21,9 +22,7 @@ export function ProfileImage({ className, priority }: ProfileImageProps) {
           className,
         )}
       >
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-          Profile photo
-        </p>
+        <p className={monoLabelMuted}>Profile photo</p>
       </div>
     );
   }

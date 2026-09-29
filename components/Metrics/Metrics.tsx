@@ -3,6 +3,7 @@
 import type { ImpactMetric } from "@/data/metrics";
 import { impactMetrics } from "@/data/metrics";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { bodyCopy, monoCtaRow, monoLabelMuted } from "@/lib/typography";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,7 @@ function ImpactExploreHint({ showBack }: { showBack: boolean }) {
   const isTouch = useMediaQuery("(max-width: 767px)");
   if (showBack || !isTouch) return null;
   return (
-    <p className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent/90">
+    <p className={cn("mt-4", monoCtaRow, "justify-center text-accent/90")}>
       TAP TO EXPLORE
     </p>
   );
@@ -63,7 +64,7 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
         className={cn(
           "relative h-full min-h-[inherit] w-full cursor-pointer overflow-hidden rounded-xl border border-border bg-surface/50 outline-none transition-colors",
           "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          showBack && "border-accent/25",
+          showBack && "border-border-hover",
         )}
       >
         <motion.div
@@ -78,8 +79,8 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
             <p className="font-mono text-2xl font-medium tracking-tight text-accent min-[430px]:text-3xl">
               {metric.value}
             </p>
-            <p className="mt-2 text-sm text-foreground/90">{metric.label}</p>
-            <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted/70">
+            <p className="mt-2 text-sm text-secondary">{metric.label}</p>
+            <p className={cn("mt-1", monoLabelMuted, "tracking-[0.1em]")}>
               {metric.context}
             </p>
             <ImpactExploreHint showBack={showBack} />
@@ -94,7 +95,7 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
           aria-hidden={!showBack}
           style={{ pointerEvents: showBack ? "auto" : "none" }}
         >
-          <p className="max-w-[16.5rem] text-pretty text-center text-sm leading-relaxed text-muted sm:max-w-[18rem] sm:text-[0.9375rem]">
+          <p className={cn("max-w-[16.5rem] text-center sm:max-w-[18rem]", bodyCopy)}>
             {metric.back}
           </p>
         </motion.div>

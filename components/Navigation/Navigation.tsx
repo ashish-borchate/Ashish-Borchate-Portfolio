@@ -54,7 +54,7 @@ export function Navigation() {
         >
           <Link
             href="#top"
-            className="truncate font-mono text-[10px] font-medium tracking-[0.12em] text-foreground min-[390px]:text-[11px] min-[430px]:tracking-[0.18em] sm:text-xs"
+            className="truncate font-mono text-[11px] font-medium tracking-[0.12em] text-primary sm:text-xs"
             onClick={(e) => onAnchorClick(e, "#top")}
           >
             {brandName}
@@ -65,7 +65,7 @@ export function Navigation() {
               <li key={item.id}>
                 <Link
                   href={item.href}
-                  className="text-xs font-medium text-accent transition-colors hover:text-[#6b99f2]"
+                  className="text-xs font-medium text-accent transition-opacity hover:opacity-80"
                   onClick={(e) => onAnchorClick(e, item.href)}
                 >
                   {item.label}

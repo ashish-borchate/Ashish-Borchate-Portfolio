@@ -22,7 +22,7 @@ function BracketText({
   showCursor?: boolean;
 }) {
   return (
-    <p className="max-w-[min(100%,19rem)] text-pretty text-center font-mono text-[0.9375rem] leading-snug tracking-tight text-foreground min-[375px]:max-w-[21rem] min-[390px]:text-base sm:max-w-none sm:text-lg">
+    <p className="max-w-[min(100%,19rem)] text-pretty text-center font-mono text-[0.9375rem] leading-snug tracking-tight text-primary min-[375px]:max-w-[21rem] min-[390px]:text-base sm:max-w-none sm:text-lg">
       <span className="text-muted/80">{"{ "}</span>
       <span>{text}</span>
       <span className="text-muted/80">{" }"}</span>
