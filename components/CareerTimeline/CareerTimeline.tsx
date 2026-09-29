@@ -5,6 +5,7 @@ import { experienceTimeline } from "@/data/experience";
 import { CareerFlipCard } from "@/components/CareerTimeline/CareerFlipCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
+import { formatExperiencePeriod } from "@/lib/formatExperiencePeriod";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -31,7 +32,9 @@ function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
           </h3>
         </div>
         <p className="mt-1 text-xs text-muted sm:text-sm">{entry.role}</p>
-        <p className="mt-0.5 text-xs text-muted/90 sm:text-sm">{entry.period}</p>
+        <p className="mt-0.5 text-xs text-muted/90 sm:text-sm">
+          {formatExperiencePeriod(entry.period)}
+        </p>
       </div>
     </article>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ExperienceEntry } from "@/data/experience";
+import { formatExperiencePeriod } from "@/lib/formatExperiencePeriod";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -82,34 +83,39 @@ function CardHeader({
   compact: boolean;
 }) {
   const showLogo = entry.logoDisplay !== "text-only";
+  const periodLabel = formatExperiencePeriod(entry.period);
 
   return (
-    <div className="flex min-w-0 items-start justify-between gap-5 sm:gap-8">
-      <div className="min-w-0 flex flex-col">
-        <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
-          {entry.company}
-        </h3>
-        {!compact ? (
-          <>
-            <p className="mt-2 text-sm text-foreground/90 sm:text-base">{entry.role}</p>
-            <p className="mt-1 text-sm text-muted">{entry.period}</p>
-          </>
+    <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
+      <div className="flex min-w-0 items-center justify-between gap-4 sm:gap-6 md:gap-8">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
+            {entry.company}
+          </h3>
+          {!compact ? (
+            <>
+              <p className="mt-2 truncate text-sm text-foreground/90 sm:text-base">
+                {entry.role}
+              </p>
+              <p className="mt-1 text-sm text-muted">{periodLabel}</p>
+            </>
+          ) : null}
+        </div>
+        {showLogo && !compact ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={entry.logo}
+            alt={`${entry.company} logo`}
+            className="h-8 w-auto max-w-[5.5rem] shrink-0 object-contain opacity-95 sm:h-9 sm:max-w-[6.5rem] md:h-10 md:max-w-[7.5rem]"
+          />
         ) : null}
-        <p
-          id={hintId}
-          className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
-        >
-          {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE ROLE →"}
-        </p>
       </div>
-      {showLogo ? (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={entry.logo}
-          alt={`${entry.company} logo`}
-          className="mt-1 h-8 w-auto max-w-[6rem] shrink-0 object-contain opacity-95 sm:h-9 sm:max-w-[7rem] md:h-10 md:max-w-[8rem]"
-        />
-      ) : null}
+      <p
+        id={hintId}
+        className="inline-flex min-h-10 items-center text-sm font-medium tracking-tight text-accent sm:text-[0.9375rem]"
+      >
+        {isOpen ? "Collapse ↑" : "Tap To Explore More"}
+      </p>
     </div>
   );
 }

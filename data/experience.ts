@@ -101,7 +101,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     id: "yellow",
     company: "Yellow.pro",
     companySlug: "yellow",
-    role: "Community and Support Operations Manager",
+    role: "Community & Support Manager",
     period: "April 2026 – September 2026",
     emphasis: "primary",
     logo: companyLogoAssets.yellow,
