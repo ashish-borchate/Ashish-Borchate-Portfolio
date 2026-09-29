@@ -71,6 +71,9 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
   );
 }
 
+const experienceCtaClassName =
+  "flex w-full min-h-10 items-center justify-center font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent sm:text-[11px]";
+
 function CardHeader({
   entry,
   hintId,
@@ -94,9 +97,20 @@ function CardHeader({
           </h3>
           {!compact ? (
             <>
-              <p className="mt-2 truncate text-sm text-foreground/90 sm:text-base">
-                {entry.role}
-              </p>
+              {entry.roleMobile ? (
+                <>
+                  <p className="mt-2 truncate text-sm text-foreground/90 sm:hidden">
+                    {entry.roleMobile}
+                  </p>
+                  <p className="mt-2 hidden truncate text-sm text-foreground/90 sm:block sm:text-base">
+                    {entry.role}
+                  </p>
+                </>
+              ) : (
+                <p className="mt-2 truncate text-sm text-foreground/90 sm:text-base">
+                  {entry.role}
+                </p>
+              )}
               <p className="mt-1 text-sm text-muted">{periodLabel}</p>
             </>
           ) : null}
@@ -110,11 +124,8 @@ function CardHeader({
           />
         ) : null}
       </div>
-      <p
-        id={hintId}
-        className="inline-flex min-h-10 items-center text-sm font-medium tracking-tight text-accent sm:text-[0.9375rem]"
-      >
-        {isOpen ? "Collapse ↑" : "Tap To Explore More"}
+      <p id={hintId} className={experienceCtaClassName}>
+        {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE MORE"}
       </p>
     </div>
   );

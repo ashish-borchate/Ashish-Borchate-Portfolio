@@ -1,6 +1,7 @@
 "use client";
 
 import { transferableCopy, transferablePhases } from "@/data/transferableSkills";
+import { DomainExperienceBlock } from "@/components/DomainExperience/DomainExperience";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
 
@@ -89,6 +90,8 @@ export function TransferableSkills() {
             </div>
           </div>
         </div>
+
+        <DomainExperienceBlock />
       </div>
     </section>
   );

@@ -8,7 +8,6 @@ import { CareerTimeline } from "@/components/CareerTimeline/CareerTimeline";
 import { WorkCaseStudies } from "@/components/CaseStudy/WorkCaseStudies";
 import { TransferableSkills } from "@/components/TransferableSkills/TransferableSkills";
 import { Tools } from "@/components/Tools/Tools";
-import { DomainExperience } from "@/components/DomainExperience/DomainExperience";
 import { CareerDirection } from "@/components/CareerDirection/CareerDirection";
 import { Contact } from "@/components/Contact/Contact";
 import { Footer } from "@/components/Footer/Footer";
@@ -26,7 +25,6 @@ export default function Home() {
         <ScrollStory />
         <Metrics />
         <Tools />
-        <DomainExperience />
         <TransferableSkills />
         <CareerDirection />
         <Contact />

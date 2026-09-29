@@ -10,6 +10,8 @@ export type ExperienceEntry = {
   company: string;
   companySlug: string;
   role: string;
+  /** Shorter role label on narrow viewports (optional). */
+  roleMobile?: string;
   period: string;
   emphasis: "primary" | "compressed";
   logo: string;
@@ -44,6 +46,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     company: "Binance",
     companySlug: "binance",
     role: "L2 Customer Support Team Leader",
+    roleMobile: "L2 CS Team Leader",
     period: "December 2022 – February 2025",
     emphasis: "primary",
     logo: companyLogoAssets.binance,
@@ -63,6 +66,7 @@ export const experienceTimeline: ExperienceEntry[] = [
     company: "KoinX",
     companySlug: "koinx",
     role: "Customer Support & Operations Manager",
+    roleMobile: "Support Operations Manager",
     period: "July 2025 – October 2025",
     emphasis: "primary",
     logo: companyLogoAssets.koinx,
