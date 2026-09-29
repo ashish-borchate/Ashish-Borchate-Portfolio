@@ -25,18 +25,21 @@ export function Hero() {
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-accent min-[430px]:text-base sm:mt-5 sm:text-lg">
               {profile.description}
             </p>
-            <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3" id="resume">
+            <div
+              className="mx-auto mt-6 grid max-w-sm grid-cols-2 gap-2 sm:mx-0 sm:mt-7 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:gap-3"
+              id="resume"
+            >
               <MagneticButton
                 href="#case-studies"
                 variant="primary"
-                className="w-full shrink-0 sm:w-auto"
+                className="col-span-2 w-full min-w-0 px-4 sm:col-span-1 sm:w-auto"
               >
                 See What I&apos;ve Built
               </MagneticButton>
               <MagneticButton
                 href="#story"
                 variant="ghost"
-                className="w-full shrink-0 sm:w-auto"
+                className="w-full min-w-0 px-3 text-[13px] sm:w-auto sm:text-sm"
               >
                 How I Work
               </MagneticButton>
@@ -44,8 +47,8 @@ export function Hero() {
                 type="button"
                 onClick={() => setResumeOpen(true)}
                 className={cn(
-                  "inline-flex min-h-11 w-full shrink-0 items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-medium text-background transition-colors",
-                  "hover:bg-[#6b99f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto",
+                  "inline-flex min-h-11 w-full min-w-0 items-center justify-center rounded-full bg-accent px-4 py-3 text-[13px] font-medium text-background transition-colors sm:w-auto sm:px-5 sm:text-sm",
+                  "hover:bg-[#6b99f2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
                 )}
               >
                 View My Resume

@@ -12,14 +12,28 @@ export function Contact() {
           className="mx-auto max-w-none text-center"
           titleClassName="whitespace-nowrap text-[clamp(1.2rem,4.2vw,3rem)] tracking-tight"
         />
-        <div className="mt-8 flex flex-col gap-2.5 sm:mt-10 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
-          <MagneticButton href={profile.links.emailHref} variant="primary" className="w-full sm:w-auto">
+        <div className="mx-auto mt-8 grid max-w-xs grid-cols-2 gap-2 sm:mt-10 sm:flex sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
+          <MagneticButton
+            href={profile.links.emailHref}
+            variant="primary"
+            className="w-full min-w-0 px-4 sm:w-auto"
+          >
             Email Me
           </MagneticButton>
-          <MagneticButton href={profile.links.linkedInHref} variant="primary" className="w-full sm:w-auto" external>
+          <MagneticButton
+            href={profile.links.linkedInHref}
+            variant="primary"
+            className="w-full min-w-0 px-4 sm:w-auto"
+            external
+          >
             LinkedIn
           </MagneticButton>
-          <MagneticButton href={profile.assets.resumePdf} variant="primary" className="w-full sm:w-auto" external>
+          <MagneticButton
+            href={profile.assets.resumePdf}
+            variant="primary"
+            className="col-span-2 w-full max-w-[10.5rem] justify-self-center px-5 sm:col-span-1 sm:max-w-none sm:w-auto"
+            external
+          >
             Resume
           </MagneticButton>
         </div>
