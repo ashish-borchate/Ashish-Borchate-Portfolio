@@ -60,7 +60,7 @@ His ownership, adaptability, and willingness to take on responsibilities beyond 
     company: "KoinX",
     companySlug: "koinx",
     workingTogether: "Product",
-    relationship: "Worked closely on product issues and implementations",
+    relationship: "Worked closely on product feedbacks and implementations",
     previewQuote:
       "Ashish was a strong partner in helping us understand how users were actually experiencing and using the KoinX product...",
     fullQuote: `Ashish was a strong partner in helping us understand how users were actually experiencing and using the KoinX product. We worked closely together to identify potential issues from the user's perspective, and he consistently brought actionable product feedback that helped us improve the product and was often taken forward for implementation quickly.
@@ -93,8 +93,9 @@ His strong background in crypto and blockchain gave him a particularly good unde
     role: "Senior Product Manager",
     company: "Yellow.pro",
     companySlug: "yellow",
-    workingTogether: "Product · QA · UAT",
-    relationship: "Product feedback · QA · UAT · Product collaboration",
+    workingTogether: "Product",
+    relationship:
+      "Worked closely on Dev QA, UAT, and regression testing across new product releases",
     previewQuote:
       "Ashish has a strong understanding of crypto and Web3 products, with hands-on knowledge across trading, DeFi, wallets, blockchain transactions and APIs...",
     fullQuote:

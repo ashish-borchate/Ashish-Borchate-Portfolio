@@ -17,6 +17,8 @@ type TestimonialEditorialCardProps = {
   revealDelay?: number;
 };
 
+const expandEase = "cubic-bezier(0.22, 1, 0.36, 1)";
+
 export function TestimonialEditorialCard({
   testimonial,
   isOpen,
@@ -43,31 +45,28 @@ export function TestimonialEditorialCard({
     ? { duration: 0.15, delay: revealDelay }
     : { duration: 0.45, ease: easeOut, delay: revealDelay };
 
-  const expandTransition = reduced
-    ? { duration: 0.15 }
-    : { duration: 0.45, ease: easeOut };
+  const panelDuration = reduced ? "150ms" : "550ms";
 
   return (
     <motion.li
-      layout={!reduced}
       initial={reduced ? false : { opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-6% 0px" }}
       transition={motionTransition}
       className={cn(
-        "min-w-0 list-none",
+        "min-w-0 list-none transition-[opacity,transform] duration-500 ease-out",
         isOpen && "md:col-span-2",
         layoutIndex % 2 === 1 && !isOpen && "md:translate-y-3 lg:translate-y-4",
+        isDimmed && !reduced && "opacity-55 md:scale-[0.995]",
+        isDimmed && reduced && "opacity-50",
       )}
     >
       <article
         className={cn(
-          "group relative overflow-hidden rounded-xl border bg-surface/25 transition-[border-color,box-shadow,opacity,transform,filter] duration-300",
+          "group relative overflow-hidden rounded-xl border bg-surface/25 transition-[border-color,box-shadow,background-color] duration-500 ease-out",
           isOpen
             ? "border-accent/35 shadow-[0_0_0_1px_rgba(91,141,239,0.12),0_24px_48px_rgba(0,0,0,0.35)]"
             : "border-border/80 hover:border-accent/25",
-          isDimmed && !reduced && "scale-[0.98] opacity-45 blur-[0.5px] md:scale-[0.97]",
-          isDimmed && reduced && "opacity-50",
           !isOpen &&
             hoverCapable &&
             "hover:-translate-y-0.5 hover:bg-surface/35 hover:shadow-[0_12px_32px_rgba(0,0,0,0.22)]",
@@ -105,75 +104,97 @@ export function TestimonialEditorialCard({
                 />
               </div>
 
-              {!isOpen ? (
-                <>
+              <div
+                className={cn(
+                  "grid transition-[grid-template-rows,opacity] ease-out",
+                  isOpen ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100",
+                )}
+                style={{
+                  transitionDuration: panelDuration,
+                  transitionTimingFunction: expandEase,
+                }}
+                aria-hidden={isOpen}
+              >
+                <div className="min-h-0 overflow-hidden">
                   <p className="mt-3 text-pretty text-sm leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
                     &ldquo;{testimonial.previewQuote}&rdquo;
                   </p>
                   <p className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-transform duration-200 group-hover:translate-x-0.5 sm:text-[11px]">
                     {hoverCapable ? "READ FULL FEEDBACK →" : "TAP TO READ FULL FEEDBACK →"}
                   </p>
-                </>
-              ) : null}
+                </div>
+              </div>
             </div>
           </div>
         </button>
 
-        <motion.div
+        <div
           id={panelId}
-          initial={false}
-          animate={{
-            height: isOpen ? "auto" : 0,
-            opacity: isOpen ? 1 : 0,
+          className={cn(
+            "grid transition-[grid-template-rows] ease-out",
+            isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+          )}
+          style={{
+            transitionDuration: panelDuration,
+            transitionTimingFunction: expandEase,
           }}
-          transition={expandTransition}
-          className="overflow-hidden"
           aria-hidden={!isOpen}
         >
-          <div className="border-t border-border/80 px-4 pb-5 pt-4 sm:px-5 sm:pb-6 sm:pt-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-              How we worked together
-            </p>
-            <p className="mt-2 text-pretty text-sm text-foreground">
-              {testimonial.workingTogether}
-              <span className="text-muted"> — </span>
-              {testimonial.relationship}
-            </p>
-
-            <div className="my-5 border-t border-border/80" aria-hidden />
-
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-              Full feedback
-            </p>
-            <div className="mt-3 space-y-3 text-pretty text-sm leading-relaxed text-foreground sm:text-base">
-              {testimonial.fullQuote.split(/\n\n+/).map((paragraph) => (
-                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
-              ))}
-            </div>
-
-            {testimonial.profileUrl ? (
-              <a
-                href={testimonial.profileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-block text-xs text-accent underline-offset-4 hover:underline"
-                onClick={(event) => event.stopPropagation()}
-              >
-                LinkedIn profile
-              </a>
-            ) : null}
-
-            <div className="my-5 border-t border-border/80" aria-hidden />
-
-            <button
-              type="button"
-              onClick={onToggle}
-              className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-colors hover:text-[#6b99f2] sm:text-[11px]"
+          <div className="min-h-0 overflow-hidden">
+            <div
+              className={cn(
+                "border-t border-border/80 px-4 pb-5 pt-4 transition-opacity ease-out sm:px-5 sm:pb-6 sm:pt-5",
+                isOpen ? "opacity-100 delay-75" : "opacity-0",
+              )}
+              style={{
+                transitionDuration: reduced ? "150ms" : "400ms",
+                transitionTimingFunction: expandEase,
+              }}
             >
-              Collapse ↑
-            </button>
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+                How we worked together
+              </p>
+              <p className="mt-2 text-pretty text-sm text-foreground">
+                {testimonial.workingTogether}
+                <span className="text-muted"> — </span>
+                {testimonial.relationship}
+              </p>
+
+              <div className="my-5 border-t border-border/80" aria-hidden />
+
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                Full feedback
+              </p>
+              <div className="mt-3 space-y-3 text-pretty text-sm leading-relaxed text-foreground sm:text-base">
+                {testimonial.fullQuote.split(/\n\n+/).map((paragraph) => (
+                  <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                ))}
+              </div>
+
+              {testimonial.profileUrl ? (
+                <a
+                  href={testimonial.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block text-xs text-accent underline-offset-4 hover:underline"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  LinkedIn profile
+                </a>
+              ) : null}
+
+              <div className="my-5 border-t border-border/80" aria-hidden />
+
+              <button
+                type="button"
+                onClick={onToggle}
+                className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-colors hover:text-[#6b99f2] sm:text-[11px]"
+              >
+                Collapse ↑
+              </button>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </article>
     </motion.li>
   );
