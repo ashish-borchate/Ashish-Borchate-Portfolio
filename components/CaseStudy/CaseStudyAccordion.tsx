@@ -128,8 +128,10 @@ function CaseStudyAccordionItem({
     <article
       id={data.companySlug}
       className={cn(
-        "scroll-mt-20 rounded-xl border bg-surface/30 transition-colors sm:scroll-mt-24",
-        isOpen ? cn("border-accent/25", styles.border) : "border-border",
+        "scroll-mt-20 rounded-xl border bg-surface/30 transition-[border-color,background-color,box-shadow] duration-200 sm:scroll-mt-24",
+        isOpen
+          ? cn("border-accent/25", styles.border)
+          : "border-border hover:border-accent/25 hover:bg-surface/40",
       )}
     >
       <button
@@ -191,7 +193,10 @@ export function WorkCaseStudies() {
   }, []);
 
   return (
-    <section id="case-studies" className="py-14 sm:py-20 md:py-24">
+    <section
+      id="case-studies"
+      className="scroll-mt-20 py-14 sm:scroll-mt-24 sm:py-20 md:py-24"
+    >
       <div className="mx-auto max-w-6xl min-w-0 px-4 sm:px-6">
         <SectionHeading title="Case studies" />
         <div className="mt-8 space-y-3 sm:mt-10 sm:space-y-4">

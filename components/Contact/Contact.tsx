@@ -5,7 +5,10 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Contact() {
   return (
-    <section id="contact" className="py-16 sm:py-24 md:py-32">
+    <section
+      id="contact"
+      className="scroll-mt-20 py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
+    >
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
         <SectionHeading
           title={contactSection.headline}

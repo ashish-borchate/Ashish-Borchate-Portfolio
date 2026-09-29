@@ -38,7 +38,7 @@ export function Hero() {
               </MagneticButton>
               <MagneticButton
                 href="#story"
-                variant="ghost"
+                variant="primary"
                 className="w-full min-w-0 px-4 sm:w-auto"
               >
                 How I Work

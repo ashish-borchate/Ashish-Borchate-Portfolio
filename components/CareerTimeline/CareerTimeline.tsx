@@ -84,7 +84,11 @@ export function CareerTimeline() {
   );
 
   return (
-    <section id="experience" ref={ref} className="py-14 sm:py-20 md:py-24">
+    <section
+      id="experience"
+      ref={ref}
+      className="scroll-mt-20 py-14 sm:scroll-mt-24 sm:py-20 md:py-24"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading eyebrow="Experience" title="Career evolution" />
 

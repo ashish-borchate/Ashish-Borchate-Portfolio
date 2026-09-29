@@ -3,7 +3,10 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Tools() {
   return (
-    <section id="tools" className="py-16 sm:py-24 md:py-32">
+    <section
+      id="tools"
+      className="scroll-mt-20 py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           title="TOOLS I'VE WORKED WITH"

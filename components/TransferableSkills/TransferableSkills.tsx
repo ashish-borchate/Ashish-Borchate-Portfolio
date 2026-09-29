@@ -9,8 +9,8 @@ const inputName = "transferable-skill";
 export function TransferableSkills() {
   return (
     <section
-      id="about"
-      className="border-y border-border bg-charcoal/30 py-16 sm:py-24 md:py-32"
+      id="expertise"
+      className="scroll-mt-20 border-y border-border bg-charcoal/30 py-16 sm:py-24 md:py-32 sm:scroll-mt-24"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading

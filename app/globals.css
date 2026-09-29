@@ -26,7 +26,14 @@
 
 html {
   scroll-behavior: auto;
+  scroll-padding-top: 5.5rem;
   /* Do not set overflow-x on html/body — it breaks position:sticky (Journey pin). */
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 6rem;
+  }
 }
 
 body {

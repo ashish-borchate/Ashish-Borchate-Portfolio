@@ -189,7 +189,7 @@ function JourneyStatic() {
   return (
     <section
       id="story"
-      className="border-y border-border py-12 sm:py-16"
+      className="scroll-mt-20 border-y border-border py-12 sm:scroll-mt-24 sm:py-16"
       aria-label="Journey"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -243,7 +243,7 @@ export function ScrollStory() {
     <section
       id="story"
       ref={ref}
-      className="relative border-y border-border"
+      className="relative scroll-mt-20 border-y border-border sm:scroll-mt-24"
       style={{ height: `${sectionHeight}vh` }}
       aria-label="Journey"
     >

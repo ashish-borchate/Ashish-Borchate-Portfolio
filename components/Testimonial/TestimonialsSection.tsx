@@ -15,10 +15,10 @@ export function TestimonialsSection() {
     <section
       id="testimonials"
       ref={ref}
-      className="border-y border-border py-16 sm:py-24 md:py-32"
+      className="scroll-mt-20 border-y border-border py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="Testimonials" title="People I've worked with" />
+        <SectionHeading title="Testimonials" />
 
         <div className="mt-10 space-y-8 sm:mt-12 sm:space-y-10">
           {items.map((item, index) => (
