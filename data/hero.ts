@@ -5,7 +5,7 @@ export const heroIntro = {
 } as const;
 
 export const heroContent = {
-  name: "Ashish Borchate.",
+  name: "Ashish Borchate",
   descriptor: "Community Support · Product Operations · Customer Experience",
   headlineLines: [
     "I get to the core of the product.",

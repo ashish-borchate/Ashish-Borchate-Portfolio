@@ -81,23 +81,35 @@ function CardHeader({
   isOpen: boolean;
   compact: boolean;
 }) {
+  const showLogo = entry.logoDisplay !== "text-only";
+
   return (
-    <div className="flex min-w-0 flex-col">
-      <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
-        {entry.company}
-      </h3>
-      {!compact ? (
-        <>
-          <p className="mt-2 text-sm text-foreground/90 sm:text-base">{entry.role}</p>
-          <p className="mt-1 text-sm text-muted">{entry.period}</p>
-        </>
+    <div className="flex min-w-0 items-start justify-between gap-5 sm:gap-8">
+      <div className="min-w-0 flex flex-col">
+        <h3 className="text-xl font-medium tracking-tight text-accent sm:text-2xl md:text-3xl">
+          {entry.company}
+        </h3>
+        {!compact ? (
+          <>
+            <p className="mt-2 text-sm text-foreground/90 sm:text-base">{entry.role}</p>
+            <p className="mt-1 text-sm text-muted">{entry.period}</p>
+          </>
+        ) : null}
+        <p
+          id={hintId}
+          className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
+        >
+          {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE ROLE →"}
+        </p>
+      </div>
+      {showLogo ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={entry.logo}
+          alt={`${entry.company} logo`}
+          className="mt-1 h-8 w-auto max-w-[6rem] shrink-0 object-contain opacity-95 sm:h-9 sm:max-w-[7rem] md:h-10 md:max-w-[8rem]"
+        />
       ) : null}
-      <p
-        id={hintId}
-        className="mt-5 inline-flex min-h-10 items-center font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent sm:mt-6"
-      >
-        {isOpen ? "COLLAPSE ↑" : "TAP TO EXPLORE ROLE →"}
-      </p>
     </div>
   );
 }

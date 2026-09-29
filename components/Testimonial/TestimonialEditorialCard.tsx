@@ -80,51 +80,87 @@ export function TestimonialEditorialCard({
           onClick={onToggle}
           onKeyDown={handleKeyDown}
         >
-          <div className="flex gap-4 p-4 sm:p-5 md:p-5">
-            <TestimonialPortrait
-              name={testimonial.name}
-              photo={testimonial.photo}
-              active={isOpen}
-              className="h-[4.25rem] w-[4.25rem] sm:h-[4.5rem] sm:w-[4.5rem]"
-            />
+          <div className="p-4 sm:p-5 md:p-5">
+            <motion.div
+              layout={!reduced}
+              className={cn(
+                "flex min-w-0 gap-4",
+                isOpen ? "items-center" : "items-start",
+              )}
+              transition={
+                reduced
+                  ? { duration: 0.15 }
+                  : { duration: 0.55, ease: easeOut }
+              }
+            >
+              <TestimonialPortrait
+                name={testimonial.name}
+                photo={testimonial.photo}
+                active={isOpen}
+                className="h-[4.25rem] w-[4.25rem] shrink-0 sm:h-[4.5rem] sm:w-[4.5rem]"
+              />
 
-            <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-foreground sm:text-xs">
-                    {testimonial.name}
-                  </p>
-                  <p className="mt-1 text-pretty text-sm text-muted">{testimonial.role}</p>
+              <div className="min-w-0 flex-1">
+                <div
+                  className={cn(
+                    "flex justify-between gap-3 transition-[align-items] ease-out",
+                    isOpen ? "items-center" : "items-start",
+                  )}
+                  style={{
+                    transitionDuration: panelDuration,
+                    transitionTimingFunction: expandEase,
+                  }}
+                >
+                  <div className="min-w-0">
+                    <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-foreground sm:text-xs">
+                      {testimonial.name}
+                    </p>
+                    <p
+                      className={cn(
+                        "text-pretty text-sm text-muted transition-[margin] ease-out",
+                        isOpen ? "mt-0.5" : "mt-1",
+                      )}
+                      style={{
+                        transitionDuration: panelDuration,
+                        transitionTimingFunction: expandEase,
+                      }}
+                    >
+                      {testimonial.role}
+                    </p>
+                  </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={testimonial.logo}
+                    alt={`${testimonial.company} logo`}
+                    className={cn(
+                      "h-7 w-auto max-w-[5rem] shrink-0 object-contain opacity-95 transition-[opacity,margin] duration-300 group-hover:opacity-100",
+                      isOpen ? "mt-0" : "mt-0.5",
+                    )}
+                  />
                 </div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={testimonial.logo}
-                  alt={`${testimonial.company} logo`}
-                  className="mt-0.5 h-7 w-auto max-w-[5rem] shrink-0 object-contain opacity-95 transition-opacity duration-300 group-hover:opacity-100"
-                />
-              </div>
 
-              <div
-                className={cn(
-                  "grid transition-[grid-template-rows,opacity] ease-out",
-                  isOpen ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100",
-                )}
-                style={{
-                  transitionDuration: panelDuration,
-                  transitionTimingFunction: expandEase,
-                }}
-                aria-hidden={isOpen}
-              >
-                <div className="min-h-0 overflow-hidden">
-                  <p className="mt-3 text-pretty text-sm leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
-                    &ldquo;{testimonial.previewQuote}&rdquo;
-                  </p>
-                  <p className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-transform duration-200 group-hover:translate-x-0.5 sm:text-[11px]">
-                    {hoverCapable ? "READ FULL FEEDBACK →" : "TAP TO READ FULL FEEDBACK →"}
-                  </p>
+                <div
+                  className={cn(
+                    "grid transition-[grid-template-rows,opacity] ease-out",
+                    isOpen ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100",
+                  )}
+                  style={{
+                    transitionDuration: panelDuration,
+                    transitionTimingFunction: expandEase,
+                  }}
+                  aria-hidden={isOpen}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <p className="mt-3 text-pretty text-sm leading-relaxed text-foreground/90 sm:text-[0.9375rem]">
+                      &ldquo;{testimonial.previewQuote}&rdquo;
+                    </p>
+                    <p className="mt-4 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-accent transition-transform duration-200 group-hover:translate-x-0.5 sm:text-[11px]">
+                      {hoverCapable ? "READ FULL FEEDBACK →" : "TAP TO READ FULL FEEDBACK →"}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </button>
 
