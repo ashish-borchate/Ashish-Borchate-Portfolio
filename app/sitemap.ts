@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://ashish-borchate.netlify.app",
+      url: "https://ashish-borchate-portfolio.netlify.app",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

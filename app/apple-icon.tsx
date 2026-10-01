@@ -3,10 +3,10 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const dynamic = "force-static";
-export const size = { width: 32, height: 32 };
+export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-export default async function Icon() {
+export default async function AppleIcon() {
   const photoPath = join(process.cwd(), "public", "assets", "profile.jpg");
   const photoData = await readFile(photoPath);
   const photoSrc = `data:image/jpeg;base64,${photoData.toString("base64")}`;
@@ -21,7 +21,7 @@ export default async function Icon() {
           alignItems: "center",
           justifyContent: "center",
           background: "#f5c400",
-          borderRadius: 6,
+          borderRadius: 36,
           overflow: "hidden",
         }}
       >
@@ -29,8 +29,8 @@ export default async function Icon() {
         <img
           src={photoSrc}
           alt=""
-          width={32}
-          height={32}
+          width={180}
+          height={180}
           style={{ objectFit: "cover", objectPosition: "center 18%" }}
         />
       </div>
