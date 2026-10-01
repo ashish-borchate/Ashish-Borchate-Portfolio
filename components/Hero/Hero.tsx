@@ -103,7 +103,7 @@ export function Hero() {
         <div className="hero-atmosphere" aria-hidden />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-12">
+          <div className="flex flex-col lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-12">
             <motion.div
               className="order-2 mx-auto flex max-w-3xl flex-col lg:order-1 lg:col-span-7 lg:mx-0 lg:max-w-none"
               variants={heroStagger}
@@ -151,7 +151,7 @@ export function Hero() {
 
             <motion.div
               variants={itemVariant}
-              className="order-1 mt-10 flex justify-center lg:order-2 lg:col-span-5 lg:mt-0 lg:justify-end"
+              className="order-1 mb-7 flex justify-center min-[390px]:mb-8 lg:order-2 lg:col-span-5 lg:mb-0 lg:justify-end"
             >
               <ProfileImage className="lg:ml-auto" priority={heroReady} />
             </motion.div>
