@@ -17,7 +17,8 @@ export const profile = {
   },
   links: {
     email: "ashishborchate3@gmail.com",
-    emailHref: "mailto:ashishborchate3@gmail.com",
+    emailHref:
+      "mailto:ashishborchate3@gmail.com?subject=Hello%20from%20your%20portfolio",
     linkedIn: "linkedin.com/in/ashishborchate",
     linkedInHref: "https://www.linkedin.com/in/ashishborchate/",
   },
