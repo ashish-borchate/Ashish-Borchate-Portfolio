@@ -8,7 +8,16 @@ import { scrollToHash } from "@/lib/scrollToHash";
 import { outlineCtaClassName } from "@/lib/outlineCta";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
+
+function hasSeenIntro(): boolean {
+  if (typeof window === "undefined") return true;
+  try {
+    return Boolean(sessionStorage.getItem(heroIntro.sessionKey));
+  } catch {
+    return false;
+  }
+}
 
 const heroStagger = {
   hidden: {},
@@ -35,7 +44,8 @@ const heroItemReduced = {
 export function Hero() {
   const reducedMotion = usePrefersReducedMotion();
   const [introActive, setIntroActive] = useState(false);
-  const [heroReady, setHeroReady] = useState(false);
+  /** Default visible for SSR and repeat visits; first-time intro toggles off in layout effect. */
+  const [heroReady, setHeroReady] = useState(true);
 
   const markIntroSeen = useCallback(() => {
     try {
@@ -56,20 +66,16 @@ export function Hero() {
     setHeroReady(true);
   }, []);
 
-  useEffect(() => {
-    let skipIntro = reducedMotion;
-    try {
-      skipIntro = skipIntro || Boolean(sessionStorage.getItem(heroIntro.sessionKey));
-    } catch {
-      skipIntro = skipIntro || false;
-    }
-
-    if (skipIntro) {
+  useLayoutEffect(() => {
+    if (reducedMotion || hasSeenIntro()) {
+      setIntroActive(false);
       setHeroReady(true);
+      document.body.style.overflow = "";
       return;
     }
 
     setIntroActive(true);
+    setHeroReady(false);
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
