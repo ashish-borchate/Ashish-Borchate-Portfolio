@@ -12,7 +12,7 @@ export const siteNav: NavItem[] = [
   { id: "story", label: "How I Work", href: "#story" },
   { id: "tools", label: "Tools", href: "#tools" },
   { id: "expertise", label: "My Expertise", href: "#expertise" },
-  { id: "contact", label: "Contact", href: "#contact" },
+  { id: "contact", label: "Contact Me", href: "#contact" },
 ];
 
 export const brandName = "ASHISH BORCHATE";

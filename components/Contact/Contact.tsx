@@ -1,9 +1,14 @@
 import { contactSection } from "@/data/contact";
 import { profile } from "@/data/profile";
+import {
+  EmailIcon,
+  LinkedInIcon,
+  ResumeIcon,
+  TelegramIcon,
+} from "@/components/ui/ContactLinkIcons";
 import { outlineCtaClassName } from "@/lib/outlineCta";
 import { bodyCopySecondary } from "@/lib/typography";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { TelegramIcon } from "@/components/ui/TelegramIcon";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -26,6 +31,7 @@ export function Contact() {
         </p>
         <div className="mx-auto mt-8 flex w-full max-w-none flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
           <a href={profile.links.emailHref} className={contactCtaClassName}>
+            <EmailIcon />
             Email
           </a>
           <Link
@@ -44,6 +50,7 @@ export function Contact() {
             rel="noopener noreferrer"
             className={contactCtaClassName}
           >
+            <LinkedInIcon />
             LinkedIn
           </Link>
           <Link
@@ -52,18 +59,10 @@ export function Contact() {
             rel="noopener noreferrer"
             className={contactCtaClassName}
           >
+            <ResumeIcon />
             Resume
           </Link>
         </div>
-        <p className="mt-6 text-sm text-muted">
-          Or write to{" "}
-          <a
-            href={profile.links.emailHref}
-            className="text-accent underline-offset-4 hover:underline"
-          >
-            {profile.links.email}
-          </a>
-        </p>
       </div>
     </section>
   );
