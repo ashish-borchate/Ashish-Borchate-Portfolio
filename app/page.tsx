@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="min-w-0">
+      <main className="min-w-0 overflow-x-clip">
         <Hero />
         <CompaniesMarquee />
         <CareerTimeline />

@@ -30,7 +30,7 @@ export function ProfileImage({ className, priority }: ProfileImageProps) {
   return (
     <div
       className={cn(
-        "relative mx-auto aspect-square w-full max-w-[260px] min-[390px]:max-w-[280px] sm:max-w-[300px] lg:max-w-[320px]",
+        "relative mx-auto aspect-square w-full max-w-[min(68vw,220px)] min-[360px]:max-w-[240px] min-[390px]:max-w-[260px] sm:max-w-[300px] lg:max-w-[320px]",
         className,
       )}
     >

@@ -102,30 +102,30 @@ export function Hero() {
       >
         <div className="hero-atmosphere" aria-hidden />
 
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex flex-col lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-12">
+        <div className="relative mx-auto w-full min-w-0 max-w-6xl px-4 sm:px-6">
+          <div className="flex w-full min-w-0 flex-col lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-10 xl:gap-x-12">
             <motion.div
-              className="order-2 mx-auto flex max-w-3xl flex-col lg:order-1 lg:col-span-7 lg:mx-0 lg:max-w-none"
+              className="order-2 mx-auto flex w-full min-w-0 max-w-3xl flex-col items-center text-center lg:order-1 lg:col-span-7 lg:mx-0 lg:max-w-none lg:items-start lg:text-left"
               variants={heroStagger}
               initial="hidden"
               animate={heroReady ? "show" : "hidden"}
             >
               <motion.p
                 variants={itemVariant}
-                className="text-[1.65rem] font-medium tracking-tight text-primary min-[375px]:text-[1.85rem] min-[390px]:text-[2rem] sm:text-[2.35rem] md:text-[2.65rem]"
+                className="w-full text-[clamp(1.5rem,6.2vw,2rem)] font-medium tracking-tight text-primary sm:text-[2.35rem] md:text-[2.65rem]"
               >
                 {heroContent.name}
               </motion.p>
 
               <motion.p
                 variants={itemVariant}
-                className="mt-3 max-w-xl text-pretty text-sm leading-[1.65] text-secondary min-[390px]:text-[0.9375rem] sm:mt-4 sm:text-base"
+                className="mt-3 w-full max-w-xl text-pretty text-[clamp(0.8125rem,3.6vw,1rem)] leading-[1.65] text-secondary sm:mt-4 sm:text-base"
               >
                 {heroContent.descriptor}
               </motion.p>
 
-              <motion.div variants={itemVariant} className="mt-6 sm:mt-8">
-                <h1 className="text-pretty text-[1.35rem] font-medium leading-[1.15] tracking-tight text-primary min-[375px]:text-[1.45rem] min-[390px]:text-[1.55rem] sm:text-[1.85rem] sm:leading-[1.12] md:text-[2.15rem] md:leading-[1.1]">
+              <motion.div variants={itemVariant} className="mt-5 w-full sm:mt-8">
+                <h1 className="w-full text-pretty text-[clamp(1.2rem,4.8vw,1.55rem)] font-medium leading-[1.2] tracking-tight text-primary sm:text-[1.85rem] sm:leading-[1.12] md:text-[2.15rem] md:leading-[1.1]">
                   {heroContent.headlineLead}
                   {heroContent.headlineAccent.map((word, index) => (
                     <span key={word}>
@@ -138,7 +138,7 @@ export function Hero() {
                 </h1>
               </motion.div>
 
-              <motion.div variants={itemVariant} className="mt-9 sm:mt-10">
+              <motion.div variants={itemVariant} className="mt-7 w-full max-w-sm sm:mt-10 lg:max-w-none">
                 <button
                   type="button"
                   onClick={() => scrollToHash(heroContent.ctaHref)}
@@ -151,7 +151,7 @@ export function Hero() {
 
             <motion.div
               variants={itemVariant}
-              className="order-1 mb-7 flex justify-center min-[390px]:mb-8 lg:order-2 lg:col-span-5 lg:mb-0 lg:justify-end"
+              className="order-1 mb-6 flex w-full min-w-0 justify-center min-[390px]:mb-7 lg:order-2 lg:col-span-5 lg:mb-0 lg:justify-end"
             >
               <ProfileImage className="lg:ml-auto" priority={heroReady} />
             </motion.div>
