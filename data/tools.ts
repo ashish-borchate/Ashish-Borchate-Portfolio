@@ -1,5 +1,11 @@
-export const toolsIntro =
-  "Hands-on experience across support, operations, product, Web3, and automation.";
+export const toolsSection = {
+  navLabel: "Tools I Use",
+  title: "TOOLS I USE",
+  intro:
+    "Hands-on experience across support, operations, product, Web3, and automation.",
+} as const;
+
+export const toolsIntro = toolsSection.intro;
 
 export const toolsList = [
   "Intercom",

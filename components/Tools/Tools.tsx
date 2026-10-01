@@ -1,4 +1,4 @@
-import { toolsIntro, toolsList } from "@/data/tools";
+import { toolsSection, toolsList } from "@/data/tools";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Tools() {
@@ -6,11 +6,12 @@ export function Tools() {
     <section
       id="tools"
       className="scroll-mt-20 py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
+      aria-label={toolsSection.navLabel}
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          title="TOOLS I'VE WORKED WITH"
-          subtitle={toolsIntro}
+          title={toolsSection.title}
+          subtitle={toolsSection.intro}
         />
         <ul className="mt-10 flex flex-wrap gap-2 sm:mt-12">
           {toolsList.map((name) => (
