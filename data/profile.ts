@@ -21,5 +21,7 @@ export const profile = {
       "mailto:ashishborchate3@gmail.com?subject=Hello%20from%20your%20portfolio",
     linkedIn: "linkedin.com/in/ashishborchate",
     linkedInHref: "https://www.linkedin.com/in/ashishborchate/",
+    telegram: "@ashishborchate",
+    telegramHref: "https://t.me/ashishborchate",
   },
 } as const;
