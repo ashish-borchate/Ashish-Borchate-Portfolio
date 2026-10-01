@@ -112,14 +112,7 @@ export function Hero() {
             >
               <motion.p
                 variants={itemVariant}
-                className="w-full text-[clamp(1.5rem,6.2vw,2rem)] font-medium tracking-tight text-primary sm:text-[2.35rem] md:text-[2.65rem]"
-              >
-                {heroContent.name}
-              </motion.p>
-
-              <motion.p
-                variants={itemVariant}
-                className="mt-3 w-full max-w-xl text-pretty text-[clamp(0.8125rem,3.6vw,1rem)] leading-[1.65] text-secondary sm:mt-4 sm:text-base"
+                className="w-full max-w-xl text-secondary max-sm:text-[clamp(0.5625rem,2.85vw,0.6875rem)] max-sm:leading-tight max-sm:tracking-tight max-sm:whitespace-nowrap sm:text-base sm:leading-[1.65] sm:text-pretty"
               >
                 {heroContent.descriptor}
               </motion.p>
