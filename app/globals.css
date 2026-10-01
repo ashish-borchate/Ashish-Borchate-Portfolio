@@ -208,9 +208,35 @@ body {
   }
 }
 
+/* Soft edge fade — no overlay bars (avoids seam vs section background) */
+.company-marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
 .company-marquee-track {
-  animation: company-marquee 50s linear infinite;
+  animation: company-marquee 38s linear infinite;
   will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .company-marquee-track {
+    animation-duration: 50s;
+  }
 }
 
 .company-marquee-paused {
@@ -219,12 +245,20 @@ body {
 
 .company-marquee-item {
   flex-shrink: 0;
-  min-height: 4.25rem;
-  width: max(7.5rem, calc((min(100vw - 2rem, 72rem) - 4 * 1rem) / 5));
+  min-height: 3.75rem;
+  width: 7.75rem;
+}
+
+@media (min-width: 480px) {
+  .company-marquee-item {
+    width: 8.25rem;
+    min-height: 4rem;
+  }
 }
 
 @media (min-width: 768px) {
   .company-marquee-item {
+    min-height: 4.25rem;
     width: max(
       8.75rem,
       calc((min(100vw - 2rem, 72rem) - 4 * 1rem) / 5)

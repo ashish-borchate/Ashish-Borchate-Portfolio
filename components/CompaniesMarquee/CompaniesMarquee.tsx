@@ -12,21 +12,18 @@ function CompanyMarqueeItem({
   isDimmed,
   onHover,
   onToggle,
-  compact,
 }: {
   company: (typeof marqueeCompanies)[number];
   isActive: boolean;
   isDimmed: boolean;
   onHover: () => void;
   onToggle: () => void;
-  compact?: boolean;
 }) {
   return (
     <button
       type="button"
       className={cn(
-        "company-marquee-item group flex w-full min-w-0 items-center justify-center rounded-xl border bg-surface/25 px-2 py-3 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-3 sm:py-3.5",
-        compact && "min-h-[3.75rem] !w-full",
+        "company-marquee-item group flex shrink-0 items-center justify-center rounded-xl border bg-surface/25 px-3 py-3 transition-[border-color,background-color,opacity,box-shadow] duration-200 sm:px-3.5 sm:py-3.5",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive
           ? "border-border-hover bg-surface/45 shadow-[0_0_0_1px_rgba(107,140,255,0.12)]"
@@ -39,56 +36,20 @@ function CompanyMarqueeItem({
       aria-pressed={isActive}
       aria-label={company.name}
     >
-      <span className="flex h-10 w-full min-w-0 items-center justify-center sm:h-11 md:h-12" aria-hidden>
+      <span className="flex h-10 w-full items-center justify-center sm:h-11 md:h-12" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={company.logo}
           alt=""
           className={cn(
-            "max-h-full w-auto max-w-full object-contain object-center transition-[opacity,filter] duration-200",
-            compact
-              ? "max-h-8 max-w-[min(100%,6.75rem)] min-[400px]:max-w-[7.25rem]"
-              : company.logoClassName,
+            "max-h-8 w-auto max-w-[6.5rem] object-contain object-center transition-[opacity,filter] duration-200 sm:max-h-9 sm:max-w-[7.5rem] md:max-h-10 md:max-w-[8.5rem]",
             isActive ? "opacity-100" : "opacity-65",
+            company.id === "cinepolis" && "brightness-0 invert",
             company.id === "cinepolis" && (isActive ? "opacity-95" : "opacity-75"),
           )}
         />
       </span>
     </button>
-  );
-}
-
-function CompaniesGrid({
-  activeKey,
-  activate,
-  toggle,
-  compact,
-  className,
-}: {
-  activeKey: string | null;
-  activate: (key: string) => void;
-  toggle: (key: string) => void;
-  compact?: boolean;
-  className?: string;
-}) {
-  return (
-    <ul className={className}>
-      {marqueeCompanies.map((company, index) => {
-        const itemKey = `${company.id}-${index}`;
-        return (
-          <li key={itemKey} className="min-w-0">
-            <CompanyMarqueeItem
-              company={company}
-              isActive={activeKey === itemKey}
-              isDimmed={Boolean(activeKey && activeKey !== itemKey)}
-              onHover={() => activate(itemKey)}
-              onToggle={() => toggle(itemKey)}
-              compact={compact}
-            />
-          </li>
-        );
-      })}
-    </ul>
   );
 }
 
@@ -130,36 +91,29 @@ export function CompaniesMarquee() {
         <h2 className={monoLabelMuted}>COMPANIES I&apos;VE WORKED WITH</h2>
       </div>
 
-      <div className="relative mx-auto mt-6 min-w-0 max-w-6xl overflow-hidden px-4 sm:mt-10 sm:px-6">
-        <CompaniesGrid
-          activeKey={activeKey}
-          activate={activate}
-          toggle={toggle}
-          compact
-          className="grid grid-cols-2 gap-2.5 min-[400px]:gap-3 min-[520px]:grid-cols-3 md:hidden"
-        />
-
-        <div className="relative hidden md:block">
-          <div
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-background to-transparent sm:w-10"
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-background to-transparent sm:w-10"
-            aria-hidden
-          />
-
-          {reducedMotion ? (
-            <CompaniesGrid
-              activeKey={activeKey}
-              activate={activate}
-              toggle={toggle}
-              className="grid grid-cols-3 gap-4 lg:grid-cols-5"
-            />
-          ) : (
+      <div className="mx-auto mt-6 w-full min-w-0 max-w-6xl sm:mt-10">
+        {reducedMotion ? (
+          <ul className="grid grid-cols-2 gap-2.5 px-4 min-[480px]:grid-cols-3 min-[480px]:gap-3 sm:px-6 lg:grid-cols-5">
+            {marqueeCompanies.map((company, index) => {
+              const itemKey = `${company.id}-${index}`;
+              return (
+                <li key={itemKey} className="min-w-0">
+                  <CompanyMarqueeItem
+                    company={company}
+                    isActive={activeKey === itemKey}
+                    isDimmed={Boolean(activeKey && activeKey !== itemKey)}
+                    onHover={() => activate(itemKey)}
+                    onToggle={() => toggle(itemKey)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div className="company-marquee-viewport">
             <div
               className={cn(
-                "company-marquee-track flex w-max gap-4",
+                "company-marquee-track flex w-max gap-3 sm:gap-4",
                 paused && "company-marquee-paused",
               )}
             >
@@ -177,8 +131,8 @@ export function CompaniesMarquee() {
                 );
               })}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
