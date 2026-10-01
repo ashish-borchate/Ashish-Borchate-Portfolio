@@ -45,7 +45,7 @@ export function ProfileImage({ className, priority }: ProfileImageProps) {
       <div className="relative m-[10px] aspect-square overflow-hidden rounded-full bg-[#f5c400]">
         <Image
           src={profile.assets.profileImage}
-          alt="Borchate Ashish"
+          alt="Ashish Borchate"
           fill
           priority={priority}
           className="object-cover object-[center_18%] contrast-[1.02]"
