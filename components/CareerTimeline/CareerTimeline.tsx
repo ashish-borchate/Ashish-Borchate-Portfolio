@@ -103,7 +103,7 @@ export function CareerTimeline() {
       className={cn(sectionScrollClassName, "py-14 sm:py-20 md:py-24")}
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading title="Career evolution" />
+        <SectionHeading title="Experience" />
 
         <div className="relative mt-8 md:mt-12">
           <div

@@ -2,7 +2,7 @@
 
 import { marqueeCompanies } from "@/data/companiesMarquee";
 import { usePrefersReducedMotion } from "@/lib/motion";
-import { monoLabelMuted } from "@/lib/typography";
+import { monoLabelAccent } from "@/lib/typography";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -88,7 +88,7 @@ export function CompaniesMarquee() {
       onMouseLeave={clearActive}
     >
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-        <h2 className={monoLabelMuted}>COMPANIES I&apos;VE WORKED WITH</h2>
+        <h2 className={monoLabelAccent}>COMPANIES I&apos;VE WORKED WITH</h2>
       </div>
 
       <div className="mx-auto mt-6 w-full min-w-0 max-w-6xl sm:mt-10">

@@ -41,9 +41,9 @@ export const transferablePhases: SkillPhase[] = [
 ];
 
 export const transferableCopy = {
-  headline: "DIFFERENT PRODUCTS. SAME SKILLS.",
+  headline: "DIFFERENT PRODUCTS. SAME SKILLS",
   intro:
-    "Throughout my career, I’ve worked across different industries, products, and types of users. I’ve been able to adapt because, in my opinion, the product may change, but the skills needed to make it work well stay the same.",
+    "Throughout my career, I’ve worked across different industries, products, and types of users. I’ve been able to adapt because the product may change, but the skills needed to make it work well stay the same.",
   principles:
-    "Understand the product. Understand how users use it. Diagnose the gaps. Analyse where things can go wrong. Connect the right teams. And build better ways of working.",
+    "Understand the product. Understand how users use it. Diagnose the gaps. Analyze where things can go wrong. Connect the right teams. And build better ways of working.",
 };

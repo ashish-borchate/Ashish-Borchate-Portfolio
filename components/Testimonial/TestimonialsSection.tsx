@@ -48,6 +48,7 @@ export function TestimonialsSection() {
           transition={{ duration: 0.5, ease: easeOut }}
         >
           <SectionHeading
+            eyebrow={testimonialsSection.eyebrow}
             title={testimonialsSection.title}
             subtitle={testimonialsSection.subtitle}
           />

@@ -11,9 +11,9 @@ export const careerDirection = {
   coreAreas: [
     { label: "Support Operations" },
     { label: "Customer Experience" },
-    { label: "Product & Operations" },
+    { label: "Product Ops" },
     { label: "QA & UAT" },
-    { label: "Web3 Operations", accent: true },
+    { label: "Web3", accent: true },
   ] satisfies CoreArea[],
   closing:
     "I’m open to both Web3 and non-Web3 companies where the role involves understanding products, solving customer and operational problems, and working closely with Product and Engineering.",

@@ -23,8 +23,10 @@ export type Testimonial = {
 };
 
 export const testimonialsSection = {
-  title: "WHAT COLLEAGUES SAY",
-  subtitle: "A few words from people I've worked with along the way.",
+  eyebrow: "IN THEIR WORDS",
+  title: "Testimonials",
+  subtitle:
+    "Feedback from the founders, executives and product leaders I've worked with.",
 } as const;
 
 export const featuredTestimonialIds = [

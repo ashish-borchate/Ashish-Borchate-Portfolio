@@ -141,7 +141,7 @@ export function Metrics() {
   return (
     <section id="impact" className={cn(sectionScrollClassName, "py-14 sm:py-20 md:py-24")}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading title="The work, in numbers." />
+        <SectionHeading eyebrow="THE WORK, IN NUMBERS" title="Impact" />
         <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {impactMetrics.map((metric) => (
             <ImpactFlipCard

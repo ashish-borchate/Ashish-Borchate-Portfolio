@@ -13,32 +13,18 @@ const journeyLineClass = cn(monoLabelAccent, "leading-snug");
 
 function JourneySectionTitle() {
   return (
-    <h2 className={cn(sectionTitle, "md:text-[2.75rem]")}>How I work</h2>
+    <h2 className={cn(sectionTitle, "md:text-[2.75rem]")}>How I think</h2>
   );
 }
 
 function JourneyIntroLine() {
   return (
     <p className={cn(journeyLineClass, "mt-3 text-pretty sm:mt-4")}>
-      <span className="hidden uppercase sm:inline">
-        {journey.eyebrow}
-        <span className="px-2 text-accent/70" aria-hidden>
-          ·
-        </span>
-        <span className="normal-case">
-          {journey.closingLine1} {journey.closingLine2}
-        </span>
+      <span>JOURNEY</span>
+      <span className="px-2 text-accent/70" aria-hidden>
+        ·
       </span>
-      <span className="sm:hidden">
-        <span className="uppercase">
-          {journey.eyebrow}
-          <span className="px-2 text-accent/70" aria-hidden>
-            ·
-          </span>
-          <span className="normal-case">{journey.closingLine1}</span>
-        </span>
-        <span className="mt-1 block normal-case">{journey.closingLine2}</span>
-      </span>
+      <span className="normal-case">From customer insights to a better product experience</span>
     </p>
   );
 }
@@ -202,7 +188,7 @@ function JourneyStatic() {
     <section
       id="how-i-work"
       className={cn(sectionScrollClassName, "border-b border-border py-12 sm:py-16")}
-      aria-label="How I work"
+      aria-label="How I think"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <JourneySectionTitle />
@@ -253,7 +239,7 @@ export function ScrollStory() {
       id="how-i-work"
       className="relative border-b border-border"
       style={{ height: `${sectionHeight}vh` }}
-      aria-label="How I work"
+      aria-label="How I think"
     >
       <div
         className={cn(

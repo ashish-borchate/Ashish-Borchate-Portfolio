@@ -6,7 +6,8 @@ import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { HeroIntro } from "@/components/Hero/HeroIntro";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { scrollToHash } from "@/lib/scrollToHash";
-import { outlineCtaClassName } from "@/lib/outlineCta";
+import { monoCta } from "@/lib/typography";
+import { DownloadIcon } from "@/components/ui/ContactLinkIcons";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -42,6 +43,26 @@ const heroItemReduced = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { duration: 0.2 } },
 };
+
+const heroPillBase = cn(
+  monoCta,
+  "inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-6 py-3 tracking-[0.14em]",
+  "transition-[border-color,background-color,box-shadow,transform,color] duration-200",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  "hover:border-accent/55 hover:shadow-[0_0_20px_rgba(91,141,239,0.14)]",
+  "active:scale-[0.99] active:border-accent/60 active:shadow-[0_0_24px_rgba(91,141,239,0.18)]",
+  "sm:w-auto",
+);
+
+const heroPrimaryCtaClassName = cn(
+  heroPillBase,
+  "border border-accent/50 bg-accent text-[var(--background)] hover:bg-accent/90 hover:shadow-[0_0_22px_rgba(91,141,239,0.25)]",
+);
+
+const heroSecondaryCtaClassName = cn(
+  heroPillBase,
+  "border border-border-hover bg-transparent text-accent hover:bg-accent/10",
+);
 
 export function Hero() {
   const reducedMotion = usePrefersReducedMotion();
@@ -134,21 +155,21 @@ export function Hero() {
 
               <motion.div
                 variants={itemVariant}
-                className="mt-7 flex w-full flex-col items-center gap-4 sm:mt-10 lg:items-start"
+                className="mt-7 flex w-full flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center sm:gap-4 lg:justify-start"
               >
                 <button
                   type="button"
                   onClick={() => scrollToHash(heroContent.ctaHref)}
-                  className={cn(outlineCtaClassName, "max-w-xs sm:max-w-none")}
+                  className={heroPrimaryCtaClassName}
                 >
                   {heroContent.cta}
                 </button>
                 <Link
                   href={profile.assets.resumePdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent underline-offset-4 transition-opacity hover:opacity-80 hover:underline"
+                  download="Ashish-Borchate-Resume.pdf"
+                  className={heroSecondaryCtaClassName}
                 >
+                  <DownloadIcon />
                   {heroContent.resumeLinkLabel}
                 </Link>
               </motion.div>

@@ -1,5 +1,5 @@
 import {
-  monoLabelMuted,
+  monoLabelAccent,
   sectionSubtitle,
   sectionTitle,
 } from "@/lib/typography";
@@ -25,7 +25,7 @@ export function SectionHeading({
   return (
     <div className={cn("max-w-3xl", className)}>
       {eyebrow ? (
-        <p className={cn("mb-3", monoLabelMuted)}>{eyebrow}</p>
+        <p className={cn("mb-3", monoLabelAccent)}>{eyebrow}</p>
       ) : null}
       <h2 id={id} className={cn(sectionTitle, titleClassName)}>
         {title}

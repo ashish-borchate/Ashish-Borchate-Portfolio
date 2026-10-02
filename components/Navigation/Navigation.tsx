@@ -155,9 +155,7 @@ export function Navigation() {
                       href={item.href}
                       className={cn(
                         "block rounded-lg px-2 py-3 text-sm font-medium active:bg-surface/50",
-                        item.id === "contact"
-                          ? navContactClassName
-                          : navItemClassName(item.id, isActive),
+                        navItemClassName(item.id, isActive),
                       )}
                       aria-current={isActive ? "true" : undefined}
                       onClick={(e) => onAnchorClick(e, item.href)}

@@ -12,7 +12,7 @@ export function DomainExperienceBlock({ embedded }: DomainExperienceBlockProps) 
     <div className={embedded ? undefined : "mt-14 sm:mt-16 md:mt-20"} id={embedded ? undefined : "domain"}>
       <SectionHeading
         title="Domain experience"
-        subtitle="Web3 and crypto product areas — a domain layer, not the whole story."
+        subtitle="Web3 and crypto product areas I've worked across."
       />
       <ul className="mx-auto mt-8 grid max-w-md grid-cols-2 gap-2 sm:mt-10 sm:max-w-none sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
         {domainAreas.map((area) => (
