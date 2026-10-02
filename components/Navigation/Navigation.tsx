@@ -10,26 +10,10 @@ import { useCallback, useState } from "react";
 import { SoundToggle } from "@/components/ui/SoundToggle";
 
 const navLinkBase =
-  "text-xs font-medium transition-[color,opacity,box-shadow,border-color] duration-200";
+  "text-xs font-medium text-accent transition-opacity duration-200 hover:opacity-100";
 
-const navContactClassName = cn(
-  navLinkBase,
-  "inline-flex min-h-9 items-center rounded-full border border-border-hover bg-accent-muted/25 px-3.5 py-2 tracking-[0.08em] text-accent",
-  "hover:border-accent/50 hover:shadow-[0_0_18px_rgba(91,141,239,0.14)]",
-  "active:border-accent/55 active:shadow-[0_0_22px_rgba(91,141,239,0.18)]",
-);
-
-function navItemClassName(itemId: string, isActive: boolean) {
-  if (itemId === "contact") {
-    return cn(
-      navContactClassName,
-      isActive && "border-accent/55 text-primary shadow-[0_0_18px_rgba(91,141,239,0.12)]",
-    );
-  }
-  return cn(
-    navLinkBase,
-    isActive ? "text-primary opacity-100" : "text-accent opacity-85 hover:opacity-100",
-  );
+function navItemClassName(isActive: boolean) {
+  return cn(navLinkBase, isActive ? "text-primary opacity-100" : "opacity-85");
 }
 
 export function Navigation() {
@@ -92,7 +76,7 @@ export function Navigation() {
                 <li key={item.id}>
                   <Link
                     href={item.href}
-                    className={navItemClassName(item.id, isActive)}
+                    className={navItemClassName(isActive)}
                     aria-current={isActive ? "true" : undefined}
                     onClick={(e) => onAnchorClick(e, item.href)}
                   >
@@ -155,7 +139,7 @@ export function Navigation() {
                       href={item.href}
                       className={cn(
                         "block rounded-lg px-2 py-3 text-sm font-medium active:bg-surface/50",
-                        navItemClassName(item.id, isActive),
+                        navItemClassName(isActive),
                       )}
                       aria-current={isActive ? "true" : undefined}
                       onClick={(e) => onAnchorClick(e, item.href)}

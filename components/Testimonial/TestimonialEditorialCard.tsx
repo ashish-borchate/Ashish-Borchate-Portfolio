@@ -7,7 +7,6 @@ import {
   bodyCopy,
   bodyCopySecondary,
   monoCtaRow,
-  monoLabel,
   monoLabelAccent,
   monoLabelMuted,
 } from "@/lib/typography";
@@ -26,6 +25,15 @@ type TestimonialEditorialCardProps = {
 };
 
 const expandEase = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+const testimonialNameClass =
+  "whitespace-nowrap text-lg font-medium tracking-normal text-primary sm:text-xl";
+
+const testimonialRoleClass =
+  "mt-1 text-[15px] font-normal leading-snug text-primary/80 sm:text-base";
+
+const testimonialQuoteClass =
+  "text-base leading-relaxed text-primary/80 sm:text-[17px] sm:leading-relaxed";
 
 export function TestimonialEditorialCard({
   testimonial,
@@ -150,53 +158,23 @@ export function TestimonialEditorialCard({
                       }}
                     >
                       <div className="min-w-0">
-                        <p className={cn(monoLabel, "whitespace-nowrap text-accent sm:text-[11px]")}>
-                          {testimonial.name}
-                        </p>
+                        <p className={testimonialNameClass}>{testimonial.name}</p>
                         {testimonial.roleMobile ? (
                           <>
                             <p
                               className={cn(
-                                bodyCopy,
-                                "whitespace-nowrap text-[0.6875rem] leading-snug min-[390px]:text-xs sm:hidden",
-                                "transition-[margin] ease-out",
-                                isOpen ? "mt-0.5" : "mt-1",
+                                testimonialRoleClass,
+                                "whitespace-nowrap sm:hidden",
                               )}
-                              style={{
-                                transitionDuration: panelDuration,
-                                transitionTimingFunction: expandEase,
-                              }}
                             >
                               {testimonial.roleMobile}
                             </p>
-                            <p
-                              className={cn(
-                                bodyCopy,
-                                "hidden transition-[margin] ease-out sm:block",
-                                isOpen ? "mt-0.5" : "mt-1",
-                              )}
-                              style={{
-                                transitionDuration: panelDuration,
-                                transitionTimingFunction: expandEase,
-                              }}
-                            >
+                            <p className={cn(testimonialRoleClass, "hidden sm:block")}>
                               {testimonial.role}
                             </p>
                           </>
                         ) : (
-                          <p
-                            className={cn(
-                              bodyCopy,
-                              "transition-[margin] ease-out",
-                              isOpen ? "mt-0.5" : "mt-1",
-                            )}
-                            style={{
-                              transitionDuration: panelDuration,
-                              transitionTimingFunction: expandEase,
-                            }}
-                          >
-                            {testimonial.role}
-                          </p>
+                          <p className={testimonialRoleClass}>{testimonial.role}</p>
                         )}
                       </div>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -222,7 +200,7 @@ export function TestimonialEditorialCard({
                       aria-hidden={isOpen}
                     >
                       <div className="min-h-0 overflow-hidden">
-                        <p className={cn("mt-3", bodyCopySecondary)}>
+                        <p className={cn("mt-3", testimonialQuoteClass)}>
                           &ldquo;{testimonial.previewQuote}&rdquo;
                         </p>
                         <p className={cn("mt-4", monoCtaRow)}>
@@ -272,7 +250,7 @@ export function TestimonialEditorialCard({
                   <div className="my-5 border-t border-border" aria-hidden />
 
                   <p className={monoLabelMuted}>Full feedback</p>
-                  <div className={cn("mt-3 space-y-3", bodyCopySecondary)}>
+                  <div className={cn("mt-3 space-y-3", testimonialQuoteClass)}>
                     {testimonial.fullQuote.split(/\n\n+/).map((paragraph) => (
                       <p key={paragraph.slice(0, 48)}>{paragraph}</p>
                     ))}

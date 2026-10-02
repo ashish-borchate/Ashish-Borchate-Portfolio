@@ -20,7 +20,6 @@ export const toolsList = [
   "Chainalysis",
   "Blockchain Explorers",
   "Intercom Copilot",
-  "Twilio",
   "MCP",
   "Google Workspace",
   "Meta Business Tools",

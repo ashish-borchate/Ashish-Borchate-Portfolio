@@ -23,8 +23,7 @@ export type Testimonial = {
 };
 
 export const testimonialsSection = {
-  eyebrow: "IN THEIR WORDS",
-  title: "Testimonials",
+  title: "IN THEIR WORDS",
   subtitle:
     "Feedback from the founders, executives and product leaders I've worked with.",
 } as const;
@@ -78,8 +77,8 @@ His strong background in crypto and blockchain gave him a particularly good unde
   {
     id: "louis-benassy",
     name: "Louis Benassy",
-    role: "COO | Head of Exchange",
-    roleMobile: "COO | Head of Exchange",
+    role: "COO & Head of Exchange",
+    roleMobile: "COO & Head of Exchange",
     company: "Yellow.pro",
     companySlug: "yellow",
     workingTogether: "Support Operations",

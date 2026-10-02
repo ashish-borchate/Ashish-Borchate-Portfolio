@@ -2,7 +2,7 @@
 
 import { getFeaturedTestimonials, testimonialsSection } from "@/data/testimonials";
 import { TestimonialEditorialCard } from "@/components/Testimonial/TestimonialEditorialCard";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { sectionTitle } from "@/lib/typography";
 import { sectionScrollClassName } from "@/lib/sectionLayout";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -47,11 +47,12 @@ export function TestimonialsSection() {
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ duration: 0.5, ease: easeOut }}
         >
-          <SectionHeading
-            eyebrow={testimonialsSection.eyebrow}
-            title={testimonialsSection.title}
-            subtitle={testimonialsSection.subtitle}
-          />
+          <div className="max-w-3xl">
+            <h2 className={sectionTitle}>{testimonialsSection.title}</h2>
+            <p className="mt-3 max-w-3xl text-pretty text-sm leading-relaxed text-muted sm:mt-3.5 sm:text-base">
+              {testimonialsSection.subtitle}
+            </p>
+          </div>
         </motion.div>
 
         <motion.ul
