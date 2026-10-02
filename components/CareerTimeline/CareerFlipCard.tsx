@@ -10,6 +10,7 @@ import {
   monoLabelAccent,
   roleTitle,
 } from "@/lib/typography";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useId } from "react";
@@ -64,6 +65,21 @@ function RoleLines({
   );
 }
 
+function ExploreMoreHint({
+  id,
+  className,
+}: {
+  id?: string;
+  className?: string;
+}) {
+  const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
+  return (
+    <p id={id} className={className}>
+      {finePointer ? "CLICK TO EXPLORE MORE" : "TAP TO EXPLORE MORE"}
+    </p>
+  );
+}
+
 export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps) {
   const detail = entry.detail;
   const reducedMotion = usePrefersReducedMotion();
@@ -113,16 +129,12 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
           {showLogo ? (
             <div className="flex flex-col items-center px-5 py-8 sm:hidden">
               <ExperienceLogo entry={entry} className="h-9 max-w-[8rem]" />
-              <p id={hintId} className={cn("mt-5", experienceCtaClassName)}>
-                TAP TO EXPLORE MORE
-              </p>
+              <ExploreMoreHint id={hintId} className={cn("mt-5", experienceCtaClassName)} />
             </div>
           ) : (
             <div className="flex flex-col items-center px-5 py-8 sm:hidden">
               <p className="text-center text-lg font-medium text-accent">{entry.company}</p>
-              <p id={hintId} className={cn("mt-5", experienceCtaClassName)}>
-                TAP TO EXPLORE MORE
-              </p>
+              <ExploreMoreHint id={hintId} className={cn("mt-5", experienceCtaClassName)} />
             </div>
           )}
 
@@ -138,15 +150,13 @@ export function CareerFlipCard({ entry, isOpen, onToggle }: CareerFlipCardProps)
               )}
             </div>
 
-            <p
+            <ExploreMoreHint
               id={hintId}
               className={cn(
                 experienceCtaClassName,
                 "justify-self-center self-center px-2 text-center",
               )}
-            >
-              TAP TO EXPLORE MORE
-            </p>
+            />
 
             <div className="min-w-0 justify-self-end text-right">
               <RoleLines entry={entry} align="right" />

@@ -3,6 +3,7 @@
 import { getFeaturedTestimonials, testimonialsSection } from "@/data/testimonials";
 import { TestimonialEditorialCard } from "@/components/Testimonial/TestimonialEditorialCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { sectionScrollClassName } from "@/lib/sectionLayout";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -34,7 +35,10 @@ export function TestimonialsSection() {
     <section
       id="testimonials"
       ref={ref}
-      className="scroll-mt-20 border-y border-border py-16 sm:scroll-mt-24 sm:py-24 md:py-32"
+      className={cn(
+        sectionScrollClassName,
+        "border-y border-border py-16 sm:py-24 md:py-32",
+      )}
     >
       <div className="mx-auto max-w-6xl min-w-0 px-4 sm:px-6">
         <motion.div

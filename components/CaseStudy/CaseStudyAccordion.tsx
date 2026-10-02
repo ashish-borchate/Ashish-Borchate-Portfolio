@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useCallback, useId, useState } from "react";
+import { sectionScrollClassName } from "@/lib/sectionLayout";
 
 const order: { slug: string; sequence: string }[] = [
   { slug: "yellow", sequence: "01" },
@@ -157,7 +158,7 @@ export function WorkCaseStudies() {
   return (
     <section
       id="case-studies"
-      className="scroll-mt-20 py-14 sm:scroll-mt-24 sm:py-20 md:py-24"
+      className={cn(sectionScrollClassName, "py-14 sm:py-20 md:py-24")}
     >
       <div className="mx-auto max-w-6xl min-w-0 px-4 sm:px-6">
         <SectionHeading title="Case studies" />

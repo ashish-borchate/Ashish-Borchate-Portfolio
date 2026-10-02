@@ -10,6 +10,7 @@ import {
   monoCtaRow,
   monoLabelMuted,
 } from "@/lib/typography";
+import { sectionScrollClassName } from "@/lib/sectionLayout";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
@@ -96,8 +97,17 @@ function ImpactFlipCard({ metric, isOpen, onToggle }: ImpactFlipCardProps) {
             >
               {metric.value}
             </p>
-            <p className={impactStatLabel}>{metric.label}</p>
-            <p className={cn("mt-2", monoLabelMuted, "tracking-[0.1em]")}>
+            <p className={cn(impactStatLabel, metric.id === "yellow-resolution" && "whitespace-nowrap")}>
+              {metric.label}
+            </p>
+            <p
+              className={cn(
+                "mt-2",
+                monoLabelMuted,
+                "tracking-[0.1em]",
+                metric.id === "yellow-resolution" && "whitespace-nowrap",
+              )}
+            >
               {metric.context}
             </p>
             <ImpactExploreHint showBack={showBack} />
@@ -129,12 +139,9 @@ export function Metrics() {
   }, []);
 
   return (
-    <section
-      id="impact"
-      className="scroll-mt-20 py-14 sm:scroll-mt-24 sm:py-20 md:py-24"
-    >
+    <section id="impact" className={cn(sectionScrollClassName, "py-14 sm:py-20 md:py-24")}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="Impact" title="THE WORK, IN NUMBERS." />
+        <SectionHeading title="The work, in numbers." />
         <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {impactMetrics.map((metric) => (
             <ImpactFlipCard

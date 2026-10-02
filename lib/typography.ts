@@ -24,7 +24,7 @@ export const monoCtaBlock = cn(
 
 /** Major section titles (Career evolution, Case studies, …) — ~10–15% stronger display scale. */
 export const sectionTitle =
-  "text-balance text-[1.625rem] font-medium tracking-[-0.02em] text-primary leading-[1.08] min-[430px]:text-[1.875rem] sm:text-[2.75rem] md:text-[3.375rem]";
+  "text-balance text-[1.625rem] font-medium uppercase tracking-[-0.02em] text-primary leading-[1.08] min-[430px]:text-[1.875rem] sm:text-[2.75rem] md:text-[3.375rem]";
 
 export const impactStatValue =
   "font-sans text-[2rem] font-medium tabular-nums tracking-tight text-accent leading-none min-[430px]:text-[2.35rem] sm:text-[2.65rem] lg:text-[2.75rem]";

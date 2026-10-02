@@ -24,7 +24,7 @@ export const impactMetrics: ImpactMetric[] = [
   {
     id: "koinx-features",
     value: "70+",
-    label: "Feature implemented",
+    label: "Features implemented",
     context: "KoinX · User feedback",
     back: "Turned recurring user feedback into 70+ implemented product features by working with Product and Engineering.",
   },
@@ -45,7 +45,7 @@ export const impactMetrics: ImpactMetric[] = [
   {
     id: "yellow-resolution",
     value: "<24 HRS",
-    label: "Standard-ticket resolution",
+    label: "Ticket resolution",
     context: "Yellow.pro · From 4 business days",
     back: "Reduced standard-ticket resolution from 4 business days to under 24 hours by building structured ticketing, escalation workflows and troubleshooting playbooks.",
   },

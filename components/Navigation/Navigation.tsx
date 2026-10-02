@@ -1,16 +1,41 @@
 "use client";
 
-import { brandName, siteNav } from "@/data/navigation";
+import { brandName, navSectionIds, siteNav } from "@/data/navigation";
 import { scrollToHash } from "@/lib/scrollToHash";
+import { useActiveSection } from "@/lib/useActiveSection";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { SoundToggle } from "@/components/ui/SoundToggle";
 
+const navLinkBase =
+  "text-xs font-medium transition-[color,opacity,box-shadow,border-color] duration-200";
+
+const navContactClassName = cn(
+  navLinkBase,
+  "inline-flex min-h-9 items-center rounded-full border border-border-hover bg-accent-muted/25 px-3.5 py-2 tracking-[0.08em] text-accent",
+  "hover:border-accent/50 hover:shadow-[0_0_18px_rgba(91,141,239,0.14)]",
+  "active:border-accent/55 active:shadow-[0_0_22px_rgba(91,141,239,0.18)]",
+);
+
+function navItemClassName(itemId: string, isActive: boolean) {
+  if (itemId === "contact") {
+    return cn(
+      navContactClassName,
+      isActive && "border-accent/55 text-primary shadow-[0_0_18px_rgba(91,141,239,0.12)]",
+    );
+  }
+  return cn(
+    navLinkBase,
+    isActive ? "text-primary opacity-100" : "text-accent opacity-85 hover:opacity-100",
+  );
+}
+
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const activeSection = useActiveSection(navSectionIds);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (v) => {
@@ -60,18 +85,22 @@ export function Navigation() {
             {brandName}
           </Link>
 
-          <ul className="hidden items-center gap-6 lg:flex">
-            {siteNav.map((item) => (
-              <li key={item.id}>
-                <Link
-                  href={item.href}
-                  className="text-xs font-medium text-accent transition-opacity hover:opacity-80"
-                  onClick={(e) => onAnchorClick(e, item.href)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+          <ul className="hidden items-center gap-5 lg:flex lg:gap-6">
+            {siteNav.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    className={navItemClassName(item.id, isActive)}
+                    aria-current={isActive ? "true" : undefined}
+                    onClick={(e) => onAnchorClick(e, item.href)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex shrink-0 items-center gap-2">
@@ -118,17 +147,26 @@ export function Navigation() {
             className="relative mx-3 mt-2 max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-border bg-charcoal/98 p-3 backdrop-blur-xl min-[430px]:mx-4 min-[430px]:p-4 lg:hidden"
           >
             <ul className="flex flex-col gap-1">
-              {siteNav.map((item) => (
-                <li key={item.id}>
-                  <Link
-                    href={item.href}
-                    className="block rounded-lg px-2 py-3 text-sm font-medium text-accent active:bg-surface/50"
-                    onClick={(e) => onAnchorClick(e, item.href)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {siteNav.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "block rounded-lg px-2 py-3 text-sm font-medium active:bg-surface/50",
+                        item.id === "contact"
+                          ? navContactClassName
+                          : navItemClassName(item.id, isActive),
+                      )}
+                      aria-current={isActive ? "true" : undefined}
+                      onClick={(e) => onAnchorClick(e, item.href)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         ) : null}

@@ -1,6 +1,7 @@
 "use client";
 
 import { heroContent, heroIntro } from "@/data/hero";
+import { profile } from "@/data/profile";
 import { ProfileImage } from "@/components/Hero/ProfileImage";
 import { HeroIntro } from "@/components/Hero/HeroIntro";
 import { easeOut, usePrefersReducedMotion } from "@/lib/motion";
@@ -8,6 +9,7 @@ import { scrollToHash } from "@/lib/scrollToHash";
 import { outlineCtaClassName } from "@/lib/outlineCta";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useCallback, useLayoutEffect, useState } from "react";
 
 function hasSeenIntro(): boolean {
@@ -112,33 +114,43 @@ export function Hero() {
             >
               <motion.p
                 variants={itemVariant}
-                className="w-full max-w-xl text-secondary max-sm:text-[clamp(0.5625rem,2.85vw,0.6875rem)] max-sm:leading-tight max-sm:tracking-tight max-sm:whitespace-nowrap sm:text-base sm:leading-[1.65] sm:text-pretty"
+                className="w-full max-w-xl text-pretty text-secondary text-[clamp(0.625rem,2.9vw,0.875rem)] leading-snug tracking-tight sm:text-base sm:leading-[1.65]"
               >
                 {heroContent.descriptor}
               </motion.p>
 
               <motion.div variants={itemVariant} className="mt-5 w-full sm:mt-8">
-                <h1 className="w-full text-pretty text-[clamp(1.2rem,4.8vw,1.55rem)] font-medium leading-[1.2] tracking-tight text-primary sm:text-[1.85rem] sm:leading-[1.12] md:text-[2.15rem] md:leading-[1.1]">
-                  {heroContent.headlineLead}
-                  {heroContent.headlineAccent.map((word, index) => (
-                    <span key={word}>
-                      {index > 0 &&
-                        (index === heroContent.headlineAccent.length - 1 ? ", and " : ", ")}
-                      <span className="text-accent">{word}</span>
-                    </span>
-                  ))}
-                  .
+                <h1 className="w-full text-pretty text-[clamp(1.65rem,5.5vw,2.35rem)] font-semibold leading-[1.15] tracking-tight sm:text-[2.35rem] sm:leading-[1.12] md:text-[2.65rem] md:leading-[1.08]">
+                  <span className="block text-primary">{heroContent.headlineLead}</span>
+                  <span className="block text-accent">
+                    {heroContent.headlineAccent[0]}, {heroContent.headlineAccent[1]},
+                  </span>
+                  <span className="block">
+                    <span className="text-primary">and </span>
+                    <span className="text-accent">{heroContent.headlineAccent[2]}.</span>
+                  </span>
                 </h1>
               </motion.div>
 
-              <motion.div variants={itemVariant} className="mt-7 w-full max-w-sm sm:mt-10 lg:max-w-none">
+              <motion.div
+                variants={itemVariant}
+                className="mt-7 flex w-full flex-col items-center gap-4 sm:mt-10 lg:items-start"
+              >
                 <button
                   type="button"
                   onClick={() => scrollToHash(heroContent.ctaHref)}
-                  className={outlineCtaClassName}
+                  className={cn(outlineCtaClassName, "max-w-xs sm:max-w-none")}
                 >
                   {heroContent.cta}
                 </button>
+                <Link
+                  href={profile.assets.resumePdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-accent underline-offset-4 transition-opacity hover:opacity-80 hover:underline"
+                >
+                  {heroContent.resumeLinkLabel}
+                </Link>
               </motion.div>
             </motion.div>
 

@@ -7,7 +7,7 @@ import { TestimonialsSection } from "@/components/Testimonial/TestimonialsSectio
 import { CareerTimeline } from "@/components/CareerTimeline/CareerTimeline";
 import { WorkCaseStudies } from "@/components/CaseStudy/WorkCaseStudies";
 import { TransferableSkills } from "@/components/TransferableSkills/TransferableSkills";
-import { Tools } from "@/components/Tools/Tools";
+import { ExpertiseTools } from "@/components/Expertise/ExpertiseTools";
 import { CareerDirection } from "@/components/CareerDirection/CareerDirection";
 import { Contact } from "@/components/Contact/Contact";
 import { Footer } from "@/components/Footer/Footer";
@@ -19,13 +19,13 @@ export default function Home() {
       <main className="min-w-0 overflow-x-clip">
         <Hero />
         <CompaniesMarquee />
+        <Metrics />
         <CareerTimeline />
         <WorkCaseStudies />
         <TestimonialsSection />
         <ScrollStory />
-        <Metrics />
-        <Tools />
-        <TransferableSkills />
+        <TransferableSkills embedded />
+        <ExpertiseTools />
         <CareerDirection />
         <Contact />
       </main>

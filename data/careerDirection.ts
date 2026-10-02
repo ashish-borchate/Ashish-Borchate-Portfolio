@@ -4,7 +4,7 @@ export type CoreArea = {
 };
 
 export const careerDirection = {
-  headline: "WHERE I CAN CREATE THE MOST VALUE",
+  headline: "WHAT I'M LOOKING FOR",
   intro:
     "I work best in roles where I can connect customer experience, support, operations, and product — understanding what users need, finding what isn’t working, and helping teams improve it.",
   coreAreasLabel: "CORE AREAS",

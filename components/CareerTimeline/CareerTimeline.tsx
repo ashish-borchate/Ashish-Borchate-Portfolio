@@ -6,12 +6,21 @@ import { CareerFlipCard } from "@/components/CareerTimeline/CareerFlipCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 import { bodyCopy, companyNameDisplay, dateMeta, monoLabelAccent, roleTitle } from "@/lib/typography";
+import { sectionScrollClassName } from "@/lib/sectionLayout";
 import { formatExperiencePeriod } from "@/lib/formatExperiencePeriod";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const foundationEntries = experienceTimeline.filter((e) => e.emphasis === "compressed");
-const coreEntries = experienceTimeline.filter((e) => e.emphasis === "primary");
+
+const CORE_CHAPTER_ORDER = ["yellow", "bybit", "koinx", "binance"] as const;
+
+function orderedCoreEntries() {
+  const primary = experienceTimeline.filter((e) => e.emphasis === "primary");
+  return CORE_CHAPTER_ORDER.map((id) => primary.find((e) => e.id === id)).filter(
+    (entry): entry is ExperienceEntry => Boolean(entry),
+  );
+}
 
 function FoundationEntry({ entry }: { entry: ExperienceEntry }) {
   const textOnly = entry.logoDisplay === "text-only";
@@ -70,18 +79,18 @@ export function CareerTimeline() {
   const sections = useMemo(
     () => [
       {
+        id: "core",
+        label: "Core professional chapters",
+        description: "Scale, product feedback, speed under pressure, and building support from zero.",
+        entries: orderedCoreEntries(),
+        tier: "core" as const,
+      },
+      {
         id: "foundation",
         label: "Early foundation",
         description: "Where customer-facing operations and team leadership began.",
         entries: foundationEntries,
         tier: "foundation" as const,
-      },
-      {
-        id: "core",
-        label: "Core professional chapters",
-        description: "Scale, product feedback, speed under pressure, and building support from zero.",
-        entries: coreEntries,
-        tier: "core" as const,
       },
     ],
     [],
@@ -91,10 +100,10 @@ export function CareerTimeline() {
     <section
       id="experience"
       ref={ref}
-      className="scroll-mt-20 py-14 sm:scroll-mt-24 sm:py-20 md:py-24"
+      className={cn(sectionScrollClassName, "py-14 sm:py-20 md:py-24")}
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="Experience" title="Career evolution" />
+        <SectionHeading title="Career evolution" />
 
         <div className="relative mt-8 md:mt-12">
           <div

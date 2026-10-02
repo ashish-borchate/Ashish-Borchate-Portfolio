@@ -4,6 +4,7 @@ import { journey } from "@/data/journey";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { bodyCopy, monoLabelAccent, sectionTitle } from "@/lib/typography";
 import { useSectionScrollProgress } from "@/lib/useSectionScrollProgress";
+import { sectionScrollClassName } from "@/lib/sectionLayout";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { useMemo, useRef } from "react";
@@ -199,9 +200,9 @@ function JourneyTrack({
 function JourneyStatic() {
   return (
     <section
-      id="story"
-      className="scroll-mt-[var(--header-offset)] border-b border-border py-12 sm:py-16"
-      aria-label="Journey"
+      id="how-i-work"
+      className={cn(sectionScrollClassName, "border-b border-border py-12 sm:py-16")}
+      aria-label="How I work"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <JourneySectionTitle />
@@ -249,13 +250,16 @@ export function ScrollStory() {
   return (
     <section
       ref={ref}
+      id="how-i-work"
       className="relative border-b border-border"
       style={{ height: `${sectionHeight}vh` }}
-      aria-label="Journey"
+      aria-label="How I work"
     >
       <div
-        id="story"
-        className="sticky top-[var(--header-offset)] z-20 flex h-[calc(100dvh-var(--header-offset))] max-h-[calc(100svh-var(--header-offset))] scroll-mt-[var(--header-offset)] flex-col justify-center overflow-hidden py-6 sm:py-8"
+        className={cn(
+          sectionScrollClassName,
+          "sticky top-[var(--header-offset)] z-20 flex h-[calc(100dvh-var(--header-offset))] max-h-[calc(100svh-var(--header-offset))] flex-col justify-center overflow-hidden py-6 sm:py-8",
+        )}
       >
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(91,141,239,0.03),transparent)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">

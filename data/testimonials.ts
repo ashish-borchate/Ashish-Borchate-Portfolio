@@ -23,7 +23,7 @@ export type Testimonial = {
 };
 
 export const testimonialsSection = {
-  title: "WHAT THEY SAW",
+  title: "WHAT COLLEAGUES SAY",
   subtitle: "A few words from people I've worked with along the way.",
 } as const;
 
