@@ -10,7 +10,6 @@ import { monoCta } from "@/lib/typography";
 import { DownloadIcon } from "@/components/ui/ContactLinkIcons";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useCallback, useLayoutEffect, useState } from "react";
 
 function hasSeenIntro(): boolean {
@@ -164,14 +163,16 @@ export function Hero() {
                 >
                   {heroContent.cta}
                 </button>
-                <Link
+                <a
                   href={profile.assets.resumePdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   download="Ashish-Borchate-Resume.pdf"
                   className={heroSecondaryCtaClassName}
                 >
                   <DownloadIcon />
                   {heroContent.resumeLinkLabel}
-                </Link>
+                </a>
               </motion.div>
             </motion.div>
 
